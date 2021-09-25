@@ -1,0 +1,42 @@
+{
+    "name": "laravel-lang/status-generator",
+    "description": "Translation status generator for Laravel Lang projects",
+    "keywords": ["laravel", "languages", "generator"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Laravel-Lang Team",
+            "homepage": "https://github.com/Laravel-Lang"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/Laravel-Lang/status-generator/issues",
+        "source": "https://github.com/Laravel-Lang/status-generator"
+    },
+    "require": {
+        "php": "^8.0",
+        "ext-json": "*",
+        "andrey-helldar/contracts": "^1.21",
+        "andrey-helldar/pretty-array": "^2.3",
+        "andrey-helldar/support": "^4.0",
+        "guzzlehttp/guzzle": "^7.3",
+        "phpunit/phpunit": "^9.5",
+        "symfony/finder": "^5.2",
+        "symfony/var-dumper": "^5.2",
+        "vlucas/phpdotenv": "^5.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "LaravelLang\\StatusGenerator\\": "app"
+        },
+        "files": [
+            "app/helpers.php"
+        ]
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
