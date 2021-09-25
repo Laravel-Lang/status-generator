@@ -20,7 +20,7 @@ Instead, you may of course manually update your `require` block and run `compose
 
 ```json
 {
-    "require": {
+    "require-dev": {
         "laravel-lang/status-generator": "^1.0"
     }
 }
