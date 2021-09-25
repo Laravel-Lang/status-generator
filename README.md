@@ -16,7 +16,7 @@ To get the latest version of `Laravel Lang: Status Generator` library, simply re
 $ composer require laravel-lang/status-generator --dev
 ```
 
-Instead, you may of course manually update your `require` block and run `composer update` if you so choose:
+Instead, you may of course manually update your `require-dev` block and run `composer update` if you so choose:
 
 ```json
 {
