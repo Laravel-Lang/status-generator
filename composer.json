@@ -37,7 +37,7 @@
             "LaravelLang\\StatusGenerator\\": "src"
         },
         "files": [
-            "app/helpers.php"
+            "src/helpers.php"
         ]
     },
     "config": {
