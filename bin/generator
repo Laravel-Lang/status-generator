@@ -1,0 +1,52 @@
+#!/usr/bin/env php
+<?php
+
+use LaravelLang\StatusGenerator\Commands\CreateLocale;
+use LaravelLang\StatusGenerator\Commands\Download;
+use LaravelLang\StatusGenerator\Commands\Excludes;
+use LaravelLang\StatusGenerator\Commands\Packages;
+use LaravelLang\StatusGenerator\Commands\Referents;
+use LaravelLang\StatusGenerator\Commands\Status;
+use LaravelLang\StatusGenerator\Commands\Sync;
+use Symfony\Component\Console\Application;
+
+if (PHP_SAPI !== 'cli' || (PHP_MAJOR_VERSION < 8 && PHP_MINOR_VERSION < 1)) {
+    echo 'Warning: should be invoked via the CLI minimum version of PHP 8.1, not the ' . PHP_SAPI . ' ' . PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION;
+
+    exit(1);
+}
+
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
+
+$possible_files = [
+    __DIR__ . '/../../../autoload.php',
+    __DIR__ . '/../../autoload.php',
+    __DIR__ . '/../vendor/autoload.php',
+];
+
+$file = null;
+
+foreach ($possible_files as $possible_file) {
+    if (file_exists($possible_file)) {
+        $file = $possible_file;
+        break;
+    }
+}
+
+if (is_null($file)) {
+    throw new RuntimeException('Unable to locate autoload.php file.');
+}
+
+require_once $file;
+
+$application = new Application('Laravel Lang: Status Generator');
+
+$application->add(new CreateLocale());
+$application->add(new Download());
+$application->add(new Excludes());
+$application->add(new Packages());
+$application->add(new Referents());
+$application->add(new Status());
+$application->add(new Sync());
+
+$application->run();
