@@ -15,6 +15,8 @@ abstract class Command extends BaseCommand
 
     protected string|Processor $processor;
 
+    protected array $arguments = [];
+
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->input  = $input;
@@ -32,6 +34,20 @@ abstract class Command extends BaseCommand
 
     protected function resolveProcessor(): Processor
     {
-        return new $this->processor($this->output);
+        return new $this->processor($this->output, $this->basePath(), $this->getArguments());
+    }
+
+    protected function basePath(): string
+    {
+        if ($this->input->hasArgument('path')) {
+            return $this->input->getArgument('path');
+        }
+
+        return realpath('.');
+    }
+
+    protected function getArguments(): array
+    {
+        return $this->input->getArguments();
     }
 }

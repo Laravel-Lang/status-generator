@@ -6,7 +6,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 interface Processor
 {
-    public function __construct(OutputInterface $output);
+    public function __construct(
+        OutputInterface $output,
+        string          $base_path,
+        array           $parameters = []
+    );
 
     public function handle(): void;
 }

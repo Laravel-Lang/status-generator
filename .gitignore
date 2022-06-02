@@ -1,8 +1,10 @@
 .idea/
 
-docs/
-vendor/
 build/
+docs/
+locales/
+source/
+vendor/
 
 .env
 
