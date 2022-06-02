@@ -78,7 +78,9 @@ class Upgrade extends Processor
             if ($source && File::exists($source)) {
                 $values = $this->filesystem->load($source);
 
-                $this->filesystem->store($target, $values, true);
+                if (! empty($values)) {
+                    $this->filesystem->store($target, $values, true);
+                }
             }
         }
     }
