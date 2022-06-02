@@ -2,6 +2,7 @@
 
 build/
 docs/
+excludes/
 locales/
 source/
 vendor/
