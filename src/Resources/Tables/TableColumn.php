@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace LaravelLang\StatusGenerator\Resources\Tables;
 
-use LaravelLang\StatusGenerator\Contracts\Resources\TableColumn as Contract;
+use LaravelLang\StatusGenerator\Contracts\Resources\Tables\TableColumn as Contract;
 
 class TableColumn implements Contract
 {

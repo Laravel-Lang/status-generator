@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace LaravelLang\StatusGenerator\Resources\Tables;
 
 use DragonCode\Support\Facades\Helpers\Arr;
-use LaravelLang\StatusGenerator\Contracts\Resources\Table as TableContract;
-use LaravelLang\StatusGenerator\Contracts\Resources\TableRow;
+use LaravelLang\StatusGenerator\Contracts\Resources\Tables\Table as TableContract;
+use LaravelLang\StatusGenerator\Contracts\Resources\Tables\TableRow;
 
 class Table implements TableContract
 {

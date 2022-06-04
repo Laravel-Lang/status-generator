@@ -17,11 +17,8 @@ class Referents extends Processor
     {
         if ($this->exists()) {
             $this->parse();
+            $this->store();
         }
-
-        dd(
-            (string) $this->table
-        );
     }
 
     protected function parse(): void
@@ -33,7 +30,7 @@ class Referents extends Processor
 
             $value = Str::of($matches[2][$i])
                 ->explode('\', \'')
-                ->map(static fn (string $username) => sprintf('[@%s](https://github.com/%s)', $username, $username))
+                ->map(fn (string $username) => Str::start($username, '@'))
                 ->implode(', ');
 
             $locale = $this->getTableColumn($key);
@@ -43,6 +40,11 @@ class Referents extends Processor
 
             $this->getTable()->push($row);
         }
+    }
+
+    protected function store(): void
+    {
+        File::store($this->getTargetReferents(), (string) $this->getTable());
     }
 
     protected function content(): string

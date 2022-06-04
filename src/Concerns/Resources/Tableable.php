@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace LaravelLang\StatusGenerator\Concerns\Resources;
 
-use LaravelLang\StatusGenerator\Contracts\Resources\Table as TableContract;
-use LaravelLang\StatusGenerator\Contracts\Resources\TableColumn as TableColumnContract;
-use LaravelLang\StatusGenerator\Contracts\Resources\TableRow as TableRowContract;
+use LaravelLang\StatusGenerator\Contracts\Resources\Tables\Table as TableContract;
+use LaravelLang\StatusGenerator\Contracts\Resources\Tables\TableColumn as TableColumnContract;
+use LaravelLang\StatusGenerator\Contracts\Resources\Tables\TableRow as TableRowContract;
 use LaravelLang\StatusGenerator\Resources\Tables\Table;
 use LaravelLang\StatusGenerator\Resources\Tables\TableColumn;
 use LaravelLang\StatusGenerator\Resources\Tables\TableRow;

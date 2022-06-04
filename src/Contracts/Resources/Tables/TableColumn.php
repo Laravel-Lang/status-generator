@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace LaravelLang\StatusGenerator\Contracts\Resources;
+namespace LaravelLang\StatusGenerator\Contracts\Resources\Tables;
 
 use LaravelLang\StatusGenerator\Contracts\Markdown;
 
