@@ -1,0 +1,40 @@
+<?php
+
+declare(strict_types=1);
+
+namespace LaravelLang\StatusGenerator\Concerns\Resources;
+
+use LaravelLang\StatusGenerator\Contracts\Resources\Table as TableContract;
+use LaravelLang\StatusGenerator\Contracts\Resources\TableColumn as TableColumnContract;
+use LaravelLang\StatusGenerator\Contracts\Resources\TableRow as TableRowContract;
+use LaravelLang\StatusGenerator\Resources\Tables\Table;
+use LaravelLang\StatusGenerator\Resources\Tables\TableColumn;
+use LaravelLang\StatusGenerator\Resources\Tables\TableRow;
+
+trait Tableable
+{
+    protected ?TableContract $table = null;
+
+    protected function getTable(): TableContract
+    {
+        if (! is_null($this->table)) {
+            return $this->table;
+        }
+
+        return $this->table = new Table();
+    }
+
+    protected function getTableRow(TableColumn ...$columns): TableRowContract
+    {
+        $row = new TableRow();
+
+        return $row->push(...$columns);
+    }
+
+    protected function getTableColumn(mixed $value): TableColumnContract
+    {
+        $column = new TableColumn();
+
+        return $column->push($value);
+    }
+}

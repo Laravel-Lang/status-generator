@@ -8,7 +8,7 @@ use LaravelLang\StatusGenerator\Processors\Upgrade\Referents as ReferentsProcess
 class Upgrade extends Command
 {
     protected array|string $processor = [
-        UpgradeProcessor::class,
+        //UpgradeProcessor::class,
         ReferentsProcessor::class,
     ];
 
