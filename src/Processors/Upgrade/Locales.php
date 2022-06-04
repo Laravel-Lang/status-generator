@@ -1,13 +1,14 @@
 <?php
 
-namespace LaravelLang\StatusGenerator\Processors;
+namespace LaravelLang\StatusGenerator\Processors\Upgrade;
 
 use DragonCode\Support\Facades\Filesystem\Directory;
 use DragonCode\Support\Facades\Filesystem\File;
 use DragonCode\Support\Facades\Helpers\Arr;
 use LaravelLang\StatusGenerator\Concerns\Arrayable;
+use LaravelLang\StatusGenerator\Processors\Processor;
 
-class Upgrade extends Processor
+class Locales extends Processor
 {
     use Arrayable;
 

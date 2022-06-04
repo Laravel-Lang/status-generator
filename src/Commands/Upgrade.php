@@ -2,12 +2,15 @@
 
 namespace LaravelLang\StatusGenerator\Commands;
 
-use LaravelLang\StatusGenerator\Contracts\Processor;
-use LaravelLang\StatusGenerator\Processors\Upgrade as UpgradeProcessor;
+use LaravelLang\StatusGenerator\Processors\Upgrade\Locales as UpgradeProcessor;
+use LaravelLang\StatusGenerator\Processors\Upgrade\Referents as ReferentsProcessor;
 
 class Upgrade extends Command
 {
-    protected string|Processor $processor = UpgradeProcessor::class;
+    protected array|string $processor = [
+        UpgradeProcessor::class,
+        ReferentsProcessor::class,
+    ];
 
     protected function configure()
     {

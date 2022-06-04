@@ -2,6 +2,7 @@
 
 namespace LaravelLang\StatusGenerator\Commands;
 
+use DragonCode\Support\Facades\Helpers\Arr;
 use LaravelLang\StatusGenerator\Contracts\Processor;
 use Symfony\Component\Console\Command\Command as BaseCommand;
 use Symfony\Component\Console\Input\InputInterface;
@@ -13,7 +14,8 @@ abstract class Command extends BaseCommand
 
     protected OutputInterface $output;
 
-    protected string|Processor $processor;
+    /** @var string|array<string|Processor> */
+    protected array|string $processor;
 
     protected array $arguments = [];
 
@@ -29,12 +31,17 @@ abstract class Command extends BaseCommand
 
     protected function handle(): void
     {
-        $this->resolveProcessor()->handle();
+        foreach ($this->resolveProcessors() as $processor) {
+            $processor->handle();
+        }
     }
 
-    protected function resolveProcessor(): Processor
+    /**
+     * @return array<Processor>
+     */
+    protected function resolveProcessors(): array
     {
-        return new $this->processor($this->output, $this->basePath(), $this->getArguments());
+        return Arr::map((array) $this->processor, fn (string $processor) => new $processor($this->output, $this->basePath(), $this->getArguments()));
     }
 
     protected function basePath(): string
