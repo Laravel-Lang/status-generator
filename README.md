@@ -30,6 +30,21 @@ Instead, you may of course manually update your `require-dev` block and run `com
 
 > Coming soon...
 
+### Download
+
+For example:
+
+```bash
+bin/lang download --url=https://github.com/laravel/framework/archive/refs/heads/9.x.zip --project=framework --ver=9.x
+bin/lang download --url=https://github.com/laravel/framework/archive/refs/heads/8.x.zip --project=framework --ver=8.x
+
+bin/lang download --url=https://github.com/laravel/laravel/archive/refs/heads/9.x.zip --project=laravel --ver=9.x --copy=lang
+bin/lang download --url=https://github.com/laravel/laravel/archive/refs/heads/8.x.zip --project=laravel --ver=8.x --copy=lang --copy=resources/lang
+
+bin/lang download --url=https://github.com/laravel/jetstream/archive/refs/heads/2.x.zip --project=jetstream --ver=2.x
+bin/lang download --url=https://github.com/laravel/jetstream/archive/refs/heads/1.x.zip --project=jetstream --ver=1.x
+```
+
 [badge_stable]:     https://img.shields.io/github/v/release/laravel-lang/status-generator?label=stable&style=flat-square
 
 [badge_unstable]:   https://img.shields.io/badge/unstable-dev--main-orange?style=flat-square

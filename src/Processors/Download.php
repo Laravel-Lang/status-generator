@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace LaravelLang\StatusGenerator\Processors;
 
 use DragonCode\Support\Facades\Filesystem\Directory;
+use DragonCode\Support\Facades\Filesystem\File;
 use DragonCode\Support\Facades\Filesystem\Path;
 use DragonCode\Support\Facades\Helpers\Arr;
 use LaravelLang\StatusGenerator\Concerns\HttpClient;
@@ -30,7 +31,8 @@ class Download extends Processor
         $this->unpack($path, $directory);
         $this->search($directory);
         $this->copy();
-        //$this->cleanUp($directory);
+
+        $this->cleanUp($directory);
     }
 
     protected function cleanUp(string $path): void
@@ -57,8 +59,20 @@ class Download extends Processor
 
     protected function copy(): void
     {
-        if ($directory = $this->parameter(Argument::COPY())) {
-            // copy directory
+        if ($directories = $this->parameter(Argument::COPY())) {
+            foreach ($directories as $directory) {
+                $path = $this->tempDirectory() . '/' . $this->getProject() . '-' . $this->getVersion() . '/' . $directory;
+
+                if (Directory::exists($path)) {
+                    foreach (File::names($path, recursive: true) as $name) {
+                        $source = $path . '/' . $name;
+
+                        $target = $this->getTargetPath() . Path::basename($name);
+
+                        File::copy($source, $target);
+                    }
+                }
+            }
         }
     }
 
