@@ -17,8 +17,6 @@ abstract class Command extends BaseCommand
     /** @var string|array<string|Processor> */
     protected array|string $processor;
 
-    protected array $arguments = [];
-
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->input  = $input;
