@@ -32,6 +32,10 @@
         "phpunit/phpunit": "^9.5",
         "symfony/var-dumper": "^6.1"
     },
+    "conflict": {
+        "laravel-lang/lang": "<10.0",
+        "laravel-lang/publisher": "<14.0"
+    },
     "minimum-stability": "stable",
     "prefer-stable": true,
     "autoload": {
