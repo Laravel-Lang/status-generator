@@ -28,7 +28,11 @@ Instead, you may of course manually update your `require-dev` block and run `com
 
 ## Using
 
-> Coming soon...
+### Create new locale
+
+```bash
+bin/lang create <locale>
+```
 
 ### Download
 
@@ -43,6 +47,30 @@ bin/lang download --url=https://github.com/laravel/laravel/archive/refs/heads/8.
 
 bin/lang download --url=https://github.com/laravel/jetstream/archive/refs/heads/2.x.zip --project=jetstream --ver=2.x
 bin/lang download --url=https://github.com/laravel/jetstream/archive/refs/heads/1.x.zip --project=jetstream --ver=1.x
+```
+
+### Actualize excludes
+
+```bash
+bin/lang excludes
+```
+
+### Translations status
+
+```bash
+bin/lang status
+```
+
+### Actualize keys
+
+```bash
+bin/lang sync
+```
+
+### Upgrade from previous structure
+
+```bash
+bin/lang upgrade
 ```
 
 [badge_stable]:     https://img.shields.io/github/v/release/laravel-lang/status-generator?label=stable&style=flat-square
