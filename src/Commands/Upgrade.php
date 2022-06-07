@@ -10,9 +10,9 @@ use LaravelLang\StatusGenerator\Processors\Upgrade\Referents as ReferentsProcess
 class Upgrade extends Command
 {
     protected array|string $processor = [
-        //LocalesProcessor::class,
-        //ReferentsProcessor::class,
-        //ExcludesProcessor::class,
+        LocalesProcessor::class,
+        ReferentsProcessor::class,
+        ExcludesProcessor::class,
         CleanUpProcessor::class,
     ];
 
