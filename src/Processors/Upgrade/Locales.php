@@ -2,17 +2,13 @@
 
 namespace LaravelLang\StatusGenerator\Processors\Upgrade;
 
-use DragonCode\Support\Facades\Filesystem\Directory;
 use DragonCode\Support\Facades\Filesystem\File;
-use DragonCode\Support\Facades\Helpers\Arr;
 use LaravelLang\StatusGenerator\Concerns\Arrayable;
 use LaravelLang\StatusGenerator\Processors\Processor;
 
 class Locales extends Processor
 {
     use Arrayable;
-
-    protected array $files = [];
 
     public function handle(): void
     {
@@ -21,8 +17,6 @@ class Locales extends Processor
 
         $this->store();
         $this->clean();
-
-        $this->copyExcludes();
     }
 
     protected function collectLocales(): void
@@ -70,22 +64,6 @@ class Locales extends Processor
         }
     }
 
-    protected function copyExcludes(): void
-    {
-        foreach ($this->directories() as $locale) {
-            $source = $this->getPath(true, $this->base_path, 'excludes', $locale . '.php');
-            $target = $this->getLocalesPath($locale . '/_excludes.json', false);
-
-            if ($source && File::exists($source)) {
-                $values = $this->filesystem->load($source);
-
-                if (! empty($values)) {
-                    $this->filesystem->store($target, $values, true);
-                }
-            }
-        }
-    }
-
     protected function clean(): void
     {
         foreach ($this->directories() as $locale) {
@@ -104,22 +82,8 @@ class Locales extends Processor
         $this->translations->merge($locale, $values, $is_json, $is_inline);
     }
 
-    protected function load(string $path, bool $correct_keys = false): array
-    {
-        return $this->filesystem->load($path, true, $correct_keys);
-    }
-
-    protected function directories(): array
-    {
-        return Directory::names($this->getLocalesPath());
-    }
-
     protected function files(string $locale, ?string $path = null): array
     {
-        if (Arr::exists($this->files, $locale)) {
-            return Arr::get($this->files, $locale);
-        }
-
-        return $this->files[$locale] = File::names($path ?: $this->getLocalesPath($locale), recursive: true);
+        return File::names($path ?: $this->getLocalesPath($locale), recursive: true);
     }
 }

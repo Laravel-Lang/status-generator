@@ -54,4 +54,14 @@ abstract class Processor implements Contracts\Processor
 
         return $use_real ? realpath($path) : $path;
     }
+
+    protected function directories(): array
+    {
+        return Directory::names($this->getLocalesPath());
+    }
+
+    protected function load(string $path, bool $correct_keys = false): array
+    {
+        return $this->filesystem->load($path, true, $correct_keys);
+    }
 }
