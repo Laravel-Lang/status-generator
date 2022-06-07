@@ -6,13 +6,13 @@ use DragonCode\Support\Facades\Filesystem\File;
 
 class Json extends Base
 {
-    public function store(string $path, array $content, bool $is_simple = false): void
+    public function store(string $path, array $content, bool $is_simple = false, bool $correct_keys = false): void
     {
-        if ($is_simple) {
-            $content = array_values($content);
-        }
+        $values = $this->simplify($content, $is_simple, $correct_keys);
 
-        File::store($path, $this->encode($content));
+        $values = $this->sort($values, $is_simple);
+
+        File::store($path, $this->encode($values));
     }
 
     protected function encode(array $values): string

@@ -2,6 +2,7 @@
 
 namespace LaravelLang\StatusGenerator\Services;
 
+use DragonCode\Support\Facades\Filesystem\Directory;
 use GuzzleHttp\Client;
 
 class Http
@@ -11,8 +12,10 @@ class Http
     ) {
     }
 
-    public function download(string $url, string $path): void
+    public function download(string $url, string $sink): void
     {
+        Directory::ensureDirectory(dirname($sink));
 
+        $this->client->get($url, compact('sink'));
     }
 }

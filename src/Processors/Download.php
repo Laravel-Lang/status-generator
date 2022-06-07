@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace LaravelLang\StatusGenerator\Processors;
 
+use DragonCode\Support\Facades\Filesystem\Directory;
 use DragonCode\Support\Facades\Filesystem\Path;
-use DragonCode\Support\Facades\Helpers\Str;
+use DragonCode\Support\Facades\Helpers\Arr;
 use LaravelLang\StatusGenerator\Concerns\HttpClient;
 use LaravelLang\StatusGenerator\Constants\Argument;
+use LaravelLang\StatusGenerator\Facades\Services\Filesystem\Archive;
+use LaravelLang\StatusGenerator\Facades\Services\Packages\Package;
 
 class Download extends Processor
 {
@@ -17,13 +20,22 @@ class Download extends Processor
 
     public function handle(): void
     {
-        $path      = $this->tempPath();
-        $directory = $this->tempDirectory();
+        $path = $this->tempPath();
+
+        $directory = dirname($path);
+
+        $this->cleanUp($directory);
 
         $this->get($path);
-        $this->unpack($path);
+        $this->unpack($path, $directory);
         $this->search($directory);
         $this->copy();
+        //$this->cleanUp($directory);
+    }
+
+    protected function cleanUp(string $path): void
+    {
+        Directory::ensureDelete($path);
     }
 
     protected function get(string $path): void
@@ -31,9 +43,16 @@ class Download extends Processor
         $this->client()->download($this->getUrl(), $path);
     }
 
-    protected function unpack(string $path): void
+    protected function unpack(string $path, string $directory): void
     {
-        // unpack files
+        Archive::unpack($path, $directory);
+    }
+
+    protected function search(string $path): void
+    {
+        $content = Package::some()->path($path)->content();
+
+        $this->filesystem->store($this->getTargetPath(true), $content, false, true);
     }
 
     protected function copy(): void
@@ -43,14 +62,9 @@ class Download extends Processor
         }
     }
 
-    protected function search(string $path): void
-    {
-        // search translations
-    }
-
     protected function tempPath(): string
     {
-        return $this->tempDirectory() . '/' . $this->tempFilename();
+        return $this->getPath(false, $this->tempDirectory() . '/' . $this->tempFilename());
     }
 
     protected function tempDirectory(): string
@@ -59,12 +73,40 @@ class Download extends Processor
             return $this->temp_directory;
         }
 
-        return $this->temp_directory = Str::of(microtime())->slug()->prepend('tmp/')->toString();
+        return $this->temp_directory = Arr::of([])
+            ->push('tmp')
+            ->push($this->getProject())
+            ->push($this->getVersion())
+            ->map(static fn (string $value) => trim($value, '\\/'))
+            ->implode('/')
+            ->toString();
     }
 
     protected function tempFilename(): string
     {
         return Path::basename($this->getUrl());
+    }
+
+    protected function getTargetPath(bool $with_filename = false): string
+    {
+        $filename = $with_filename ? '/' . $this->getTargetFilename() : null;
+
+        return $this->getSourcePath('packages/' . $this->getProject() . '/' . $this->getVersion() . '/' . $filename, false);
+    }
+
+    protected function getTargetFilename(): string
+    {
+        return $this->getProject() . '.json';
+    }
+
+    protected function getProject(): string
+    {
+        return $this->parameter(Argument::PROJECT());
+    }
+
+    protected function getVersion(): string
+    {
+        return $this->parameter(Argument::VERSION());
     }
 
     protected function getUrl(): string

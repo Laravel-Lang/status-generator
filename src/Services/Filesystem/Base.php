@@ -17,7 +17,7 @@ abstract class Base
     ) {
     }
 
-    abstract public function store(string $path, array $content, bool $is_simple = false): void;
+    abstract public function store(string $path, array $content, bool $is_simple = false, bool $correct_keys = false): void;
 
     public function load(string $path, bool $flatten = false, bool $correct_keys = false): array
     {
@@ -42,5 +42,15 @@ abstract class Base
     protected function correctKeys(): callable
     {
         return static fn (int|string $key, mixed $value) => is_int($key) && ! is_array($value) ? stripslashes($value) : stripslashes($key);
+    }
+
+    protected function simplify(array $values, bool $is_simple, bool $is_correct): array
+    {
+        return $is_simple ? array_values($values) : $this->correct($values, $is_correct);
+    }
+
+    protected function sort(array $values, bool $is_simple = false): array
+    {
+        return $is_simple ? Arr::sort($values) : Arr::ksort($values);
     }
 }

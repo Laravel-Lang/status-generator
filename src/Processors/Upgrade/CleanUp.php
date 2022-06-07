@@ -19,6 +19,7 @@ class CleanUp extends Processor
     public function handle(): void
     {
         $this->app();
+        $this->source();
         $this->excludes();
         $this->files();
     }
@@ -26,6 +27,11 @@ class CleanUp extends Processor
     protected function app(): void
     {
         $this->deleteDirectory('app');
+    }
+
+    protected function source(): void
+    {
+        $this->deleteDirectory('source');
     }
 
     protected function excludes(): void

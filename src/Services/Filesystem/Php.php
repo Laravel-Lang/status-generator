@@ -6,9 +6,13 @@ use DragonCode\PrettyArray\Services\File as Pretty;
 
 class Php extends Base
 {
-    public function store(string $path, array $content, bool $is_simple = false): void
+    public function store(string $path, array $content, bool $is_simple = false, bool $correct_keys = false): void
     {
-        $content = $this->format($content, $is_simple);
+        $values = $this->simplify($content, $is_simple, $correct_keys);
+
+        $values = $this->sort($values, $is_simple);
+
+        $content = $this->format($values, $is_simple);
 
         Pretty::make($content)->store($path);
     }

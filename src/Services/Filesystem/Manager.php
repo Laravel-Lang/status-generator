@@ -13,9 +13,9 @@ class Manager
         return $this->processor($path)->load($path, $flatten, $correct_keys);
     }
 
-    public function store(string $path, array $values, bool $is_simple): void
+    public function store(string $path, array $values, bool $is_simple, bool $correct = false): void
     {
-        $this->processor($path)->store($path, $values, $is_simple);
+        $this->processor($path)->store($path, $values, $is_simple, $correct);
     }
 
     protected function processor(string $path): Base
