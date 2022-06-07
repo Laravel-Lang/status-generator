@@ -32,8 +32,6 @@ class Locales extends Processor
 
     protected function collect(string $locale): void
     {
-        $this->output->writeln('Processing: ' . $locale);
-
         $is_english = $locale === 'en';
 
         $lang_path = $is_english ? $this->getSourcePath() : null;

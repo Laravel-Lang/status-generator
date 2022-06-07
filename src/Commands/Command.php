@@ -32,6 +32,8 @@ abstract class Command extends BaseCommand
     protected function handle(): void
     {
         foreach ($this->resolveProcessors() as $processor) {
+            $this->output->writeln(sprintf('Processing: %s...', get_class($processor)));
+
             $processor->handle();
         }
     }
