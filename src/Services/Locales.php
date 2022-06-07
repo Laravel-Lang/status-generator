@@ -4,6 +4,7 @@ namespace LaravelLang\StatusGenerator\Services;
 
 use DragonCode\Support\Facades\Filesystem\Directory;
 use DragonCode\Support\Facades\Filesystem\File;
+use DragonCode\Support\Facades\Filesystem\Path;
 use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Helpers\Str;
 use LaravelLang\StatusGenerator\Concerns\Files;
@@ -21,6 +22,16 @@ class Locales
 
     protected array $ignore = [
         'validation' => ['attributes', 'custom'],
+    ];
+
+    protected array $inline_replaces = [
+        'The :attribute' => 'This field',
+        'The :Attribute' => 'This field',
+        'The :ATTRIBUTE' => 'This field',
+
+        ':attribute' => 'field',
+        ':Attribute' => 'field',
+        ':ATTRIBUTE' => 'field',
     ];
 
     public function __construct(
@@ -59,12 +70,12 @@ class Locales
     protected function loadSource(string $path): Locales
     {
         foreach ($this->files($path) as $file) {
-            $key = $this->getKey($file);
+            $key = $this->isJson($file) ? 'json' : 'php';
 
             $values = $this->read($file);
             $values = $this->filter($file, $values);
 
-            $this->mergeSource($key, $values);
+            $this->pushSource($key, $values);
         }
 
         return $this;
@@ -74,32 +85,40 @@ class Locales
     {
         foreach ($this->localesDirectories($path) as $locale) {
             foreach ($this->files($path . '/' . $locale) as $file) {
-                $key = $this->getKey($file);
+                $key = Path::filename($file);
 
                 $values = $this->read($file);
 
                 $this->isExcludes($file)
-                    ? $this->mergeExcludes($locale, $values)
-                    : $this->mergeLocales($locale, $key, $values);
+                    ? $this->pushExcludes($locale, $values)
+                    : $this->pushLocales($locale, $key, $values);
             }
         }
 
         return $this;
     }
 
-    protected function mergeSource(string $key, array $values): void
+    protected function pushSource(string $key, array $values): void
     {
-        $this->source[$key] = Arr::addUnique($this->source[$key] ?? [], Arr::flattenKeys($values));
+        foreach (Arr::flattenKeys($values) as $flatten_key => $flatten_value) {
+            $this->source[$key][$flatten_key] = $flatten_value;
+
+            if (Str::of($flatten_value)->lower()->contains(':attribute')) {
+                $this->source[$key . '-inline'][$flatten_key] = Str::replace($flatten_value, array_keys($this->inline_replaces), array_values($this->inline_replaces));
+            }
+        }
     }
 
-    protected function mergeExcludes(string $locale, array $values): void
+    protected function pushExcludes(string $locale, array $values): void
     {
         $this->excludes[$locale] = Arr::addUnique($this->excludes[$locale] ?? [], array_values($values));
     }
 
-    protected function mergeLocales(string $locale, string $key, array $values): void
+    protected function pushLocales(string $locale, string $key, array $values): void
     {
-        $this->locales[$locale][$key] = Arr::addUnique($this->locales[$locale][$key] ?? [], $values);
+        foreach ($values as $locale_key => $locale_value) {
+            $this->locales[$locale][$key][$locale_key] = $locale_value;
+        }
     }
 
     protected function filter(string $path, array $values): array
@@ -134,15 +153,5 @@ class Locales
                 ->prepend(rtrim($path, '\\/'))
                 ->toString())
             ->toArray();
-    }
-
-    protected function getKey(string $path): string
-    {
-        return match (true) {
-            $this->isJson($path) && $this->isInline($path)   => 'json-inline.json',
-            $this->isJson($path) && ! $this->isInline($path) => 'json.json',
-            $this->isPhp($path) && $this->isInline($path)    => 'php-inline.json',
-            $this->isPhp($path) && ! $this->isInline($path)  => 'php.json'
-        };
     }
 }

@@ -4,9 +4,7 @@ namespace LaravelLang\StatusGenerator\Processors\Sync;
 
 use DragonCode\Support\Facades\Filesystem\File;
 use DragonCode\Support\Facades\Helpers\Arr;
-use LaravelLang\StatusGenerator\Facades\Services\Locales;
 use LaravelLang\StatusGenerator\Processors\Processor;
-use LaravelLang\StatusGenerator\Services\Locales as LocalesService;
 
 class Excludes extends Processor
 {
@@ -54,11 +52,6 @@ class Excludes extends Processor
     protected function getLocaleExcludes(string $locale): array
     {
         return $this->locales()->getExcludes($locale);
-    }
-
-    protected function locales(): LocalesService
-    {
-        return Locales::load($this->getSourcePath(), $this->getLocalesPath());
     }
 
     protected function getTargetFilename(string $locale): string

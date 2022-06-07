@@ -4,12 +4,48 @@ declare(strict_types=1);
 
 namespace LaravelLang\StatusGenerator\Processors\Sync;
 
+use DragonCode\Support\Facades\Filesystem\File;
+use DragonCode\Support\Facades\Helpers\Arr;
 use LaravelLang\StatusGenerator\Processors\Processor;
 
 class Actualize extends Processor
 {
     public function handle(): void
     {
-        // TODO: Implement handle() method.
+        $source = $this->locales()->getSource();
+
+        foreach ($this->directories() as $locale) {
+            $locales = $this->locales()->getLocale($locale);
+
+            foreach ($source as $file => $source_values) {
+                $path = $this->getTargetFilename($locale, $file);
+
+                $locale_values = Arr::get($locales, $file, []);
+
+                $result = $this->merge($source_values, $locale_values);
+
+                ! empty($result) ? $this->store($path, $result) : $this->delete($path);
+            }
+        }
+    }
+
+    protected function merge(array $source, array $target): array
+    {
+        return array_merge($source, array_intersect_key($target, $source));
+    }
+
+    protected function store(string $path, array $values): void
+    {
+        $this->filesystem->store($path, $values, false);
+    }
+
+    protected function delete(string $path): void
+    {
+        File::ensureDelete($path);
+    }
+
+    protected function getTargetFilename(string $locale, string $filename): string
+    {
+        return $this->getLocalesPath($locale . '/' . $filename . '.json', false);
     }
 }

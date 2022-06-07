@@ -9,7 +9,9 @@ use LaravelLang\StatusGenerator\Concerns\Parameters;
 use LaravelLang\StatusGenerator\Concerns\Resources\Tableable;
 use LaravelLang\StatusGenerator\Contracts;
 use LaravelLang\StatusGenerator\Exceptions\IncorrectBasePathException;
+use LaravelLang\StatusGenerator\Facades\Services\Locales;
 use LaravelLang\StatusGenerator\Services\Filesystem\Manager;
+use LaravelLang\StatusGenerator\Services\Locales as LocalesService;
 use LaravelLang\StatusGenerator\Services\Translations;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -62,6 +64,11 @@ abstract class Processor implements Contracts\Processor
     protected function directories(): array
     {
         return Directory::names($this->getLocalesPath());
+    }
+
+    protected function locales(): LocalesService
+    {
+        return Locales::load($this->getSourcePath(), $this->getLocalesPath());
     }
 
     protected function load(string $path, bool $correct_keys = false): array

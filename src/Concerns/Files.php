@@ -12,11 +12,6 @@ trait Files
         return Str::of($path)->lower()->endsWith('.json');
     }
 
-    protected function isPhp(string $path): bool
-    {
-        return Str::of($path)->lower()->endsWith('.php');
-    }
-
     protected function isInline(string $path): bool
     {
         $name = Path::filename($path);
