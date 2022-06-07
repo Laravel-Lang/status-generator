@@ -2,7 +2,6 @@
 
 namespace LaravelLang\StatusGenerator\Processors\Download;
 
-use LaravelLang\StatusGenerator\Constants\Argument;
 use LaravelLang\StatusGenerator\Facades\Services\Packages\Package;
 use LaravelLang\StatusGenerator\Processors\Processor;
 
@@ -27,26 +26,16 @@ class Search extends Processor
 
     protected function sourcePath(): string
     {
-        return $this->getPath(true, 'tmp/' . $this->getDirectory());
+        return $this->getPath(true, 'tmp/' . $this->getDirectoryParameter());
     }
 
     protected function targetPath(): string
     {
-        return $this->getSourcePath('packages/' . $this->getDirectory() . '/' . $this->getTargetFilename(), false);
-    }
-
-    protected function getDirectory(): string
-    {
-        return $this->parameter(Argument::DIRECTORY());
-    }
-
-    protected function getProject(): string
-    {
-        return $this->parameter(Argument::PROJECT());
+        return $this->getSourcePath('packages/' . $this->getDirectoryParameter() . '/' . $this->getTargetFilename(), false);
     }
 
     protected function getTargetFilename(): string
     {
-        return $this->getProject() . '.json';
+        return $this->getProjectParameter() . '.json';
     }
 }

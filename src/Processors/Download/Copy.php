@@ -5,15 +5,14 @@ namespace LaravelLang\StatusGenerator\Processors\Download;
 use DragonCode\Support\Facades\Filesystem\Directory;
 use DragonCode\Support\Facades\Filesystem\File;
 use DragonCode\Support\Facades\Filesystem\Path;
-use LaravelLang\StatusGenerator\Constants\Argument;
 use LaravelLang\StatusGenerator\Processors\Processor;
 
 class Copy extends Processor
 {
     public function handle(): void
     {
-        foreach ($this->directories() as $directory) {
-            $path = $this->tempDirectory() . '/' . $this->getProject() . '-' . $this->getVersion() . '/' . $directory;
+        foreach ($this->getCopyParameter() as $directory) {
+            $path = $this->tempDirectory() . '/' . $this->getProjectParameter() . '-' . $this->getVersionParameter() . '/' . $directory;
 
             if (Directory::exists($path)) {
                 $files = $this->files($path);
@@ -41,33 +40,13 @@ class Copy extends Processor
         return File::names($path, recursive: true);
     }
 
-    protected function directories(): array
-    {
-        return $this->parameter(Argument::COPY());
-    }
-
     protected function tempDirectory(): string
     {
-        return $this->getPath(true, 'tmp/' . $this->getDirectory());
+        return $this->getPath(true, 'tmp/' . $this->getDirectoryParameter());
     }
 
     protected function targetPath(string $filename): string
     {
-        return $this->getSourcePath('packages/' . $this->getProject() . '/' . $this->getVersion() . '/' . $filename, false);
-    }
-
-    protected function getDirectory(): string
-    {
-        return $this->parameter(Argument::DIRECTORY());
-    }
-
-    protected function getProject(): string
-    {
-        return $this->parameter(Argument::PROJECT());
-    }
-
-    protected function getVersion(): string
-    {
-        return $this->parameter(Argument::VERSION());
+        return $this->getSourcePath('packages/' . $this->getProjectParameter() . '/' . $this->getVersionParameter() . '/' . $filename, false);
     }
 }

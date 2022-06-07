@@ -6,7 +6,6 @@ use DragonCode\Support\Facades\Filesystem\Directory;
 use DragonCode\Support\Facades\Filesystem\File;
 use DragonCode\Support\Facades\Helpers\Str;
 use Exception;
-use LaravelLang\StatusGenerator\Constants\Argument;
 
 class Create extends Processor
 {
@@ -43,7 +42,7 @@ class Create extends Processor
 
     protected function getLocale(): string
     {
-        return Str::replace($this->parameter(Argument::LOCALE()), '-', '_');
+        return Str::replace($this->getLocaleParameter(), '-', '_');
     }
 
     protected function makePath(string $filename, string $locale): string

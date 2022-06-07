@@ -5,6 +5,7 @@ namespace LaravelLang\StatusGenerator\Processors;
 use DragonCode\Support\Facades\Filesystem\Directory;
 use DragonCode\Support\Facades\Helpers\Arr;
 use LaravelLang\StatusGenerator\Concerns\Files;
+use LaravelLang\StatusGenerator\Concerns\Parameters;
 use LaravelLang\StatusGenerator\Concerns\Resources\Tableable;
 use LaravelLang\StatusGenerator\Contracts;
 use LaravelLang\StatusGenerator\Exceptions\IncorrectBasePathException;
@@ -15,6 +16,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 abstract class Processor implements Contracts\Processor
 {
     use Files;
+    use Parameters;
     use Tableable;
 
     public function __construct(
@@ -65,10 +67,5 @@ abstract class Processor implements Contracts\Processor
     protected function load(string $path, bool $correct_keys = false): array
     {
         return $this->filesystem->load($path, true, $correct_keys);
-    }
-
-    protected function parameter(string $key): mixed
-    {
-        return Arr::get($this->parameters, $key);
     }
 }

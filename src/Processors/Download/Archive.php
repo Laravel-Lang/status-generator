@@ -2,7 +2,6 @@
 
 namespace LaravelLang\StatusGenerator\Processors\Download;
 
-use LaravelLang\StatusGenerator\Constants\Argument;
 use LaravelLang\StatusGenerator\Facades\Services\Filesystem\Archive as Zip;
 use LaravelLang\StatusGenerator\Processors\Processor;
 
@@ -20,21 +19,11 @@ class Archive extends Processor
 
     protected function sourceFile(): string
     {
-        return $this->getPath(true, 'tmp/' . $this->getDirectory() . '/' . $this->getFilename());
+        return $this->getPath(true, 'tmp/' . $this->getDirectoryParameter() . '/' . $this->getFileParameter());
     }
 
     protected function targetDirectory(): string
     {
-        return $this->getPath(true, 'tmp/' . $this->getDirectory());
-    }
-
-    protected function getFilename(): string
-    {
-        return $this->parameter(Argument::FILE());
-    }
-
-    protected function getDirectory(): string
-    {
-        return $this->parameter(Argument::DIRECTORY());
+        return $this->getPath(true, 'tmp/' . $this->getDirectoryParameter());
     }
 }

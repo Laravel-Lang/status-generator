@@ -3,7 +3,6 @@
 namespace LaravelLang\StatusGenerator\Processors\Download;
 
 use DragonCode\Support\Facades\Filesystem\Directory;
-use LaravelLang\StatusGenerator\Constants\Argument;
 use LaravelLang\StatusGenerator\Processors\Processor;
 
 class CleanUp extends Processor
@@ -16,13 +15,8 @@ class CleanUp extends Processor
     protected function directories(): array
     {
         return [
-            $this->getPath(false, 'source/packages/' . $this->getDirectory(), false),
-            $this->getPath(false, 'tmp/' . $this->getDirectory()),
+            $this->getPath(false, 'source/packages/' . $this->getDirectoryParameter(), false),
+            $this->getPath(false, 'tmp/' . $this->getDirectoryParameter()),
         ];
-    }
-
-    protected function getDirectory(): string
-    {
-        return $this->parameter(Argument::DIRECTORY());
     }
 }
