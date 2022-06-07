@@ -3,6 +3,7 @@
 namespace LaravelLang\StatusGenerator\Processors;
 
 use DragonCode\Support\Facades\Filesystem\File;
+use DragonCode\Support\Facades\Helpers\Arr;
 use LaravelLang\StatusGenerator\Facades\Services\Locales;
 use LaravelLang\StatusGenerator\Services\Locales as LocalesService;
 
@@ -17,10 +18,15 @@ class Excludes extends Processor
 
             $target = $this->getLocaleExcludes($locale);
 
-            $intersect = array_intersect($source, $target);
+            $intersect = $this->compare($source, $target);
 
             ! empty($intersect) ? $this->store($path, $intersect) : $this->delete($path);
         }
+    }
+
+    protected function compare(array $source, array $target): array
+    {
+        return array_intersect($target, $source);
     }
 
     protected function delete(string $path): void
@@ -38,7 +44,7 @@ class Excludes extends Processor
         $result = [];
 
         foreach ($this->locales()->getSource() as $values) {
-            $result = array_merge($result, array_values($values));
+            $result = Arr::addUnique($result, $values);
         }
 
         return $result;

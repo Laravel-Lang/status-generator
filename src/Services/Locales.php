@@ -41,6 +41,21 @@ class Locales
         return $this;
     }
 
+    public function getSource(): array
+    {
+        return $this->source;
+    }
+
+    public function getLocale(string $locale): array
+    {
+        return $this->locales[$locale] ?? [];
+    }
+
+    public function getExcludes(string $locale): array
+    {
+        return $this->excludes[$locale] ?? [];
+    }
+
     protected function loadSource(string $path): Locales
     {
         foreach ($this->files($path) as $file) {
@@ -72,34 +87,19 @@ class Locales
         return $this;
     }
 
-    public function getSource(): array
-    {
-        return $this->source;
-    }
-
-    public function getLocale(string $locale): array
-    {
-        return $this->locales[$locale] ?? [];
-    }
-
-    public function getExcludes(string $locale): array
-    {
-        return $this->excludes[$locale] ?? [];
-    }
-
     protected function mergeSource(string $key, array $values): void
     {
-        $this->source[$key] = array_merge($this->source[$key] ?? [], Arr::flattenKeys($values));
+        $this->source[$key] = Arr::addUnique($this->source[$key] ?? [], Arr::flattenKeys($values));
     }
 
     protected function mergeExcludes(string $locale, array $values): void
     {
-        $this->excludes[$locale] = array_merge($this->excludes[$locale] ?? [], array_values($values));
+        $this->excludes[$locale] = Arr::addUnique($this->excludes[$locale] ?? [], array_values($values));
     }
 
     protected function mergeLocales(string $locale, string $key, array $values): void
     {
-        $this->locales[$locale][$key] = array_merge($this->locales[$locale][$key] ?? [], $values);
+        $this->locales[$locale][$key] = Arr::addUnique($this->locales[$locale][$key] ?? [], $values);
     }
 
     protected function filter(string $path, array $values): array
