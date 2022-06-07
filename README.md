@@ -49,12 +49,6 @@ bin/lang download --url=https://github.com/laravel/jetstream/archive/refs/heads/
 bin/lang download --url=https://github.com/laravel/jetstream/archive/refs/heads/1.x.zip --project=jetstream --ver=1.x
 ```
 
-### Actualize excludes
-
-```bash
-bin/lang excludes
-```
-
 ### Translations status
 
 ```bash
