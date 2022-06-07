@@ -12,7 +12,7 @@ class Copy extends Processor
     public function handle(): void
     {
         foreach ($this->getCopyParameter() as $directory) {
-            $path = $this->tempDirectory() . '/' . $this->getProjectParameter() . '-' . $this->getVersionParameter() . '/' . $directory;
+            $path = $this->tempDirectory() . '/' . $this->getProjectParameter() . '-' . $this->getVersionParameter() . '/' . $directory . '/en';
 
             if (Directory::exists($path)) {
                 $files = $this->files($path);
@@ -47,6 +47,6 @@ class Copy extends Processor
 
     protected function targetPath(string $filename): string
     {
-        return $this->getSourcePath('packages/' . $this->getProjectParameter() . '/' . $this->getVersionParameter() . '/' . $filename, false);
+        return $this->getSourcePath($this->getProjectParameter() . '/' . $this->getVersionParameter() . '/' . $filename, false);
     }
 }

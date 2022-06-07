@@ -31,7 +31,7 @@ class Search extends Processor
 
     protected function targetPath(): string
     {
-        return $this->getSourcePath('packages/' . $this->getDirectoryParameter() . '/' . $this->getTargetFilename(), false);
+        return $this->getSourcePath($this->getDirectoryParameter() . '/' . $this->getTargetFilename(), false);
     }
 
     protected function getTargetFilename(): string

@@ -3,7 +3,6 @@
 namespace LaravelLang\StatusGenerator\Concerns;
 
 use DragonCode\Support\Facades\Helpers\Arr;
-use DragonCode\Support\Facades\Helpers\Str;
 use LaravelLang\StatusGenerator\Constants\Argument;
 
 /** @mixin \LaravelLang\StatusGenerator\Processors\Processor */
@@ -36,7 +35,7 @@ trait Parameters
 
     protected function getProjectParameter(): string
     {
-        return Str::slug($this->parameter(Argument::PROJECT()));
+        return $this->parameter(Argument::PROJECT());
     }
 
     protected function getUrlParameter(): string
@@ -46,6 +45,6 @@ trait Parameters
 
     protected function getVersionParameter(): string
     {
-        return Str::slug($this->parameter(Argument::VERSION()));
+        return $this->parameter(Argument::VERSION());
     }
 }
