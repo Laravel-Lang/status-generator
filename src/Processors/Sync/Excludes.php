@@ -1,10 +1,11 @@
 <?php
 
-namespace LaravelLang\StatusGenerator\Processors;
+namespace LaravelLang\StatusGenerator\Processors\Sync;
 
 use DragonCode\Support\Facades\Filesystem\File;
 use DragonCode\Support\Facades\Helpers\Arr;
 use LaravelLang\StatusGenerator\Facades\Services\Locales;
+use LaravelLang\StatusGenerator\Processors\Processor;
 use LaravelLang\StatusGenerator\Services\Locales as LocalesService;
 
 class Excludes extends Processor
