@@ -5,6 +5,7 @@ namespace LaravelLang\StatusGenerator\Processors;
 use DragonCode\Support\Facades\Filesystem\Directory;
 use DragonCode\Support\Facades\Helpers\Arr;
 use LaravelLang\StatusGenerator\Concerns\Files;
+use LaravelLang\StatusGenerator\Concerns\Resources\Tableable;
 use LaravelLang\StatusGenerator\Contracts;
 use LaravelLang\StatusGenerator\Exceptions\IncorrectBasePathException;
 use LaravelLang\StatusGenerator\Services\Filesystem\Manager;
@@ -14,6 +15,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 abstract class Processor implements Contracts\Processor
 {
     use Files;
+    use Tableable;
 
     public function __construct(
         protected OutputInterface $output,

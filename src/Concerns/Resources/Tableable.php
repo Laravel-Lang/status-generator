@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace LaravelLang\StatusGenerator\Concerns\Resources;
 
+use LaravelLang\StatusGenerator\Constants\Stub;
 use LaravelLang\StatusGenerator\Contracts\Resources\Tables\Table as TableContract;
 use LaravelLang\StatusGenerator\Contracts\Resources\Tables\TableColumn as TableColumnContract;
 use LaravelLang\StatusGenerator\Contracts\Resources\Tables\TableRow as TableRowContract;
@@ -13,15 +14,19 @@ use LaravelLang\StatusGenerator\Resources\Tables\TableRow;
 
 trait Tableable
 {
-    protected ?TableContract $table = null;
+    protected array $table_stubs = [];
 
-    protected function getTable(): TableContract
+    protected ?Stub $table_stub = null;
+
+    protected function getTable(?Stub $stub = null): TableContract
     {
-        if (! is_null($this->table)) {
-            return $this->table;
+        $key = $stub?->value ?? $this->table_stub?->value ?? 'none';
+
+        if (isset($this->table_stubs[$key])) {
+            return $this->table_stubs[$key];
         }
 
-        return $this->table = new Table();
+        return $this->table_stubs[$key] = new Table($this->table_stub ?? $stub);
     }
 
     protected function getTableRow(TableColumn ...$columns): TableRowContract

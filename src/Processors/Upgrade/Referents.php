@@ -6,19 +6,35 @@ namespace LaravelLang\StatusGenerator\Processors\Upgrade;
 
 use DragonCode\Support\Facades\Filesystem\File;
 use DragonCode\Support\Facades\Helpers\Str;
-use LaravelLang\StatusGenerator\Concerns\Resources\Tableable;
+use LaravelLang\StatusGenerator\Constants\Stub;
 use LaravelLang\StatusGenerator\Processors\Processor;
+use LaravelLang\StatusGenerator\Resources\Tables\TableRow;
 
 class Referents extends Processor
 {
-    use Tableable;
+    protected ?Stub $table_stub = Stub::REFERENTS;
 
     public function handle(): void
     {
         if ($this->exists()) {
+            $this->setHeaders();
             $this->parse();
             $this->store();
         }
+    }
+
+    protected function setHeaders(): void
+    {
+        $columns = [
+            $this->getTableColumn('Locale'),
+            $this->getTableColumn('Developers'),
+        ];
+
+        $row = new TableRow();
+
+        $row->asHeader()->push(...$columns);
+
+        $this->getTable()->push($row);
     }
 
     protected function parse(): void
