@@ -67,7 +67,7 @@ abstract class Processor implements Contracts\Processor
         return $this->filesystem->load($path, true, $correct_keys);
     }
 
-    protected function argument(string $key): mixed
+    protected function parameter(string $key): mixed
     {
         return Arr::get($this->parameters, $key);
     }

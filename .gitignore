@@ -6,6 +6,7 @@ docs/
 excludes/
 locales/
 source/
+tmp/
 vendor/
 
 .env

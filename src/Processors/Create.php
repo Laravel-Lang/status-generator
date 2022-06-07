@@ -43,7 +43,7 @@ class Create extends Processor
 
     protected function getLocale(): string
     {
-        return Str::replace($this->argument(Argument::LOCALE()), '-', '_');
+        return Str::replace($this->parameter(Argument::LOCALE()), '-', '_');
     }
 
     protected function makePath(string $filename, string $locale): string

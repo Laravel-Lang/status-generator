@@ -41,7 +41,7 @@ abstract class Command extends BaseCommand
      */
     protected function resolveProcessors(): array
     {
-        return Arr::map((array) $this->processor, fn (string $processor) => new $processor($this->output, $this->basePath(), $this->getArguments()));
+        return Arr::map((array) $this->processor, fn (string $processor) => new $processor($this->output, $this->basePath(), $this->getParameters()));
     }
 
     protected function basePath(): string
@@ -53,8 +53,18 @@ abstract class Command extends BaseCommand
         return realpath('.');
     }
 
+    protected function getParameters(): array
+    {
+        return array_merge($this->getArguments(), $this->getOptions());
+    }
+
     protected function getArguments(): array
     {
         return $this->input->getArguments();
+    }
+
+    protected function getOptions(): array
+    {
+        return $this->input->getOptions();
     }
 }
