@@ -16,7 +16,6 @@ class Locales extends Processor
         $this->collectEnglish();
 
         $this->store();
-        $this->clean();
     }
 
     protected function collectLocales(): void
@@ -60,17 +59,6 @@ class Locales extends Processor
                 $values = $this->ksort($values);
 
                 $this->filesystem->store($path, $values, false);
-            }
-        }
-    }
-
-    protected function clean(): void
-    {
-        foreach ($this->directories() as $locale) {
-            foreach ($this->files($locale) as $file) {
-                $path = $this->getLocalesPath($locale . '/' . $file);
-
-                File::ensureDelete($path);
             }
         }
     }
