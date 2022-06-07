@@ -6,6 +6,8 @@ use ArchTech\Enums\InvokableCases;
 
 /**
  * @method static string COPY()
+ * @method static string DIRECTORY()
+ * @method static string FILE()
  * @method static string LOCALE()
  * @method static string PROJECT()
  * @method static string URL()
@@ -16,6 +18,10 @@ enum Argument: string
     use InvokableCases;
 
     case COPY = 'copy';
+
+    case DIRECTORY = 'directory';
+
+    case FILE = 'file';
 
     case LOCALE = 'locale';
 

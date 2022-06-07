@@ -55,7 +55,7 @@ abstract class Command extends BaseCommand
 
     protected function getParameters(): array
     {
-        return array_merge($this->getArguments(), $this->getOptions());
+        return array_merge($this->getArguments(), $this->getOptions(), $this->extraParameters());
     }
 
     protected function getArguments(): array
@@ -63,8 +63,23 @@ abstract class Command extends BaseCommand
         return $this->input->getArguments();
     }
 
+    protected function getArgument(string $name): mixed
+    {
+        return $this->input->getArgument($name);
+    }
+
     protected function getOptions(): array
     {
         return $this->input->getOptions();
+    }
+
+    protected function getOption(string $name): mixed
+    {
+        return $this->input->getOption($name);
+    }
+
+    protected function extraParameters(): array
+    {
+        return [];
     }
 }
