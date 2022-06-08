@@ -46,17 +46,17 @@ abstract class Processor implements Contracts\Processor
 
     protected function getSourcePath(string $path = null, bool $use_real = true): string
     {
-        return $this->getPath($use_real, $this->base_path, 'source', $path);
+        return $this->getPath($use_real, 'source', $path);
     }
 
     protected function getLocalesPath(string $path = null, bool $use_real = true): string
     {
-        return $this->getPath($use_real, $this->base_path, 'locales', $path);
+        return $this->getPath($use_real, 'locales', $path);
     }
 
     protected function getPath(bool $use_real, ?string ...$paths): string
     {
-        $path = Arr::of($paths)->filter()->implode('/')->toString();
+        $path = Arr::of($paths)->reverse()->push($this->base_path)->reverse()->filter()->implode('/')->toString();
 
         return $use_real ? realpath($path) : $path;
     }

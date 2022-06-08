@@ -4,14 +4,27 @@ namespace Tests\Unit\Commands\Upgrade;
 
 use LaravelLang\StatusGenerator\Constants\Command as CommandName;
 use LaravelLang\StatusGenerator\Constants\Option;
+use LaravelLang\StatusGenerator\Processors\Upgrade\CleanUp;
+use LaravelLang\StatusGenerator\Processors\Upgrade\Excludes;
+use LaravelLang\StatusGenerator\Processors\Upgrade\Locales;
+use LaravelLang\StatusGenerator\Processors\Upgrade\Referents;
 
 class Process extends Base
 {
     public function testProcess(): void
     {
-        $this->command(CommandName::UPGRADE(), [
+        $result = $this->command(CommandName::UPGRADE(), [
             Option::PATH() => $this->temp,
         ]);
+
+        $this->assertSame(0, $result->code);
+
+        $this->assertSame([
+            'Processing: ' . Locales::class . '...',
+            'Processing: ' . Referents::class . '...',
+            'Processing: ' . Excludes::class . '...',
+            'Processing: ' . CleanUp::class . '...',
+        ], $result->output);
 
         // New structure
         $this->assertFileExists($this->tempPath('locales/ar/_excludes.json'));
