@@ -9,7 +9,7 @@ use LaravelLang\StatusGenerator\Processors\Upgrade\Excludes;
 use LaravelLang\StatusGenerator\Processors\Upgrade\Locales;
 use LaravelLang\StatusGenerator\Processors\Upgrade\Referents;
 
-class Process extends Base
+class ProcessTest extends Base
 {
     public function testProcess(): void
     {
