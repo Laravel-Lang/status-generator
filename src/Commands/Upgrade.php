@@ -2,6 +2,7 @@
 
 namespace LaravelLang\StatusGenerator\Commands;
 
+use LaravelLang\StatusGenerator\Constants\Command as CommandName;
 use LaravelLang\StatusGenerator\Processors\Upgrade\CleanUp as CleanUpProcessor;
 use LaravelLang\StatusGenerator\Processors\Upgrade\Excludes as ExcludesProcessor;
 use LaravelLang\StatusGenerator\Processors\Upgrade\Locales as LocalesProcessor;
@@ -16,10 +17,10 @@ class Upgrade extends Command
         CleanUpProcessor::class,
     ];
 
-    protected function configure()
+    protected function configure(): Command
     {
-        $this
-            ->setName('upgrade')
+        return parent::configure()
+            ->setName(CommandName::UPGRADE())
             ->setDescription('Upgrade files to the latest version of the localization pack');
     }
 }

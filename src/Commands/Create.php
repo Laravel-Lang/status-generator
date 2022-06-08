@@ -2,19 +2,20 @@
 
 namespace LaravelLang\StatusGenerator\Commands;
 
-use LaravelLang\StatusGenerator\Constants\Argument;
+use LaravelLang\StatusGenerator\Constants\Option;
+use LaravelLang\StatusGenerator\Constants\Command as CommandName;
 use LaravelLang\StatusGenerator\Processors\Create as CreateProcessor;
-use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
 class Create extends Command
 {
     protected array|string $processor = CreateProcessor::class;
 
-    protected function configure()
+    protected function configure(): Command
     {
-        $this
-            ->setName('create')
+        return parent::configure()
+            ->setName(CommandName::CREATE())
             ->setDescription('Creates a directory for the new localization')
-            ->addArgument(Argument::LOCALE(), InputArgument::REQUIRED, 'Code of the created localization');
+            ->addOption(Option::LOCALE(), null, InputOption::VALUE_REQUIRED, 'Code of the created localization');
     }
 }

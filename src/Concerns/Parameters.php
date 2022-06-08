@@ -3,7 +3,7 @@
 namespace LaravelLang\StatusGenerator\Concerns;
 
 use DragonCode\Support\Facades\Helpers\Arr;
-use LaravelLang\StatusGenerator\Constants\Argument;
+use LaravelLang\StatusGenerator\Constants\Option;
 
 /** @mixin \LaravelLang\StatusGenerator\Processors\Processor */
 trait Parameters
@@ -15,36 +15,36 @@ trait Parameters
 
     protected function getCopyParameter(): array
     {
-        return $this->parameter(Argument::COPY());
+        return $this->parameter(Option::COPY());
     }
 
     protected function getDirectoryParameter(): string
     {
-        return $this->parameter(Argument::DIRECTORY());
+        return $this->parameter(Option::DIRECTORY());
     }
 
     protected function getFileParameter(): string
     {
-        return $this->parameter(Argument::FILE());
+        return $this->parameter(Option::FILE());
     }
 
     protected function getLocaleParameter(): string
     {
-        return $this->parameter(Argument::LOCALE());
+        return $this->parameter(Option::LOCALE());
     }
 
     protected function getProjectParameter(): string
     {
-        return $this->parameter(Argument::PROJECT());
+        return $this->parameter(Option::PROJECT());
     }
 
     protected function getUrlParameter(): string
     {
-        return $this->parameter(Argument::URL());
+        return $this->parameter(Option::URL());
     }
 
     protected function getVersionParameter(): string
     {
-        return $this->parameter(Argument::VERSION());
+        return $this->parameter(Option::VERSION());
     }
 }

@@ -2,6 +2,7 @@
 
 namespace LaravelLang\StatusGenerator\Commands;
 
+use LaravelLang\StatusGenerator\Constants\Command as CommandName;
 use LaravelLang\StatusGenerator\Processors\Sync\Actualize as ActualizeProcessor;
 use LaravelLang\StatusGenerator\Processors\Sync\Excludes as ExcludesProcessor;
 
@@ -12,10 +13,10 @@ class Sync extends Command
         ActualizeProcessor::class,
     ];
 
-    protected function configure()
+    protected function configure(): Command
     {
-        $this
-            ->setName('sync')
+        return parent::configure()
+            ->setName(CommandName::SYNC())
             ->setDescription('Updates translation keys');
     }
 }

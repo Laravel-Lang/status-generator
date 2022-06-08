@@ -4,7 +4,8 @@ namespace LaravelLang\StatusGenerator\Commands;
 
 use DragonCode\Support\Facades\Filesystem\Path;
 use DragonCode\Support\Facades\Helpers\Arr;
-use LaravelLang\StatusGenerator\Constants\Argument;
+use LaravelLang\StatusGenerator\Constants\Command as CommandName;
+use LaravelLang\StatusGenerator\Constants\Option;
 use LaravelLang\StatusGenerator\Processors\Download\Archive as ZipProcessor;
 use LaravelLang\StatusGenerator\Processors\Download\CleanUp as CleanUpProcessor;
 use LaravelLang\StatusGenerator\Processors\Download\Copy as CopyProcessor;
@@ -22,30 +23,30 @@ class Download extends Command
         CopyProcessor::class,
     ];
 
-    protected function configure()
+    protected function configure(): Command
     {
-        $this
-            ->setName('download')
+        return parent::configure()
+            ->setName(CommandName::DOWNLOAD())
             ->setDescription('Download and unpack the project')
-            ->addOption(Argument::URL(), null, InputOption::VALUE_REQUIRED, 'Link to the repository')
-            ->addOption(Argument::PROJECT(), null, InputOption::VALUE_REQUIRED, 'Project name')
-            ->addOption(Argument::VERSION(), null, InputOption::VALUE_REQUIRED, 'Project version')
-            ->addOption(Argument::COPY(), null, InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'Directory within the project from which files will be copied');
+            ->addOption(Option::URL(), null, InputOption::VALUE_REQUIRED, 'Link to the repository')
+            ->addOption(Option::PROJECT(), null, InputOption::VALUE_REQUIRED, 'Project name')
+            ->addOption(Option::VERSION(), null, InputOption::VALUE_REQUIRED, 'Project version')
+            ->addOption(Option::COPY(), null, InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'Directory within the project from which files will be copied');
     }
 
-    protected function extraParameters(): array
+    protected function extraOptions(): array
     {
         return [
-            Argument::DIRECTORY() => $this->directory(),
-            Argument::FILE()      => $this->file(),
+            Option::DIRECTORY() => $this->directory(),
+            Option::FILE()      => $this->file(),
         ];
     }
 
     protected function directory(): string
     {
         return Arr::of([])
-            ->push($this->getOption(Argument::PROJECT()))
-            ->push($this->getOption(Argument::VERSION()))
+            ->push($this->getOption(Option::PROJECT()))
+            ->push($this->getOption(Option::VERSION()))
             ->map(static fn (string $value) => trim($value, '\\/'))
             ->implode('/')
             ->toString();
@@ -53,6 +54,6 @@ class Download extends Command
 
     protected function file(): string
     {
-        return Path::basename($this->getOption(Argument::URL()));
+        return Path::basename($this->getOption(Option::URL()));
     }
 }

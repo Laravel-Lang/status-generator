@@ -9,11 +9,12 @@ use ArchTech\Enums\InvokableCases;
  * @method static string DIRECTORY()
  * @method static string FILE()
  * @method static string LOCALE()
+ * @method static string PATH()
  * @method static string PROJECT()
  * @method static string URL()
  * @method static string VERSION()
  */
-enum Argument: string
+enum Option: string
 {
     use InvokableCases;
 
@@ -24,6 +25,8 @@ enum Argument: string
     case FILE = 'file';
 
     case LOCALE = 'locale';
+
+    case PATH = 'path';
 
     case PROJECT = 'project';
 
