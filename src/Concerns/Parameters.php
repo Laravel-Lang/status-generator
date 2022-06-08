@@ -4,13 +4,18 @@ namespace LaravelLang\StatusGenerator\Concerns;
 
 use DragonCode\Support\Facades\Helpers\Arr;
 use LaravelLang\StatusGenerator\Constants\Option;
+use LaravelLang\StatusGenerator\Exceptions\UnknownOptionException;
 
 /** @mixin \LaravelLang\StatusGenerator\Processors\Processor */
 trait Parameters
 {
-    protected function parameter(string $name): mixed
+    protected function parameter(string $name, bool $validate = false): mixed
     {
-        return Arr::get($this->parameters, $name);
+        if (! $validate && $value = Arr::get($this->parameters, $name)) {
+            return $value;
+        }
+
+        throw new UnknownOptionException($name);
     }
 
     protected function getCopyParameter(): array
@@ -30,7 +35,7 @@ trait Parameters
 
     protected function getLocaleParameter(): string
     {
-        return $this->parameter(Option::LOCALE());
+        return $this->parameter(Option::LOCALE(), true);
     }
 
     protected function getProjectParameter(): string

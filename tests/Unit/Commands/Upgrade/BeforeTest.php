@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Commands\Upgrade;
 
-class BeforeUpgradeTest extends Base
+class BeforeTest extends Base
 {
     public function testBefore(): void
     {

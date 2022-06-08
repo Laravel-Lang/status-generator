@@ -2,28 +2,52 @@
 
 namespace Tests\Fixtures\Services;
 
-use DragonCode\Support\Facades\Helpers\Arr;
-use Tests\Fixtures\Models\CommandResult;
+use LaravelLang\StatusGenerator\Commands\Create;
+use LaravelLang\StatusGenerator\Commands\Download;
+use LaravelLang\StatusGenerator\Commands\Status;
+use LaravelLang\StatusGenerator\Commands\Sync;
+use LaravelLang\StatusGenerator\Commands\Upgrade;
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class Command
 {
-    public static function call(string $name, array $options = []): CommandResult
+    public static function call(string $name, array $options = []): void
     {
-        exec(sprintf('php %s %s %s', self::bin(), $name, self::options($options)), $output, $code);
+        $app = self::application()->find($name);
 
-        return CommandResult::make(compact('output', 'code'));
+        $app->run(self::input($options), self::output());
     }
 
-    protected static function bin(): string
+    protected static function application(): Application
     {
-        return realpath(__DIR__ . '/../../../bin/lang');
+        $app = new Application('Laravel Lang: Status Generator');
+
+        $app->add(new Create());
+        $app->add(new Download());
+        $app->add(new Status());
+        $app->add(new Sync());
+        $app->add(new Upgrade());
+
+        return $app;
     }
 
-    protected static function options(array $options): string
+    protected static function input(array $options): InputInterface
     {
-        return Arr::of($options)
-            ->filter()
-            ->map(static fn (string $value, string $key) => sprintf('--%s="%s"', $key, $value))
-            ->implode(' ');
+        $input = new ArrayInput([]);
+
+        foreach ($options as $key => $value) {
+            $input->setOption($key, $value);
+        }
+
+        return $input;
+    }
+
+    protected static function output(): OutputInterface
+    {
+        return new ConsoleOutput();
     }
 }
