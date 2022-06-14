@@ -53,8 +53,8 @@ abstract class Command extends BaseCommand
 
     protected function basePath(): string
     {
-        if ($this->input->hasOption(Option::PATH())) {
-            return realpath($this->input->getOption(Option::PATH()));
+        if ($this->input->hasOption(Option::PATH()) && $path = $this->input->getOption(Option::PATH())) {
+            return realpath($path);
         }
 
         return realpath('.');

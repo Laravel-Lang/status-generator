@@ -10,8 +10,6 @@ trait Commands
 {
     protected function command(string $name, array $options = []): void
     {
-        $options = array_merge([Option::PATH() => $this->temp], $options);
-
-        Command::call($name, $options);
+        Command::call($name, array_merge([Option::PATH() => $this->temp], $options));
     }
 }

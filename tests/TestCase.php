@@ -30,9 +30,9 @@ abstract class TestCase extends BaseTestCase
 
     protected function copyFixtures(): void
     {
-        if ($this->fixtures) {
-            foreach (File::names($this->fixtures, recursive: true) as $filename) {
-                $source = rtrim($this->fixtures, '\\/') . '/' . $filename;
+        if ($this->fixtures && $path = realpath($this->fixtures)) {
+            foreach (File::names($path, recursive: true) as $filename) {
+                $source = rtrim($path, '\\/') . '/' . $filename;
                 $target = rtrim($this->temp, '\\/') . '/' . $filename;
 
                 File::copy($source, $target);
