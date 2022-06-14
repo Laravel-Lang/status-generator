@@ -2,6 +2,7 @@
 
 namespace Tests\Fixtures\Services;
 
+use DragonCode\Support\Facades\Helpers\Arr;
 use LaravelLang\StatusGenerator\Commands\Create;
 use LaravelLang\StatusGenerator\Commands\Download;
 use LaravelLang\StatusGenerator\Commands\Status;
@@ -9,7 +10,6 @@ use LaravelLang\StatusGenerator\Commands\Sync;
 use LaravelLang\StatusGenerator\Commands\Upgrade;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -20,7 +20,7 @@ class Command
     {
         $app = self::application()->find($name);
 
-        $app->run(self::input($app->getDefinition(), $options), self::output());
+        $app->run(self::input($options), self::output());
     }
 
     protected static function application(): Application
@@ -36,15 +36,11 @@ class Command
         return $app;
     }
 
-    protected static function input(InputDefinition $definition, array $options): InputInterface
+    protected static function input(array $options): InputInterface
     {
-        $input = new ArrayInput([], $definition);
+        $options = Arr::renameKeys($options, static fn (string $key) => '--' . $key);
 
-        foreach ($options as $key => $value) {
-            $input->setOption($key, $value);
-        }
-
-        return $input;
+        return new ArrayInput($options);
     }
 
     protected static function output(): OutputInterface

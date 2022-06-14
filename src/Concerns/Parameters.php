@@ -9,9 +9,11 @@ use LaravelLang\StatusGenerator\Exceptions\UnknownOptionException;
 /** @mixin \LaravelLang\StatusGenerator\Processors\Processor */
 trait Parameters
 {
-    protected function parameter(string $name, bool $validate = false): mixed
+    protected function parameter(string $name, bool $allow_empty = false): mixed
     {
-        if (! $validate && $value = Arr::get($this->parameters, $name)) {
+        $value = Arr::get($this->parameters, $name);
+
+        if ($allow_empty || ! empty($value)) {
             return $value;
         }
 
@@ -20,7 +22,7 @@ trait Parameters
 
     protected function getCopyParameter(): array
     {
-        return $this->parameter(Option::COPY());
+        return $this->parameter(Option::COPY(), true);
     }
 
     protected function getDirectoryParameter(): string
@@ -35,7 +37,7 @@ trait Parameters
 
     protected function getLocaleParameter(): string
     {
-        return $this->parameter(Option::LOCALE(), true);
+        return $this->parameter(Option::LOCALE());
     }
 
     protected function getProjectParameter(): string
