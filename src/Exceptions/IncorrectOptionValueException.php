@@ -4,7 +4,7 @@ namespace LaravelLang\StatusGenerator\Exceptions;
 
 use Exception;
 
-class UnknownOptionException extends Exception
+class IncorrectOptionValueException extends Exception
 {
     public function __construct(string $name)
     {

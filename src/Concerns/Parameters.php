@@ -4,53 +4,46 @@ namespace LaravelLang\StatusGenerator\Concerns;
 
 use DragonCode\Support\Facades\Helpers\Arr;
 use LaravelLang\StatusGenerator\Constants\Option;
-use LaravelLang\StatusGenerator\Exceptions\UnknownOptionException;
 
 /** @mixin \LaravelLang\StatusGenerator\Processors\Processor */
 trait Parameters
 {
-    protected function parameter(string $name, bool $allow_empty = false): mixed
+    protected function parameter(string $name): array|string|null
     {
-        $value = Arr::get($this->parameters, $name);
-
-        if ($allow_empty || ! empty($value)) {
-            return $value;
-        }
-
-        throw new UnknownOptionException($name);
+        return Arr::get($this->parameters, $name);
     }
 
-    protected function getCopyParameter(): array
+    protected function getCopyParameter(): ?array
     {
-        return $this->parameter(Option::COPY(), true);
+        return $this->parameter(Option::COPY());
     }
 
-    protected function getDirectoryParameter(): string
+    protected function getDirectoryParameter(): ?string
     {
         return $this->parameter(Option::DIRECTORY());
     }
 
-    protected function getFileParameter(): string
+    protected function getFileParameter(): ?string
     {
         return $this->parameter(Option::FILE());
     }
 
-    protected function getLocaleParameter(): string
+    protected function getLocaleParameter(): ?string
     {
         return $this->parameter(Option::LOCALE());
     }
 
-    protected function getProjectParameter(): string
+    protected function getProjectParameter(): ?string
     {
         return $this->parameter(Option::PROJECT());
     }
 
-    protected function getUrlParameter(): string
+    protected function getUrlParameter(): ?string
     {
         return $this->parameter(Option::URL());
     }
 
-    protected function getVersionParameter(): string
+    protected function getVersionParameter(): ?string
     {
         return $this->parameter(Option::VERSION());
     }

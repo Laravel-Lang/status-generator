@@ -3,6 +3,7 @@
 namespace LaravelLang\StatusGenerator\Commands;
 
 use DragonCode\Support\Facades\Helpers\Arr;
+use LaravelLang\StatusGenerator\Concerns\Commands\ValidateOptions;
 use LaravelLang\StatusGenerator\Constants\Option;
 use LaravelLang\StatusGenerator\Contracts\Processor;
 use Symfony\Component\Console\Command\Command as BaseCommand;
@@ -12,6 +13,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 abstract class Command extends BaseCommand
 {
+    use ValidateOptions;
+
     protected InputInterface $input;
 
     protected OutputInterface $output;
@@ -24,6 +27,7 @@ abstract class Command extends BaseCommand
         $this->input  = $input;
         $this->output = $output;
 
+        $this->validateOptions();
         $this->handle();
 
         return 0;

@@ -45,6 +45,6 @@ class Command
 
     protected static function output(): OutputInterface
     {
-        return new ConsoleOutput();
+        return new ConsoleOutput(OutputInterface::VERBOSITY_QUIET);
     }
 }
