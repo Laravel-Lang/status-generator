@@ -2,6 +2,6 @@
     "accepted": ":Attribute muss akzeptiert werden.",
     "accepted_if": ":Attribute muss akzeptiert werden, wenn :other :value ist.",
     "active_url": ":Attribute ist keine gültige Internet-Adresse.",
-    "between.array": ":Attribute muss zwischen :min & :max Elemente haben.",
-    "between.file": ":Attribute muss zwischen :min & :max Kilobytes groß sein."
+    "custom": "Custom field",
+    "sub.array": "Sub Array"
 }

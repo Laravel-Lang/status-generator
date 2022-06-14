@@ -4,6 +4,7 @@ namespace Tests;
 
 use DragonCode\Support\Facades\Filesystem\Directory;
 use DragonCode\Support\Facades\Filesystem\File;
+use LaravelLang\StatusGenerator\Services\Filesystem\Manager;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 use Tests\Concerns\Commands;
 
@@ -15,10 +16,13 @@ abstract class TestCase extends BaseTestCase
 
     protected string $temp = __DIR__ . '/tmp';
 
+    protected ?Manager $filesystem = null;
+
     protected function setUp(): void
     {
         parent::setUp();
 
+        $this->setFilesystem();
         $this->cleanUp();
         $this->copyFixtures();
     }
@@ -38,6 +42,11 @@ abstract class TestCase extends BaseTestCase
                 File::copy($source, $target);
             }
         }
+    }
+
+    protected function setFilesystem(): void
+    {
+        $this->filesystem = new Manager();
     }
 
     protected function tempPath(string $filename): string
