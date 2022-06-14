@@ -3,9 +3,10 @@
     "description": "Translation status generator for Laravel Lang projects",
     "license": "MIT",
     "keywords": [
-        "laravel",
+        "generator",
         "languages",
-        "generator"
+        "laravel",
+        "laravel-lang"
     ],
     "authors": [
         {
