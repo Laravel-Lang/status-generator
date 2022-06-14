@@ -30,9 +30,9 @@ abstract class TestCase extends BaseTestCase
 
     protected function copyFixtures(): void
     {
-        if ($this->fixtures && $path = realpath($this->fixtures)) {
-            foreach (File::names($path, recursive: true) as $filename) {
-                $source = rtrim($path, '\\/') . '/' . $filename;
+        if ($this->fixtures) {
+            foreach (File::names($this->fixtures, recursive: true) as $filename) {
+                $source = rtrim($this->fixtures, '\\/') . '/' . $filename;
                 $target = rtrim($this->temp, '\\/') . '/' . $filename;
 
                 File::copy($source, $target);
@@ -40,10 +40,8 @@ abstract class TestCase extends BaseTestCase
         }
     }
 
-    protected function tempPath(string $filename, bool $real = true): string
+    protected function tempPath(string $filename): string
     {
-        $path = $this->temp . '/' . $filename;
-
-        return $real ? realpath($path) : $path;
+        return $this->temp . '/' . $filename;
     }
 }

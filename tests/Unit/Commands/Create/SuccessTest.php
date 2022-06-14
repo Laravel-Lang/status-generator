@@ -21,6 +21,5 @@ class SuccessTest extends Base
 
         $this->assertFileExists($this->tempPath('locales/de/json.json'));
         $this->assertFileExists($this->tempPath('locales/de/php.json'));
-        $this->assertFileExists($this->tempPath('locales/de/php-inline.json'));
     }
 }

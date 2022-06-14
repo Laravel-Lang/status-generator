@@ -8,28 +8,29 @@ class BeforeTest extends Base
     {
         $this->assertFileExists($this->tempPath('app/main/Constants/Referents.php'));
 
-        $this->assertFileExists($this->tempPath('excludes/ar.php'));
-        $this->assertFileExists($this->tempPath('excludes/ru.php'));
+        $this->assertFileExists($this->tempPath('excludes/af.php'));
+        $this->assertFileExists($this->tempPath('excludes/de.php'));
 
-        $this->assertFileExists($this->tempPath('locales/ar/ar.json'));
-        $this->assertFileExists($this->tempPath('locales/ar/auth.php'));
-        $this->assertFileExists($this->tempPath('locales/ar/pagination.php'));
-        $this->assertFileExists($this->tempPath('locales/ar/passwords.php'));
-        $this->assertFileExists($this->tempPath('locales/ar/validation.php'));
-        $this->assertFileExists($this->tempPath('locales/ar/validation-inline.php'));
-        $this->assertFileExists($this->tempPath('locales/ar/validation-nova.php'));
-        $this->assertFileExists($this->tempPath('locales/ar/validation-nova-inline.php'));
+        $this->assertFileExists($this->tempPath('locales/af/af.json'));
+        $this->assertFileExists($this->tempPath('locales/af/auth.php'));
+        $this->assertFileExists($this->tempPath('locales/af/pagination.php'));
+        $this->assertFileExists($this->tempPath('locales/af/passwords.php'));
+        $this->assertFileExists($this->tempPath('locales/af/validation.php'));
+        $this->assertFileExists($this->tempPath('locales/af/validation-inline.php'));
+        $this->assertFileExists($this->tempPath('locales/af/validation-nova.php'));
+        $this->assertFileExists($this->tempPath('locales/af/validation-nova-inline.php'));
 
-        $this->assertFileExists($this->tempPath('locales/ru/ru.json'));
-        $this->assertFileExists($this->tempPath('locales/ru/auth.php'));
-        $this->assertFileExists($this->tempPath('locales/ru/pagination.php'));
-        $this->assertFileExists($this->tempPath('locales/ru/passwords.php'));
-        $this->assertFileExists($this->tempPath('locales/ru/validation.php'));
-        $this->assertFileExists($this->tempPath('locales/ru/validation-inline.php'));
-        $this->assertFileExists($this->tempPath('locales/ru/validation-nova.php'));
-        $this->assertFileExists($this->tempPath('locales/ru/validation-nova-inline.php'));
+        $this->assertFileExists($this->tempPath('locales/de/de.json'));
+        $this->assertFileExists($this->tempPath('locales/de/auth.php'));
+        $this->assertFileExists($this->tempPath('locales/de/pagination.php'));
+        $this->assertFileExists($this->tempPath('locales/de/passwords.php'));
+        $this->assertFileExists($this->tempPath('locales/de/validation.php'));
+        $this->assertFileExists($this->tempPath('locales/de/validation-inline.php'));
+        $this->assertFileExists($this->tempPath('locales/de/validation-nova.php'));
+        $this->assertFileExists($this->tempPath('locales/de/validation-nova-inline.php'));
 
-        $this->assertDirectoryExists($this->tempPath('source/packages'));
+        $this->assertFileExists($this->tempPath('source/packages/framework/laravel-9.json'));
+        $this->assertFileExists($this->tempPath('source/packages/ui.json'));
 
         $this->assertFileExists($this->tempPath('source/auth.php'));
         $this->assertFileExists($this->tempPath('source/pagination.php'));
