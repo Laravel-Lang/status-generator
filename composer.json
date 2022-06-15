@@ -54,10 +54,10 @@
         "bin/lang"
     ],
     "config": {
-        "preferred-install": "dist",
-        "sort-packages": true,
         "allow-plugins": {
             "ergebnis/composer-normalize": true
-        }
+        },
+        "preferred-install": "dist",
+        "sort-packages": true
     }
 }
