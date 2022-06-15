@@ -23,10 +23,10 @@ abstract class Processor implements Contracts\Processor
 
     public function __construct(
         protected OutputInterface $output,
-        protected string          $base_path,
-        protected array           $parameters = [],
-        protected Translations    $translations = new Translations(),
-        protected Manager         $filesystem = new Manager()
+        protected string $base_path,
+        protected array $parameters = [],
+        protected Translations $translations = new Translations(),
+        protected Manager $filesystem = new Manager()
     ) {
         $this->validateBasePath();
     }
@@ -44,17 +44,17 @@ abstract class Processor implements Contracts\Processor
         }
     }
 
-    protected function getSourcePath(string $path = null, bool $use_real = true): string
+    protected function getSourcePath(?string $path = null, bool $use_real = true): string
     {
         return $this->getPath($use_real, 'source', $path);
     }
 
-    protected function getLocalesPath(string $path = null, bool $use_real = true): string
+    protected function getLocalesPath(?string $path = null, bool $use_real = true): string
     {
         return $this->getPath($use_real, 'locales', $path);
     }
 
-    protected function getDocsPath(string $path = null, bool $use_real = false): string
+    protected function getDocsPath(?string $path = null, bool $use_real = false): string
     {
         return $this->getPath($use_real, 'docs', $path);
     }

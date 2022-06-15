@@ -10,15 +10,15 @@ class TableColumn implements Contract
 {
     protected mixed $value = null;
 
+    public function __toString(): string
+    {
+        return (string) $this->value;
+    }
+
     public function push(mixed $value): Contract
     {
         $this->value = $value;
 
         return $this;
-    }
-
-    public function __toString(): string
-    {
-        return (string) $this->value;
     }
 }

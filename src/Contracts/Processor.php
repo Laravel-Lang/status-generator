@@ -8,8 +8,8 @@ interface Processor
 {
     public function __construct(
         OutputInterface $output,
-        string          $base_path,
-        array           $parameters = []
+        string $base_path,
+        array $parameters = []
     );
 
     public function handle(): void;

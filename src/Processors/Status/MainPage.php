@@ -58,12 +58,14 @@ class MainPage extends Base
 
     protected function store(): void
     {
-        File::store($this->getTargetStatus(),
+        File::store(
+            $this->getTargetStatus(),
             (string) $this->getTable()->with([
                 'count_diff_percents' => round(($this->stats_all - $this->stats_missing) / $this->stats_all * 100, 2),
                 'count_diff'          => Digit::toShort($this->stats_all - $this->stats_missing),
                 'count_all'           => Digit::toShort($this->stats_all),
-            ]));
+            ])
+        );
     }
 
     protected function compile(CountDto $dto): string

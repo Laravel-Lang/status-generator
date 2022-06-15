@@ -41,7 +41,7 @@ class Referents extends Processor
     {
         preg_match_all('/public\sconst\s([a-zA-Z_]+)\s=\s\[\'(.+)\'\\]/', $this->content(), $matches);
 
-        for ($i = 0; $i < count($matches[0]); $i++) {
+        for ($i = 0; $i < count($matches[0]); ++$i) {
             $key = $matches[1][$i];
 
             $value = Str::of($matches[2][$i])

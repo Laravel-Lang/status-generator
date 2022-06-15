@@ -22,6 +22,13 @@ class Table implements TableContract
     ) {
     }
 
+    public function __toString(): string
+    {
+        $content = $this->compileContent();
+
+        return $this->hasStub() ? $this->toStub($content) : $content;
+    }
+
     public function push(TableRow $row): TableContract
     {
         $this->rows[] = $row;
@@ -34,13 +41,6 @@ class Table implements TableContract
         $this->with = $values;
 
         return $this;
-    }
-
-    public function __toString(): string
-    {
-        $content = $this->compileContent();
-
-        return $this->hasStub() ? $this->toStub($content) : $content;
     }
 
     protected function compileContent(): string

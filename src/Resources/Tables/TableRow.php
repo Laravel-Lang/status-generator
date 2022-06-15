@@ -15,6 +15,17 @@ class TableRow implements TableRowContract
 
     protected bool $is_header = false;
 
+    public function __toString(): string
+    {
+        return Arr::of($this->columns)
+            ->map(static fn (TableColumn $column) => (string) $column)
+            ->implode(' | ')
+            ->start('| ')
+            ->end(' |')
+            ->when($this->is_header, $this->headerDividerCallback())
+            ->toString();
+    }
+
     public function asHeader(bool $is_header = true): TableRowContract
     {
         $this->is_header = $is_header;
@@ -27,17 +38,6 @@ class TableRow implements TableRowContract
         $this->columns = $columns;
 
         return $this;
-    }
-
-    public function __toString(): string
-    {
-        return Arr::of($this->columns)
-            ->map(static fn (TableColumn $column) => (string) $column)
-            ->implode(' | ')
-            ->start('| ')
-            ->end(' |')
-            ->when($this->is_header, $this->headerDividerCallback())
-            ->toString();
     }
 
     protected function headerDividerCallback(): callable

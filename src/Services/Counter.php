@@ -42,9 +42,10 @@ class Counter implements Arrayable
     {
         return Arr::of($this->all)
             ->ksort()
-            ->map(fn (int $all, string $locale) => $this->item($locale,
+            ->map(fn (int $all, string $locale) => $this->item(
+                $locale,
                 $all,
-                $this->missing[$locale] ?? 0,
+                $this->missing[$locale]  ?? 0,
                 $this->complete[$locale] ?? 0
             ))->toArray();
     }

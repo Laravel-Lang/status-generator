@@ -85,7 +85,7 @@ abstract class Base extends Processor
             ->filter(function (string $value, string $key) use ($locale, $excludes, $source) {
                 $this->counter->incrementAll($locale);
 
-                if (! in_array($value, $excludes) && Arr::get($source, $key) === $value) {
+                if (! in_array($value, $excludes) && $value === Arr::get($source, $key)) {
                     $this->counter->incrementMissing($locale);
 
                     return true;
