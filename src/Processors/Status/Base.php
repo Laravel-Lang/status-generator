@@ -71,7 +71,7 @@ abstract class Base extends Processor
 
     protected function filter(string $section, array $values, array $excludes): array
     {
-        $source = $this->source_translations->get($this->default_locale, $section);
+        $source = $this->source_translations->section($this->default_locale, $section);
 
         return Arr::of($values)
             ->filter(static fn (string $value, string $key) => ! in_array($value, $excludes) && Arr::get($source, $key) === $value, ARRAY_FILTER_USE_BOTH)

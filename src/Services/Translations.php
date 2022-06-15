@@ -10,9 +10,9 @@ class Translations
 
     public function merge(string $locale, array $values, bool $is_json, bool $is_inline): void
     {
-        $section = $this->section($is_json, $is_inline);
+        $section = $this->getSectionName($is_json, $is_inline);
 
-        $this->set($locale, $section, array_merge($this->get($locale, $section), $values));
+        $this->set($locale, $section, array_merge($this->section($locale, $section), $values));
     }
 
     public function all(): array
@@ -20,7 +20,7 @@ class Translations
         return $this->values;
     }
 
-    public function get(string $locale, string $section): array
+    public function section(string $locale, string $section): array
     {
         return $this->values[$locale][$section] ?? [];
     }
@@ -35,7 +35,7 @@ class Translations
         $this->values[$locale][$filename] = $values;
     }
 
-    protected function section(bool $is_json, bool $is_inline): string
+    protected function getSectionName(bool $is_json, bool $is_inline): string
     {
         return Arr::of([])
             ->push($is_json ? 'json' : 'php')
