@@ -26,8 +26,6 @@ vendor/bin/lang create <locale>
 
 ### Download
 
-For example:
-
 ```bash
 vendor/bin/lang download --url=https://github.com/laravel/framework/archive/refs/heads/9.x.zip --project=framework --ver=9.x
 vendor/bin/lang download --url=https://github.com/laravel/framework/archive/refs/heads/8.x.zip --project=framework --ver=8.x
