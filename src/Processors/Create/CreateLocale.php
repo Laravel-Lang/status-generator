@@ -1,13 +1,14 @@
 <?php
 
-namespace LaravelLang\StatusGenerator\Processors;
+namespace LaravelLang\StatusGenerator\Processors\Create;
 
 use DragonCode\Support\Facades\Filesystem\Directory;
 use DragonCode\Support\Facades\Filesystem\File;
 use DragonCode\Support\Facades\Helpers\Str;
 use Exception;
+use LaravelLang\StatusGenerator\Processors\Processor;
 
-class Create extends Processor
+class CreateLocale extends Processor
 {
     protected string $default_locale = 'en';
 

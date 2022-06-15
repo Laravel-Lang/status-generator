@@ -10,9 +10,9 @@ class Translations
 
     public function merge(string $locale, array $values, bool $is_json, bool $is_inline): void
     {
-        $filename = $this->filename($is_json, $is_inline);
+        $section = $this->section($is_json, $is_inline);
 
-        $this->set($locale, $filename, array_merge($this->get($locale, $filename), $values));
+        $this->set($locale, $section, array_merge($this->get($locale, $section), $values));
     }
 
     public function all(): array
@@ -20,9 +20,14 @@ class Translations
         return $this->values;
     }
 
-    public function get(string $locale, string $filename): array
+    public function get(string $locale, string $section): array
     {
-        return $this->values[$locale][$filename] ?? [];
+        return $this->values[$locale][$section] ?? [];
+    }
+
+    public function value(string $locale, string $section, string $key): ?string
+    {
+        return $this->values[$locale][$section][$key] ?? null;
     }
 
     protected function set(string $locale, string $filename, array $values): void
@@ -30,7 +35,7 @@ class Translations
         $this->values[$locale][$filename] = $values;
     }
 
-    protected function filename(bool $is_json, bool $is_inline): string
+    protected function section(bool $is_json, bool $is_inline): string
     {
         return Arr::of([])
             ->push($is_json ? 'json' : 'php')

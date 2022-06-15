@@ -4,7 +4,7 @@ namespace LaravelLang\StatusGenerator\Commands;
 
 use LaravelLang\StatusGenerator\Constants\Command as CommandName;
 use LaravelLang\StatusGenerator\Constants\Option;
-use LaravelLang\StatusGenerator\Processors\Create as CreateProcessor;
+use LaravelLang\StatusGenerator\Processors\Create\CreateLocale as CreateProcessor;
 use Symfony\Component\Console\Input\InputOption;
 
 class Create extends Command

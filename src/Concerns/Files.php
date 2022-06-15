@@ -7,9 +7,11 @@ use DragonCode\Support\Facades\Helpers\Str;
 
 trait Files
 {
-    protected function isJson(string $path): bool
+    protected function isJson(string $path, bool $extension = true): bool
     {
-        return Str::of($path)->lower()->endsWith('.json');
+        return $extension
+            ? Path::extension($path) === 'json'
+            : Str::contains(Path::filename($path), 'json');
     }
 
     protected function isInline(string $path): bool

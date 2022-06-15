@@ -4,8 +4,17 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Commands\Sync;
 
+use LaravelLang\StatusGenerator\Constants\Command;
+
 class SuccessTest extends Base
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->command(Command::SYNC());
+    }
+
     public function testJson(): void
     {
         $this->assertSame([
@@ -55,5 +64,11 @@ class SuccessTest extends Base
             'between.array' => 'This field must have between :min and :max items.',
             'between.file'  => 'This field must be between :min and :max kilobytes.',
         ], $this->filesystem->load($this->tempPath('locales/en/php-inline.json')));
+    }
+
+    public function testExcludes(): void
+    {
+        $this->assertFileExists($this->tempPath('locales/de/_excludes.json'));
+        $this->assertFileDoesNotExist($this->tempPath('locales/en/_excludes.json'));
     }
 }
