@@ -10,11 +10,11 @@ class FrenchTest extends Base
     {
         $content = file_get_contents($this->tempPath('docs/statuses/fr.md'));
 
-        $this->assertStringNotContainsString('### [json]', $content);
-        $this->assertStringNotContainsString('### [json-inline]', $content);
+        $this->assertStringNotContainsString('### json', $content);
+        $this->assertStringNotContainsString('### json-inline', $content);
 
-        $this->assertStringContainsString('### [php]', $content);
-        $this->assertStringNotContainsString('### [php-inline]', $content);
+        $this->assertStringNotContainsString('### php', $content);
+        $this->assertStringNotContainsString('### php-inline', $content);
     }
 
     public function testJson()

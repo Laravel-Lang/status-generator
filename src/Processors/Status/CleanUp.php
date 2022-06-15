@@ -12,13 +12,13 @@ class CleanUp extends Processor
 {
     public function handle(): void
     {
-        $this->delete('docs/status.md');
-        $this->delete('docs/statuses');
+        $this->delete('status.md');
+        $this->delete('statuses');
     }
 
     protected function delete(string $path): void
     {
-        if ($path = $this->getPath(true, $path)) {
+        if ($path = $this->getDocsPath($path, true)) {
             is_dir($path)
                 ? Directory::ensureDelete($path)
                 : File::ensureDelete($path);

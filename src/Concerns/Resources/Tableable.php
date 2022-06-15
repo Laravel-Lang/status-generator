@@ -26,7 +26,7 @@ trait Tableable
             return $this->table_stubs[$key];
         }
 
-        return $this->table_stubs[$key] = new Table($this->table_stub ?? $stub);
+        return $this->table_stubs[$key] = new Table($stub ?? $this->table_stub ?? null);
     }
 
     protected function getTableRow(TableColumn ...$columns): TableRowContract
@@ -41,5 +41,10 @@ trait Tableable
         $column = new TableColumn();
 
         return $column->push($value);
+    }
+
+    protected function resetTables(): void
+    {
+        $this->table_stubs = [];
     }
 }

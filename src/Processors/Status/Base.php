@@ -71,13 +71,13 @@ abstract class Base extends Processor
 
             $section = $this->section($is_json, $is_inline);
 
-            if ($values = $this->filter($locale, $section, $this->load($path), $this->excludes($locale))) {
-                $this->translations->merge($locale, $values, $is_json, $is_inline);
-            }
+            $values = $this->calculateStats($locale, $section, $this->load($path), $this->excludes($locale));
+
+            $this->translations->merge($locale, $values, $is_json, $is_inline);
         }
     }
 
-    protected function filter(string $locale, string $section, array $values, array $excludes): array
+    protected function calculateStats(string $locale, string $section, array $values, array $excludes): array
     {
         $source = $this->source_translations->section($this->default_locale, $section);
 

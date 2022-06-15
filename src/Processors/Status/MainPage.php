@@ -83,6 +83,6 @@ class MainPage extends Base
 
     protected function getTargetStatus(): string
     {
-        return $this->getPath(false, 'docs/status.md');
+        return $this->getDocsPath('status.md');
     }
 }
