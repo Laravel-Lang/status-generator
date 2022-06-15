@@ -12,4 +12,6 @@ interface Table extends Markdown
     public function __construct(?Stub $stub = null);
 
     public function push(TableRow $row): self;
+
+    public function with(array $values): self;
 }

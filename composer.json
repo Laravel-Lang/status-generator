@@ -24,6 +24,7 @@
         "ext-zip": "*",
         "archtechx/enums": "^0.3.0",
         "dragon-code/pretty-array": "^4.0",
+        "dragon-code/simple-dto": "^2.3",
         "dragon-code/support": "^6.1.3",
         "guzzlehttp/guzzle": "^7.4",
         "symfony/console": "^6.1",

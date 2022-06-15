@@ -15,6 +15,8 @@ class Table implements TableContract
 {
     protected array $rows = [];
 
+    protected array $with = [];
+
     public function __construct(
         protected ?Stub $stub = null
     ) {
@@ -23,6 +25,13 @@ class Table implements TableContract
     public function push(TableRow $row): TableContract
     {
         $this->rows[] = $row;
+
+        return $this;
+    }
+
+    public function with(array $values): TableContract
+    {
+        $this->with = $values;
 
         return $this;
     }
@@ -44,7 +53,9 @@ class Table implements TableContract
 
     protected function toStub(string $content): string
     {
-        return Str::replaceFormat($this->getTemplate(), compact('content'), '{{%s}}');
+        $values = array_merge(compact('content'), $this->with);
+
+        return Str::replaceFormat($this->getTemplate(), $values, '{{%s}}');
     }
 
     protected function hasStub(): bool
