@@ -3,11 +3,13 @@
 namespace LaravelLang\StatusGenerator\Commands;
 
 use LaravelLang\StatusGenerator\Constants\Command as CommandName;
+use LaravelLang\StatusGenerator\Processors\Status\CleanUp as CleanUpProcessor;
 use LaravelLang\StatusGenerator\Processors\Status\MainPage as MainPageProcessor;
 
 class Status extends Command
 {
     protected array|string $processor = [
+        CleanUpProcessor::class,
         MainPageProcessor::class,
     ];
 
