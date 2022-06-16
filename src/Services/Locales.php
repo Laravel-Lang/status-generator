@@ -117,7 +117,7 @@ class Locales
     protected function pushLocales(string $locale, string $key, array $values): void
     {
         foreach ($values as $locale_key => $locale_value) {
-            $this->locales[$locale][$key][$locale_key] = $locale_value;
+            $this->locales[$locale][$key][$locale_key] = $this->correctFirstChar($locale_value);
         }
     }
 
@@ -148,10 +148,22 @@ class Locales
 
         return Arr::of($files)
             ->map(static fn (string $filename) => Str::of($filename)
-            ->ltrim('\\/')
-            ->prepend('/')
-            ->prepend(rtrim($path, '\\/'))
-            ->toString())
+                ->ltrim('\\/')
+                ->prepend('/')
+                ->prepend(rtrim($path, '\\/'))
+                ->toString())
             ->toArray();
+    }
+
+    protected function correctFirstChar(string $value): string
+    {
+        if (Str::startsWith($value, ':')) {
+            $start = Str::of($value)->trim()->substr(0, 2)->upper();
+            $end   = Str::of($value)->trim()->substr(2);
+
+            return $start . $end;
+        }
+
+        return trim($value);
     }
 }
