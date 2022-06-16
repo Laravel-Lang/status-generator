@@ -4,17 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Commands\Sync;
 
-use LaravelLang\StatusGenerator\Constants\Command;
-
 class SuccessTest extends Base
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->command(Command::SYNC());
-    }
-
     public function testJson(): void
     {
         $this->assertSame([

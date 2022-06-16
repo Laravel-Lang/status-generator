@@ -11,10 +11,5 @@ abstract class Base extends TestCase
 {
     protected ?string $fixtures = __DIR__ . '/../../../Fixtures/Resources/Status';
 
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->command(Command::STATUS());
-    }
+    protected ?Command $call = Command::STATUS;
 }

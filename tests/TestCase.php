@@ -25,6 +25,7 @@ abstract class TestCase extends BaseTestCase
         $this->setFilesystem();
         $this->cleanUp();
         $this->copyFixtures();
+        $this->runCommand();
     }
 
     protected function cleanUp(): void
@@ -52,5 +53,12 @@ abstract class TestCase extends BaseTestCase
     protected function tempPath(string $filename): string
     {
         return $this->temp . '/' . $filename;
+    }
+
+    protected function assertJsonFileEqualsJson(array $expected, string $actual_file, string $method): void
+    {
+        $message = static::class . '::' . $method . '()';
+
+        $this->assertSame($expected, $this->filesystem->load($this->tempPath($actual_file)), $message);
     }
 }

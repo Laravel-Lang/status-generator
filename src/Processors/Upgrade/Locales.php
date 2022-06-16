@@ -34,9 +34,9 @@ class Locales extends Processor
     {
         $is_english = $locale === 'en';
 
-        $lang_path = $is_english ? $this->getSourcePath() : null;
+        $lang_path = $is_english ? $this->getSourcePath() : $this->getLocalesPath($locale);
 
-        foreach ($this->files($locale, $lang_path) as $file) {
+        foreach ($this->files($lang_path) as $file) {
             $path = $is_english
                 ? $this->getSourcePath($file)
                 : $this->getLocalesPath($locale . '/' . $file);
@@ -44,7 +44,7 @@ class Locales extends Processor
             $is_json   = $this->isJson($path);
             $is_inline = $this->isInline($path);
 
-            $this->setTranslations($locale, $path, $is_json, $is_inline, $is_english);
+            $this->setTranslations($locale, $path, $is_json, $is_inline);
         }
     }
 
@@ -61,15 +61,13 @@ class Locales extends Processor
         }
     }
 
-    protected function setTranslations(string $locale, string $path, bool $is_json, bool $is_inline, bool $correct_keys = false): void
+    protected function setTranslations(string $locale, string $path, bool $is_json, bool $is_inline): void
     {
-        $values = $this->load($path, $correct_keys);
-
-        $this->translations->merge($locale, $values, $is_json, $is_inline);
+        $this->translations->merge($locale, $this->load($path), $is_json, $is_inline);
     }
 
-    protected function files(string $locale, ?string $path = null): array
+    protected function files(string $path): array
     {
-        return File::names($path ?: $this->getLocalesPath($locale), recursive: true);
+        return File::names($path, recursive: true);
     }
 }

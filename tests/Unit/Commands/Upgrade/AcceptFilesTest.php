@@ -2,14 +2,10 @@
 
 namespace Tests\Unit\Commands\Upgrade;
 
-use LaravelLang\StatusGenerator\Constants\Command;
-
-class ProcessTest extends Base
+class AcceptFilesTest extends Base
 {
     public function testProcess(): void
     {
-        $this->command(Command::UPGRADE());
-
         // New structure
         $this->assertFileExists($this->tempPath('locales/af/_excludes.json'));
         $this->assertFileExists($this->tempPath('locales/af/json.json'));

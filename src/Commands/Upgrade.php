@@ -12,10 +12,10 @@ use LaravelLang\StatusGenerator\Processors\Upgrade\Source as SourceProcessor;
 class Upgrade extends Command
 {
     protected array|string $processor = [
+        SourceProcessor::class,
         LocalesProcessor::class,
         ReferentsProcessor::class,
         ExcludesProcessor::class,
-        SourceProcessor::class,
         CleanUpProcessor::class,
     ];
 
