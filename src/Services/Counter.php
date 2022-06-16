@@ -14,20 +14,14 @@ class Counter implements Arrayable
 
     protected array $missing = [];
 
-    protected array $complete = [];
-
     public function incrementAll(string $locale): void
     {
         $this->increment($this->all, $locale);
-
-        $this->calculateComplete($locale);
     }
 
     public function incrementMissing(string $locale): void
     {
         $this->increment($this->missing, $locale);
-
-        $this->calculateComplete($locale);
     }
 
     public function count(): int
@@ -45,8 +39,7 @@ class Counter implements Arrayable
             ->map(fn (int $all, string $locale) => $this->item(
                 $locale,
                 $all,
-                $this->missing[$locale]  ?? 0,
-                $this->complete[$locale] ?? 0
+                $this->missing[$locale] ?? 0
             ))->toArray();
     }
 
@@ -55,16 +48,8 @@ class Counter implements Arrayable
         $values[$locale] = Arr::get($values, $locale, 0) + 1;
     }
 
-    protected function calculateComplete(string $locale): void
+    protected function item(string $locale, int $all, int $missing): CountDto
     {
-        $all     = Arr::get($this->all, $locale, 0);
-        $missing = Arr::get($this->missing, $locale, 0);
-
-        $this->complete[$locale] = round(($all - $missing) / $all * 100, 2);
-    }
-
-    protected function item(string $locale, int $all, int $missing, float $complete): CountDto
-    {
-        return CountDto::fromArray(compact('locale', 'all', 'missing', 'complete'));
+        return CountDto::fromArray(compact('locale', 'all', 'missing'));
     }
 }

@@ -7,34 +7,20 @@ namespace LaravelLang\StatusGenerator\Processors\Upgrade;
 use DragonCode\Support\Facades\Filesystem\File;
 use DragonCode\Support\Facades\Helpers\Str;
 use LaravelLang\StatusGenerator\Constants\Stub;
+use LaravelLang\StatusGenerator\Markdown\Page;
+use LaravelLang\StatusGenerator\Markdown\Table;
 use LaravelLang\StatusGenerator\Processors\Processor;
-use LaravelLang\StatusGenerator\Resources\Tables\TableRow;
 
 class Referents extends Processor
 {
-    protected ?Stub $table_stub = Stub::REFERENTS;
+    protected array $items = [];
 
     public function handle(): void
     {
         if ($this->exists()) {
-            $this->setHeaders();
             $this->parse();
             $this->store();
         }
-    }
-
-    protected function setHeaders(): void
-    {
-        $columns = [
-            $this->getTableColumn('Locale'),
-            $this->getTableColumn('Developers'),
-        ];
-
-        $row = new TableRow();
-
-        $row->asHeader()->push(...$columns);
-
-        $this->getTable()->push($row);
     }
 
     protected function parse(): void
@@ -42,25 +28,24 @@ class Referents extends Processor
         preg_match_all('/public\sconst\s([a-zA-Z_]+)\s=\s\[\'(.+)\'\\]/', $this->content(), $matches);
 
         for ($i = 0; $i < count($matches[0]); ++$i) {
-            $key = $matches[1][$i];
+            $locale = $matches[1][$i];
 
-            $value = Str::of($matches[2][$i])
+            $developers = Str::of($matches[2][$i])
                 ->explode('\', \'')
                 ->map(fn (string $username) => Str::start($username, '@'))
                 ->implode(', ');
 
-            $locale = $this->getTableColumn($key);
-            $users  = $this->getTableColumn($value);
-
-            $row = $this->getTableRow($locale, $users);
-
-            $this->getTable()->push($row);
+            $this->items[] = compact('locale', 'developers');
         }
     }
 
     protected function store(): void
     {
-        File::store($this->getTargetReferents(), (string) $this->getTable());
+        $content = (string) Table::make()->withHeader()->data($this->items);
+
+        $page = (string) Page::make()->stub(Stub::REFERENTS)->data(compact('content'));
+
+        File::store($this->getTargetReferents(), $page);
     }
 
     protected function content(): string

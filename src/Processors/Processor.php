@@ -6,7 +6,6 @@ use DragonCode\Support\Facades\Filesystem\Directory;
 use DragonCode\Support\Facades\Helpers\Arr;
 use LaravelLang\StatusGenerator\Concerns\Files;
 use LaravelLang\StatusGenerator\Concerns\Parameters;
-use LaravelLang\StatusGenerator\Concerns\Resources\Tableable;
 use LaravelLang\StatusGenerator\Contracts;
 use LaravelLang\StatusGenerator\Exceptions\IncorrectBasePathException;
 use LaravelLang\StatusGenerator\Facades\Services\Locales;
@@ -19,14 +18,13 @@ abstract class Processor implements Contracts\Processor
 {
     use Files;
     use Parameters;
-    use Tableable;
 
     public function __construct(
         protected OutputInterface $output,
-        protected string $base_path,
-        protected array $parameters = [],
-        protected Translations $translations = new Translations(),
-        protected Manager $filesystem = new Manager()
+        protected string          $base_path,
+        protected array           $parameters = [],
+        protected Translations    $translations = new Translations(),
+        protected Manager         $filesystem = new Manager()
     ) {
         $this->validateBasePath();
     }

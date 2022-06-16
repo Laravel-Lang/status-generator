@@ -7,12 +7,13 @@ namespace LaravelLang\StatusGenerator\Processors\Status;
 use DragonCode\Support\Facades\Filesystem\File;
 use DragonCode\Support\Facades\Helpers\Digit;
 use LaravelLang\StatusGenerator\Constants\Stub;
+use LaravelLang\StatusGenerator\Contracts\Markdown;
+use LaravelLang\StatusGenerator\Markdown\Page;
+use LaravelLang\StatusGenerator\Markdown\Table;
 use LaravelLang\StatusGenerator\Objects\Count as CountDto;
 
 class MainPage extends Base
 {
-    protected ?Stub $table_stub = Stub::STATUS;
-
     protected int $columns = 5;
 
     protected string $complete_template = '[%s&nbsp;✔](statuses/%s.md)';
@@ -23,49 +24,44 @@ class MainPage extends Base
 
     protected int $stats_missing = 0;
 
+    protected Table|Markdown $table;
+
     protected function prepare(): void
     {
-        $this->prepareHeaders();
         $this->prepareLocales();
-    }
-
-    protected function prepareHeaders(): void
-    {
-        $columns = array_fill(0, min($this->columns, $this->counter->count()), $this->getTableColumn(''));
-
-        $row = $this->getTableRow(...$columns)->asHeader();
-
-        $this->getTable()->push($row);
     }
 
     protected function prepareLocales(): void
     {
+        $data = [];
+
         foreach ($this->rows() as $row) {
             $columns = [];
 
             foreach ($row as $column) {
-                $columns[] = $this->getTableColumn($this->compile($column));
+                $columns[] = $this->compile($column);
 
                 $this->stats_all     += $column->all;
                 $this->stats_missing += $column->missing;
             }
 
-            $table_row = $this->getTableRow(...$columns);
-
-            $this->getTable()->push($table_row);
+            $data[] = $columns;
         }
+
+        $this->table = Table::make()->data($data);
     }
 
     protected function store(): void
     {
-        File::store(
-            $this->getTargetStatus(),
-            (string) $this->getTable()->with([
-                'count_diff_percents' => round(($this->stats_all - $this->stats_missing) / $this->stats_all * 100, 2),
-                'count_diff'          => Digit::toShort($this->stats_all - $this->stats_missing),
-                'count_all'           => Digit::toShort($this->stats_all),
-            ])
-        );
+        $count_diff_percents = round(($this->stats_all - $this->stats_missing) / $this->stats_all * 100, 2);
+        $count_diff          = Digit::toShort($this->stats_all - $this->stats_missing);
+        $count_all           = Digit::toShort($this->stats_all);
+
+        $content = $this->table;
+
+        $page = Page::make()->stub(Stub::STATUS)->data(compact('content', 'count_all', 'count_diff', 'count_diff_percents'));
+
+        File::store($this->getTargetStatus(), (string) $page);
     }
 
     protected function compile(CountDto $dto): string

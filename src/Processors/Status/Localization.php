@@ -6,43 +6,52 @@ namespace LaravelLang\StatusGenerator\Processors\Status;
 
 use DragonCode\Support\Facades\Filesystem\File;
 use LaravelLang\StatusGenerator\Constants\Stub;
+use LaravelLang\StatusGenerator\Markdown\Page;
+use LaravelLang\StatusGenerator\Markdown\Table;
 
 class Localization extends Base
 {
-    /** @var array<\LaravelLang\StatusGenerator\Resources\Tables\Table> */
-    protected array $tables = [];
-
-    protected ?Stub $table_stub = Stub::STATUS_LOCALE;
+    /** @var array<\LaravelLang\StatusGenerator\Markdown\Table> */
+    protected array $pages = [];
 
     protected function prepare(): void
     {
         foreach ($this->translations->all() as $locale => $sections) {
             $count = 0;
 
-            foreach ($sections as $section => $values) {
-                foreach ($values as $key => $value) {
-                    $row = $this->getTableRow(
-                        $this->getTableColumn($key),
-                        $this->getTableColumn($value),
-                    );
+            $values = [];
 
-                    $this->getTable(Stub::STATUS_COMPONENT_LOCALE)->push($row)->with(compact('section', 'locale'));
+            foreach ($sections as $section => $rows) {
+                $count += count($rows);
+
+                if (empty($rows)) {
+                    continue;
                 }
 
-                $count += count($values);
+                $items = [];
+
+                foreach ($rows as $key => $value) {
+                    $items[] = [$key, $value];
+                }
+
+                $table = Table::make()->data($items);
+
+                $values[] = Page::make()->stub(Stub::STATUS_COMPONENT_LOCALE)->data([
+                    'section' => $section,
+                    'count'   => count($rows),
+                    'content' => $table,
+                ]);
             }
 
-            $content = $this->getTable($count ? Stub::STATUS_COMPONENT_LOCALE : Stub::STATUS_COMPONENT_TRANSLATED);
+            $content = $count ? implode(PHP_EOL . PHP_EOL, $values) : Page::make()->stub(Stub::STATUS_COMPONENT_TRANSLATED);
 
-            $this->tables[$locale] = $this->getTable()->with(compact('locale', 'count', 'content'));
-
-            $this->resetTables();
+            $this->pages[$locale] = Page::make()->stub(Stub::STATUS_LOCALE)->data(compact('locale', 'count', 'content'));
         }
     }
 
     protected function store(): void
     {
-        foreach ($this->tables as $locale => $table) {
+        foreach ($this->pages as $locale => $table) {
             File::store($this->getDocsPath("statuses/$locale.md"), (string) $table);
         }
     }
