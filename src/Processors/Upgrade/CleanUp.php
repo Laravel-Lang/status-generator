@@ -19,7 +19,6 @@ class CleanUp extends Processor
     public function handle(): void
     {
         $this->app();
-        $this->source();
         $this->excludes();
         $this->files();
     }
@@ -27,12 +26,6 @@ class CleanUp extends Processor
     protected function app(): void
     {
         $this->deleteDirectory('app');
-    }
-
-    protected function source(): void
-    {
-        $this->deleteDirectory('source');
-        $this->ensureDirectory('source');
     }
 
     protected function excludes(): void
@@ -52,11 +45,6 @@ class CleanUp extends Processor
         if ($path = $this->getPath(true, $name)) {
             Directory::ensureDelete($path);
         }
-    }
-
-    protected function ensureDirectory(string $name): void
-    {
-        Directory::ensureDirectory($this->getPath(false, $name));
     }
 
     protected function getFiles(): array
