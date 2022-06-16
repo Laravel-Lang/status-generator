@@ -9,18 +9,18 @@ class Table extends Base
 {
     protected bool $with_header = false;
 
-    public function withHeader(): self
-    {
-        $this->with_header = true;
-
-        return $this;
-    }
-
     public function __toString()
     {
         $content = $this->compileHeaders() . $this->compileData();
 
         return '<table width="100%">' . PHP_EOL . $content . PHP_EOL . '</table>';
+    }
+
+    public function withHeader(): self
+    {
+        $this->with_header = true;
+
+        return $this;
     }
 
     protected function compileHeaders(): ?string

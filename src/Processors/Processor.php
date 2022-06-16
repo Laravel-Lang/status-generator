@@ -21,10 +21,10 @@ abstract class Processor implements Contracts\Processor
 
     public function __construct(
         protected OutputInterface $output,
-        protected string          $base_path,
-        protected array           $parameters = [],
-        protected Translations    $translations = new Translations(),
-        protected Manager         $filesystem = new Manager()
+        protected string $base_path,
+        protected array $parameters = [],
+        protected Translations $translations = new Translations(),
+        protected Manager $filesystem = new Manager()
     ) {
         $this->validateBasePath();
     }

@@ -10,15 +10,15 @@ class Page extends Base
 {
     protected string $template;
 
+    public function __toString()
+    {
+        return Str::replaceFormat($this->template, $this->data, '{{%s}}');
+    }
+
     public function stub(Stub $stub): self
     {
         $this->template = Template::read($stub);
 
         return $this;
-    }
-
-    public function __toString()
-    {
-        return Str::replaceFormat($this->template, $this->data, '{{%s}}');
     }
 }
