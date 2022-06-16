@@ -11,6 +11,8 @@ trait Commands
 {
     protected ?CommandName $call = null;
 
+    protected int $call_tries = 1;
+
     protected function command(string $name, array $options = []): void
     {
         Command::call($name, array_merge([Option::PATH() => $this->temp], $options));
@@ -19,7 +21,9 @@ trait Commands
     protected function runCommand(): void
     {
         if ($name = $this->call?->value) {
-            $this->command($name);
+            for ($i = 0; $i < $this->call_tries; ++$i) {
+                $this->command($name);
+            }
         }
     }
 }
