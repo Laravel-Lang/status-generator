@@ -62,6 +62,6 @@ class Table extends Base
 
     protected function cell(string $value, string $operator = 'td'): string
     {
-        return '<' . $operator . ' width="' . $this->getWidth() . '%">' . $value . '</' . $operator . '>';
+        return '<' . $operator . ' width="' . $this->getWidth() . '%">' . PHP_EOL . PHP_EOL . $value . PHP_EOL . PHP_EOL . '</' . $operator . '>';
     }
 }
