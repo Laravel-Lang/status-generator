@@ -1,0 +1,7 @@
+{
+    "accepted": "Ce champ doit être accepté.",
+    "accepted_if": "Ce champ doit être accepté quand :other a la valeur :value.",
+    "active_url": "Ce n'est pas une URL valide",
+    "between.array": "Le tableau doit contenir entre :min et :max éléments.",
+    "between.file": "La taille du fichier doit être comprise entre :min et :max kilo-octets."
+}
