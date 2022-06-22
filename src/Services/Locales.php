@@ -34,6 +34,10 @@ class Locales
         ':ATTRIBUTE' => 'field',
     ];
 
+    protected array $skip = [
+        'custom.attribute-name.rule-name',
+    ];
+
     public function __construct(
         protected Manager $filesystem = new Manager()
     ) {
@@ -104,6 +108,10 @@ class Locales
     protected function pushSource(string $key, array $values): void
     {
         foreach (Arr::flattenKeys($values) as $flatten_key => $flatten_value) {
+            if ($this->hasSkip($flatten_key, $flatten_value)) {
+                continue;
+            }
+
             $this->source[$key][$flatten_key] = $flatten_value;
 
             if (Str::of($flatten_value)->lower()->contains(':attribute')) {
@@ -120,6 +128,10 @@ class Locales
     protected function pushLocales(string $locale, string $key, array $values): void
     {
         foreach ($values as $locale_key => $locale_value) {
+            if ($this->hasSkip($locale_key, $locale_value)) {
+                continue;
+            }
+
             $this->locales[$locale][$key][$locale_key] = $this->correctFirstChar($locale_value);
         }
     }
@@ -168,6 +180,11 @@ class Locales
         }
 
         return trim($value);
+    }
+
+    protected function hasSkip(string $key, mixed $value): bool
+    {
+        return empty($value) || in_array($key, $this->skip);
     }
 
     protected function sort(&$array): void

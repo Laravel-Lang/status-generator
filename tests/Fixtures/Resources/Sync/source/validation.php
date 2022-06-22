@@ -11,4 +11,12 @@ return [
         'array' => 'The :attribute must have between :min and :max items.',
         'file'  => 'The :attribute must be between :min and :max kilobytes.',
     ],
+
+    'custom' => [
+        'attribute-name' => [
+            'rule-name' => 'custom-message',
+        ],
+    ],
+
+    'attributes' => [],
 ];
