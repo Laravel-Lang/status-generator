@@ -40,13 +40,15 @@ trait Assert
             return;
         }
 
+        $locale = Str::upper($locale);
+
         $this->assertArrayHasKey($key, $source);
         $this->assertArrayHasKey($key, $target);
 
         $this->assertSame(
             array_keys($source[$key]),
             array_keys($target[$key]),
-            "Detected key mismatch in $locale locale"
+            "Detected key mismatch in $locale locale."
         );
     }
 }

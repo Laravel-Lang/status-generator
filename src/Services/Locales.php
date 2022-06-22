@@ -49,6 +49,9 @@ class Locales
             $this->loadLocales($locales);
         }
 
+        $this->sort($this->source);
+        $this->sort($this->locales);
+
         return $this;
     }
 
@@ -165,5 +168,10 @@ class Locales
         }
 
         return trim($value);
+    }
+
+    protected function sort(&$array): void
+    {
+        $array = Arr::ksort($array);
     }
 }
