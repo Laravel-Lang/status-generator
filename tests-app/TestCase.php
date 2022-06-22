@@ -21,11 +21,11 @@ abstract class TestCase extends BaseTestCase
             $source = $this->source();
             $values = $this->locale($locale);
 
-            $this->assertSame(array_keys($source['php']), array_keys($values['php']));
-            $this->assertSame(array_keys($source['php-inline']), array_keys($values['php-inline']));
+            $this->assertArray($source, $values, 'php', $locale);
+            $this->assertArray($source, $values, 'php-inline', $locale);
 
-            $this->assertSame(array_keys($source['json']), array_keys($values['json']));
-            $this->assertSame(array_keys($source['json-inline']), array_keys($values['json-inline']));
+            $this->assertArray($source, $values, 'json', $locale);
+            $this->assertArray($source, $values, 'json-inline', $locale);
         }
     }
 
@@ -34,8 +34,8 @@ abstract class TestCase extends BaseTestCase
         foreach ($this->locales() as $locale) {
             $values = $this->locale($locale);
 
-            $this->assertDoesntSee(array_values($values['json-inline']), [':attribute', ':Attribute'], 'locales/de/json-inline.json');
-            $this->assertDoesntSee(array_values($values['php-inline']), [':attribute', ':Attribute'], 'locales/de/php-inline.json');
+            $this->assertDoesntSee(array_values($values['json-inline'] ?? []), [':attribute', ':Attribute'], 'locales/de/json-inline.json');
+            $this->assertDoesntSee(array_values($values['php-inline'] ?? []), [':attribute', ':Attribute'], 'locales/de/php-inline.json');
         }
     }
 }

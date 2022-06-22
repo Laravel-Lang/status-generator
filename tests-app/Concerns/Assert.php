@@ -8,11 +8,6 @@ use DragonCode\Support\Facades\Helpers\Str;
 
 trait Assert
 {
-    protected function assertSee(array $haystack, array|string $needles, string $path): void
-    {
-        $this->assertSeeOrNot($haystack, $needles, $path, true);
-    }
-
     protected function assertDoesntSee(array $haystack, array|string $needles, string $path): void
     {
         $this->assertSeeOrNot($haystack, $needles, $path, false);
@@ -20,6 +15,12 @@ trait Assert
 
     protected function assertSeeOrNot(array $haystack, array|string $needles, string $path, bool $has_see): void
     {
+        if (empty($haystack)) {
+            $this->assertTrue(true);
+
+            return;
+        }
+
         $base_path = Str::after($path, rtrim($this->base_path, '\\/') . '/');
 
         foreach ($haystack as $item) {
@@ -29,5 +30,23 @@ trait Assert
                     : $this->assertFalse(str_contains($item, $needle), "The $base_path file must not contain the value: $needle\n$item");
             }
         }
+    }
+
+    protected function assertArray(array $source, array $target, string $key, string $locale): void
+    {
+        if (! isset($source[$key])) {
+            $this->assertTrue(true);
+
+            return;
+        }
+
+        $this->assertArrayHasKey($key, $source);
+        $this->assertArrayHasKey($key, $target);
+
+        $this->assertSame(
+            array_keys($source[$key]),
+            array_keys($target[$key]),
+            "Detected key mismatch in $locale locale"
+        );
     }
 }
