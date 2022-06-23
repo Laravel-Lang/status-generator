@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace LaravelLang\StatusGeneratorTests\Concerns;
 
+use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Helpers\Str;
 
 trait Assert
@@ -50,5 +51,14 @@ trait Assert
             array_keys($target[$key]),
             "Detected key mismatch in $locale locale."
         );
+    }
+
+    protected function assertExcludes(string $locale, array $source, array $excludes): void
+    {
+        $source = Arr::flatten($source);
+
+        $actual = array_intersect($excludes, $source);
+
+        $this->assertSame($actual, $excludes, "Detected excludes key mismatch in $locale locale.");
     }
 }

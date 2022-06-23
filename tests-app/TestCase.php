@@ -35,7 +35,19 @@ abstract class TestCase extends BaseTestCase
             $values = $this->locale($locale);
 
             $this->assertDoesntSee(array_values($values['json-inline'] ?? []), [':attribute', ':Attribute'], 'locales/de/json-inline.json');
-            $this->assertDoesntSee(array_values($values['php-inline']  ?? []), [':attribute', ':Attribute'], 'locales/de/php-inline.json');
+            $this->assertDoesntSee(array_values($values['php-inline'] ?? []), [':attribute', ':Attribute'], 'locales/de/php-inline.json');
+        }
+    }
+
+    public function testExcludes(): void
+    {
+        foreach ($this->locales() as $locale) {
+            $source   = $this->source();
+            $excludes = $this->excludes($locale);
+
+            ! empty($excludes)
+                ? $this->assertExcludes($locale, $source, $excludes)
+                : $this->assertTrue(true);
         }
     }
 }

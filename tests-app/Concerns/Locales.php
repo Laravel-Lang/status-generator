@@ -26,6 +26,11 @@ trait Locales
         return $this->localesService()->getLocale($locale);
     }
 
+    protected function excludes(string $locale): array
+    {
+        return $this->localesService()->getExcludes($locale);
+    }
+
     protected function localesService(): LocalesService
     {
         if (! empty($this->locales)) {
