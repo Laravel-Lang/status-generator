@@ -31,7 +31,13 @@ class Actualize extends Processor
 
     protected function merge(array $source, array $target): array
     {
-        return array_merge($source, array_intersect_key($target, $source));
+        $target = Arr::only($target, Arr::keys($source));
+
+        foreach ($target as $key => $value) {
+            $source[$key] = $value;
+        }
+
+        return $source;
     }
 
     protected function store(string $path, array $values): void
