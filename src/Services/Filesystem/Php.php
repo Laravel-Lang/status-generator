@@ -23,6 +23,8 @@ class Php extends Base
             ? $this->formatter->setSimple()
             : $this->formatter->setEqualsAlign();
 
+        $this->formatter->setKeyAsString();
+
         return $this->formatter->raw($values);
     }
 }
