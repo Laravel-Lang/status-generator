@@ -13,7 +13,7 @@
 To get the latest version of `Laravel Lang: Status Generator` library, simply require the project using [Composer](https://getcomposer.org):
 
 ```
-$ composer require laravel-lang/status-generator --dev
+composer require laravel-lang/status-generator --dev
 ```
 
 ## Using
