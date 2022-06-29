@@ -32,6 +32,9 @@ class AfrikaansTest extends Base
     public function testPhp(): void
     {
         $this->assertJsonFileEqualsJson([
+            '0'             => 'Numeriese nul',
+            '10'            => 'Numeriese Tien',
+            '100'           => 'Numeriese honderd',
             'accepted'      => 'Die :attribute moet aanvaar word.',
             'accepted_if'   => 'The :attribute must be accepted when :other is :value.',
             'active_url'    => 'Die :attribute is nie \'n geldig URL.',

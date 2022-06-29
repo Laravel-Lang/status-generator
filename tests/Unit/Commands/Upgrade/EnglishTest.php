@@ -29,6 +29,9 @@ class EnglishTest extends Base
     public function testPhp(): void
     {
         $this->assertJsonFileEqualsJson([
+            '0'             => 'Numeric Zero',
+            '10'            => 'Numeric Ten',
+            '100'           => 'Numeric Hundred',
             'accepted'      => 'The :attribute must be accepted.',
             'accepted_if'   => 'The :attribute must be accepted when :other is :value.',
             'active_url'    => 'The :attribute is not a valid URL.',

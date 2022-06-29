@@ -32,6 +32,9 @@ class GermanTest extends Base
     public function testPhp(): void
     {
         $this->assertJsonFileEqualsJson([
+            '0'             => 'Numerische Null',
+            '10'            => 'Numerische Zehn',
+            '100'           => 'Numerisch Hundert',
             'accepted'      => ':attribute muss akzeptiert werden.',
             'accepted_if'   => ':attribute muss akzeptiert werden, wenn :other :value ist.',
             'active_url'    => ':attribute ist keine gültige Internet-Adresse.',

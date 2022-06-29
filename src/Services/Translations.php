@@ -3,6 +3,7 @@
 namespace LaravelLang\StatusGenerator\Services;
 
 use DragonCode\Support\Facades\Helpers\Arr;
+use LaravelLang\StatusGenerator\Facades\Helpers\ArrayMerge;
 
 class Translations
 {
@@ -12,7 +13,9 @@ class Translations
     {
         $section = $this->getSectionName($is_json, $is_inline);
 
-        $this->set($locale, $section, array_merge($this->section($locale, $section), $values));
+        $items = ArrayMerge::merge($this->section($locale, $section), $values);
+
+        $this->set($locale, $section, $items);
     }
 
     public function all(): array
