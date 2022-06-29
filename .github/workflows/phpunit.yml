@@ -13,7 +13,7 @@ jobs:
             matrix:
                 symfony: [ "5.0", "6.0" ]
 
-        name: ${{ matrix.symfony }}
+        name: symfony ${{ matrix.symfony }}
 
         steps:
             -   name: Checkout code
