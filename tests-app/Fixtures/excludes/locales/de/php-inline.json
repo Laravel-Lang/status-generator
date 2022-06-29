@@ -1,0 +1,7 @@
+{
+    "accepted": "Dieses Feld muss akzeptiert werden.",
+    "accepted_if": "Dieses Feld muss akzeptiert werden, wenn :other :value ist.",
+    "active_url": "Das ist keine gültige Internet-Adresse.",
+    "between.array": "Dieser Inhalt muss zwischen :min & :max Elemente haben.",
+    "between.file": "Diese Datei muss zwischen :min & :max Kilobytes groß sein."
+}

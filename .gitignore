@@ -1,11 +1,7 @@
 .idea/
 
-app/
 build/
-docs/
-excludes/
-locales/
-source/
+node_modules/
 tmp/
 vendor/
 
