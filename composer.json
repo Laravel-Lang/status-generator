@@ -28,11 +28,11 @@
         "dragon-code/support": "^6.2",
         "guzzlehttp/guzzle": "^7.4",
         "phpunit/phpunit": "^9.5",
-        "symfony/console": "^6.1",
-        "symfony/finder": "^6.1"
+        "symfony/console": "^5.0 || ^6.0",
+        "symfony/finder": "^5.0 || ^6.0"
     },
     "require-dev": {
-        "symfony/var-dumper": "^6.1"
+        "symfony/var-dumper": "^5.0 || ^6.0"
     },
     "conflict": {
         "laravel-lang/lang": "<10.0",
