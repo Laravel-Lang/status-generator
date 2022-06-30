@@ -21,6 +21,7 @@ class Download extends Command
         ZipProcessor::class,
         SearchProcessor::class,
         CopyProcessor::class,
+        CleanUpProcessor::class,
     ];
 
     protected function configure(): Command
