@@ -2,6 +2,7 @@
 
 namespace LaravelLang\StatusGenerator\Processors\Download;
 
+use DragonCode\Support\Facades\Helpers\Str;
 use LaravelLang\StatusGenerator\Facades\Services\Packages\Package;
 use LaravelLang\StatusGenerator\Processors\Processor;
 
@@ -36,6 +37,6 @@ class Search extends Processor
 
     protected function getTargetFilename(): string
     {
-        return $this->getProjectParameter() . '.json';
+        return Str::of($this->getProjectParameter())->after('/')->end('.json')->toString();
     }
 }
