@@ -3,6 +3,7 @@
 namespace LaravelLang\StatusGenerator\Concerns;
 
 use DragonCode\Support\Facades\Helpers\Arr;
+use DragonCode\Support\Facades\Helpers\Str;
 use LaravelLang\StatusGenerator\Constants\Option;
 
 /** @mixin \LaravelLang\StatusGenerator\Processors\Processor */
