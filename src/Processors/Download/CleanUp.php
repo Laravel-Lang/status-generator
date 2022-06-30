@@ -15,7 +15,7 @@ class CleanUp extends Processor
     protected function directories(): array
     {
         return [
-            $this->getPath(false, 'tmp/' . $this->getDirectoryParameter()),
+            $this->getPath(false, 'tmp'),
         ];
     }
 }
