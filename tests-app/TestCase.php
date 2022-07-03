@@ -34,8 +34,8 @@ abstract class TestCase extends BaseTestCase
         foreach ($this->locales() as $locale) {
             $values = $this->locale($locale);
 
-            $this->assertDoesntSee(array_values($values['json-inline'] ?? []), [':attribute', ':Attribute'], 'locales/de/json-inline.json');
-            $this->assertDoesntSee(array_values($values['php-inline']  ?? []), [':attribute', ':Attribute'], 'locales/de/php-inline.json');
+            $this->assertDoesntSee(array_values($values['json-inline'] ?? []), [':attribute', ':Attribute'], "locales/$locale/json-inline.json");
+            $this->assertDoesntSee(array_values($values['php-inline']  ?? []), [':attribute', ':Attribute'], "locales/$locale/php-inline.json");
         }
     }
 
