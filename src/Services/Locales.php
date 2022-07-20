@@ -8,6 +8,7 @@ use DragonCode\Support\Facades\Filesystem\Path;
 use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Helpers\Str;
 use LaravelLang\StatusGenerator\Concerns\Files;
+use LaravelLang\StatusGenerator\Helpers\Inline;
 use LaravelLang\StatusGenerator\Services\Filesystem\Manager;
 
 class Locales
@@ -26,24 +27,6 @@ class Locales
         'validation' => ['attributes', 'custom'],
     ];
 
-    protected array $inline_replaces = [
-        [
-            'The :attribute' => 'This field',
-            'The :Attribute' => 'This field',
-            'The :ATTRIBUTE' => 'This field',
-        ],
-
-        [
-            ':attribute' => 'field',
-            ':Attribute' => 'field',
-            ':ATTRIBUTE' => 'field',
-        ],
-
-        [
-            'field field' => 'field',
-        ],
-    ];
-
     protected array $skip = [
         '*',
         '-',
@@ -52,7 +35,8 @@ class Locales
     ];
 
     public function __construct(
-        protected Manager $filesystem = new Manager()
+        protected Manager $filesystem = new Manager(),
+        protected Inline  $inline = new Inline()
     ) {
     }
 
@@ -130,11 +114,7 @@ class Locales
             $this->source[$key][$flatten_key] = $flatten_value;
 
             if (Str::of($flatten_value)->lower()->contains(':attribute')) {
-                foreach ($this->inline_replaces as $replaces) {
-                    $flatten_value = Str::replace($flatten_value, array_keys($replaces), array_values($replaces));
-                }
-
-                $this->source[$key . '-inline'][$flatten_key] = $flatten_value;
+                $this->source[$key . '-inline'][$flatten_key] = $this->inline->resolve($flatten_value);
             }
         }
     }
