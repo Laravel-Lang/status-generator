@@ -10,6 +10,8 @@ class Archive extends Processor
     public function handle(): void
     {
         $this->output->task('Unpack', fn () => $this->unpack($this->sourceFile(), $this->targetDirectory()));
+
+        $this->output->emptyLine();
     }
 
     protected function unpack(string $path, string $directory): void

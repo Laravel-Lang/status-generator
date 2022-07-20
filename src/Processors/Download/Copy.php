@@ -23,6 +23,8 @@ class Copy extends Processor
                 }
             });
         }
+
+        $this->output->emptyLine();
     }
 
     protected function process(string $path, array $files): void

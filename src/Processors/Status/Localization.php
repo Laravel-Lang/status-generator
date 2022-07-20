@@ -17,7 +17,7 @@ class Localization extends Base
     protected function prepare(): void
     {
         foreach ($this->translations->all() as $locale => $sections) {
-            $this->output->task('Processing locale: ' . $locale, function () use ($locale, $sections) {
+            $this->output->task('Processing ' . $locale, function () use ($locale, $sections) {
                 $count = 0;
 
                 $values = [];
@@ -49,14 +49,18 @@ class Localization extends Base
                 $this->pages[$locale] = Page::make()->stub(Stub::STATUS_LOCALE)->data(compact('locale', 'count', 'content'));
             });
         }
+
+        $this->output->emptyLine();
     }
 
     protected function store(): void
     {
         foreach ($this->pages as $locale => $table) {
-            $this->output->task('Storing locale: ' . $locale, function () use ($locale, $table) {
+            $this->output->task('Storing ' . $locale, function () use ($locale, $table) {
                 File::store($this->getDocsPath("statuses/$locale.md"), (string) $table);
             });
         }
+
+        $this->output->emptyLine();
     }
 }
