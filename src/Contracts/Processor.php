@@ -9,7 +9,7 @@ interface Processor
     public function __construct(
         Output $output,
         string $base_path,
-        array  $parameters = []
+        array $parameters = []
     );
 
     public function handle(): void;

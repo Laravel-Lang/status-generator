@@ -50,7 +50,7 @@ class Output
         $this->output->writeln('');
     }
 
-    protected function when(bool $when, callable $callback, callable $fallback = null): void
+    protected function when(bool $when, callable $callback, ?callable $fallback = null): void
     {
         if ($when) {
             Call::callback($callback);

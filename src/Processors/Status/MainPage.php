@@ -34,7 +34,7 @@ class MainPage extends Base
     protected function store(): void
     {
         $this->output->task('Storing main page', function () {
-            $count_diff_percents = round(($this->stats_all - $this->stats_missing) / $this->stats_all * 100, 2);
+            $count_diff_percents = round(($this->stats_all         - $this->stats_missing) / $this->stats_all * 100, 2);
             $count_diff          = Digit::toShort($this->stats_all - $this->stats_missing);
             $count_all           = Digit::toShort($this->stats_all);
 
