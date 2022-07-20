@@ -166,10 +166,10 @@ class Locales
 
         return Arr::of($files)
             ->map(static fn (string $filename) => Str::of($filename)
-                ->ltrim('\\/')
-                ->prepend('/')
-                ->prepend(rtrim($path, '\\/'))
-                ->toString())
+            ->ltrim('\\/')
+            ->prepend('/')
+            ->prepend(rtrim($path, '\\/'))
+            ->toString())
             ->toArray();
     }
 
