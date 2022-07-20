@@ -25,13 +25,21 @@ class Locales
     ];
 
     protected array $inline_replaces = [
-        'The :attribute' => 'This field',
-        'The :Attribute' => 'This field',
-        'The :ATTRIBUTE' => 'This field',
+        [
+            'The :attribute' => 'This field',
+            'The :Attribute' => 'This field',
+            'The :ATTRIBUTE' => 'This field',
+        ],
 
-        ':attribute' => 'field',
-        ':Attribute' => 'field',
-        ':ATTRIBUTE' => 'field',
+        [
+            ':attribute' => 'field',
+            ':Attribute' => 'field',
+            ':ATTRIBUTE' => 'field',
+        ],
+
+        [
+            'field field' => 'field',
+        ],
     ];
 
     protected array $skip = [
@@ -118,7 +126,11 @@ class Locales
             $this->source[$key][$flatten_key] = $flatten_value;
 
             if (Str::of($flatten_value)->lower()->contains(':attribute')) {
-                $this->source[$key . '-inline'][$flatten_key] = Str::replace($flatten_value, array_keys($this->inline_replaces), array_values($this->inline_replaces));
+                foreach ($this->inline_replaces as $replaces) {
+                    $flatten_value = Str::replace($flatten_value, array_keys($replaces), array_values($replaces));
+                }
+
+                $this->source[$key . '-inline'][$flatten_key] = $flatten_value;
             }
         }
     }
