@@ -6,5 +6,4 @@ namespace LaravelLang\StatusGenerator\Helpers;
 
 class Inliner
 {
-
 }
