@@ -10,8 +10,6 @@ use LaravelLang\StatusGenerator\Processors\Processor;
 
 class Actualize extends Processor
 {
-    protected string $fallback_locale = 'en';
-
     public function handle(): void
     {
         $source = $this->locales()->getSource();
@@ -25,7 +23,7 @@ class Actualize extends Processor
 
                     $locale_values = Arr::get($locales, $file, []);
 
-                    $result = $locale === $this->fallback_locale ? $source_values : $this->merge($source_values, $locale_values);
+                    $result = $this->merge($source_values, $locale_values);
 
                     ! empty($result) ? $this->store($path, $result) : $this->delete($path);
                 }
