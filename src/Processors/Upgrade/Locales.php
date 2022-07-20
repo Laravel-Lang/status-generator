@@ -21,13 +21,13 @@ class Locales extends Processor
     protected function collectLocales(): void
     {
         foreach ($this->directories() as $locale) {
-            $this->collect($locale);
+            $this->output->task('Collect locale: ' . $locale, fn () => $this->collect($locale));
         }
     }
 
     protected function collectEnglish(string $locale = 'en'): void
     {
-        $this->collect($locale);
+        $this->output->task('Collect source', fn () => $this->collect($locale));
     }
 
     protected function collect(string $locale): void
@@ -51,13 +51,15 @@ class Locales extends Processor
     protected function store(): void
     {
         foreach ($this->translations->all() as $locale => $items) {
-            foreach ($items as $filename => $values) {
-                $path = $this->getLocalesPath($locale . '/' . $filename . '.json', false);
+            $this->output->task('Storing locale: ' . $locale, function () use ($locale, $items) {
+                foreach ($items as $filename => $values) {
+                    $path = $this->getLocalesPath($locale . '/' . $filename . '.json', false);
 
-                $values = $this->ksort($values);
+                    $values = $this->ksort($values);
 
-                $this->filesystem->store($path, $values, false);
-            }
+                    $this->filesystem->store($path, $values, false);
+                }
+            });
         }
     }
 

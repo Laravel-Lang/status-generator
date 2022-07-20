@@ -18,9 +18,11 @@ class CleanUp extends Processor
 
     public function handle(): void
     {
-        $this->app();
-        $this->excludes();
-        $this->files();
+        $this->output->task('Clean Up', function () {
+            $this->app();
+            $this->excludes();
+            $this->files();
+        });
     }
 
     protected function app(): void

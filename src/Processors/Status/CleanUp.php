@@ -12,8 +12,10 @@ class CleanUp extends Processor
 {
     public function handle(): void
     {
-        $this->delete('status.md');
-        $this->delete('statuses');
+        $this->output->task('Clean Up', function () {
+            $this->delete('status.md');
+            $this->delete('statuses');
+        });
     }
 
     protected function delete(string $path): void

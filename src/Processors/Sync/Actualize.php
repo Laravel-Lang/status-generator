@@ -15,18 +15,22 @@ class Actualize extends Processor
         $source = $this->locales()->getSource();
 
         foreach ($this->directories() as $locale) {
-            $locales = $this->locales()->getLocale($locale);
+            $this->output->task($locale, function () use ($locale, $source) {
+                $locales = $this->locales()->getLocale($locale);
 
-            foreach ($source as $file => $source_values) {
-                $path = $this->getTargetFilename($locale, $file);
+                foreach ($source as $file => $source_values) {
+                    $path = $this->getTargetFilename($locale, $file);
 
-                $locale_values = Arr::get($locales, $file, []);
+                    $locale_values = Arr::get($locales, $file, []);
 
-                $result = $this->merge($source_values, $locale_values);
+                    $result = $this->merge($source_values, $locale_values);
 
-                ! empty($result) ? $this->store($path, $result) : $this->delete($path);
-            }
+                    ! empty($result) ? $this->store($path, $result) : $this->delete($path);
+                }
+            });
         }
+
+        $this->output->emptyLine();
     }
 
     protected function merge(array $source, array $target): array

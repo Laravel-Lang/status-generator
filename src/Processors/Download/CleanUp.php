@@ -9,7 +9,7 @@ class CleanUp extends Processor
 {
     public function handle(): void
     {
-        Directory::ensureDelete($this->directories());
+        $this->output->task('Clean Up', fn () => Directory::ensureDelete($this->directories()));
     }
 
     protected function directories(): array

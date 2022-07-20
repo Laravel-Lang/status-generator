@@ -13,14 +13,18 @@ class Excludes extends Processor
         $source = $this->getSourceValues();
 
         foreach ($this->directories() as $locale) {
-            $path = $this->getTargetFilename($locale);
+            $this->output->task($locale, function () use ($locale, $source) {
+                $path = $this->getTargetFilename($locale);
 
-            $target = $this->getLocaleExcludes($locale);
+                $target = $this->getLocaleExcludes($locale);
 
-            $intersect = $this->compare($source, $target);
+                $intersect = $this->compare($source, $target);
 
-            ! empty($intersect) ? $this->store($path, $intersect) : $this->delete($path);
+                ! empty($intersect) ? $this->store($path, $intersect) : $this->delete($path);
+            });
         }
+
+        $this->output->emptyLine();
     }
 
     protected function compare(array $source, array $target): array

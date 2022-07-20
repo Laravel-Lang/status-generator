@@ -10,9 +10,11 @@ class Search extends Processor
 {
     public function handle(): void
     {
-        if ($values = $this->parse()) {
-            $this->store($values);
-        }
+        $this->output->task('Search', function () {
+            if ($values = $this->parse()) {
+                $this->store($values);
+            }
+        });
     }
 
     protected function parse(): array

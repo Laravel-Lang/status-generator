@@ -10,12 +10,14 @@ class Excludes extends Processor
     public function handle(): void
     {
         foreach ($this->directories() as $locale) {
-            $source = $this->getSourceFilename($locale);
-            $target = $this->getTargetFilename($locale);
+            $this->output->task('Processing excludes for ' . $locale, function () use ($locale) {
+                $source = $this->getSourceFilename($locale);
+                $target = $this->getTargetFilename($locale);
 
-            if ($source && File::exists($source)) {
-                $this->store($target, $this->load($source));
-            }
+                if ($source && File::exists($source)) {
+                    $this->store($target, $this->load($source));
+                }
+            });
         }
     }
 

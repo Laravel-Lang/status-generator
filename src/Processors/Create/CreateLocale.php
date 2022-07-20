@@ -24,10 +24,12 @@ class CreateLocale extends Processor
     protected function copy(): void
     {
         foreach ($this->sourceFiles() as $filename) {
-            File::copy(
-                $this->makePath($filename, $this->default_locale),
-                $this->makePath($filename, $this->getLocale())
-            );
+            $this->output->task($filename, function () use ($filename) {
+                File::copy(
+                    $this->makePath($filename, $this->default_locale),
+                    $this->makePath($filename, $this->getLocale())
+                );
+            });
         }
     }
 
