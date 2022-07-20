@@ -41,7 +41,7 @@ class Output
         $this->when(
             $this->hasComponent(),
             fn () => $this->component()->task($message, $callback),
-            fn () => $this->output->writeln($message) && $callback()
+            fn () => $this->simpleTask($message, $callback)
         );
     }
 
@@ -61,6 +61,13 @@ class Output
         if (! empty($fallback)) {
             Call::callback($fallback);
         }
+    }
+
+    protected function simpleTask(string $message, callable $callback): void
+    {
+        $this->output->writeln($message);
+
+        Call::callback($callback);
     }
 
     protected function hasComponent(): bool
