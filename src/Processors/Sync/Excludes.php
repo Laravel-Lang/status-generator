@@ -13,7 +13,7 @@ class Excludes extends Processor
         $source = $this->getSourceValues();
 
         foreach ($this->directories() as $locale) {
-            $this->output->task($locale, function () use ($locale, $source) {
+            $this->output->task('Excludes of ' . $locale, function () use ($locale, $source) {
                 $path = $this->getTargetFilename($locale);
 
                 $target = $this->getLocaleExcludes($locale);
