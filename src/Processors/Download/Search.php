@@ -15,6 +15,8 @@ class Search extends Processor
                 $this->store($values);
             }
         });
+
+        $this->output->emptyLine();
     }
 
     protected function parse(): array

@@ -46,9 +46,11 @@ class Excludes extends Processor
     {
         $result = [];
 
-        foreach ($this->locales()->getSource() as $values) {
-            $result = Arr::addUnique($result, $values);
-        }
+        $this->output->task('Load sources', function () use (&$result) {
+            foreach ($this->locales()->getSource() as $values) {
+                $result = Arr::addUnique($result, $values);
+            }
+        });
 
         return $result;
     }

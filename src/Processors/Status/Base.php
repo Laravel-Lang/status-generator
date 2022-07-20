@@ -42,27 +42,31 @@ abstract class Base extends Processor
 
     protected function collectSource(): void
     {
-        foreach ($this->files($this->getSourcePath()) as $file) {
-            $this->output->task('Collect source: ' . $file, function () use ($file) {
+        $this->output->task('Collecting sources', function () {
+            foreach ($this->files($this->getSourcePath()) as $file) {
                 $path = $this->getSourcePath($file);
 
                 $is_json   = $this->isJson($path);
                 $is_inline = $this->isInline($path);
 
                 $this->source_translations->merge($this->default_locale, $this->load($path), $is_json, $is_inline);
-            });
-        }
+            }
+        });
+
+        $this->output->emptyLine();
     }
 
     protected function collectLocales(): void
     {
         foreach ($this->directories() as $locale) {
-            $this->output->task('Collect locale: ' . $locale, function () use ($locale) {
+            $this->output->task('Collecting ' . $locale, function () use ($locale) {
                 if ($locale !== $this->default_locale) {
                     $this->collectLocale($locale);
                 }
             });
         }
+
+        $this->output->emptyLine();
     }
 
     protected function collectLocale(string $locale): void

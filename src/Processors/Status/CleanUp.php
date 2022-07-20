@@ -16,6 +16,8 @@ class CleanUp extends Processor
             $this->delete('status.md');
             $this->delete('statuses');
         });
+
+        $this->output->emptyLine();
     }
 
     protected function delete(string $path): void

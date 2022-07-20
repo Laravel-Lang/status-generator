@@ -32,10 +32,6 @@ class Locales
         ':attribute' => 'field',
         ':Attribute' => 'field',
         ':ATTRIBUTE' => 'field',
-
-        'field field' => 'field',
-        'Field field' => 'field',
-        'FIELD field' => 'field',
     ];
 
     protected array $skip = [
@@ -170,10 +166,10 @@ class Locales
 
         return Arr::of($files)
             ->map(static fn (string $filename) => Str::of($filename)
-            ->ltrim('\\/')
-            ->prepend('/')
-            ->prepend(rtrim($path, '\\/'))
-            ->toString())
+                ->ltrim('\\/')
+                ->prepend('/')
+                ->prepend(rtrim($path, '\\/'))
+                ->toString())
             ->toArray();
     }
 
