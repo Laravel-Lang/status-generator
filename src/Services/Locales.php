@@ -32,6 +32,10 @@ class Locales
         ':attribute' => 'field',
         ':Attribute' => 'field',
         ':ATTRIBUTE' => 'field',
+
+        'field field' => 'field',
+        'Field field' => 'field',
+        'FIELD field' => 'field',
     ];
 
     protected array $skip = [
