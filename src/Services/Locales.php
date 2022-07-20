@@ -14,6 +14,8 @@ class Locales
 {
     use Files;
 
+    protected string $default_locale = 'en';
+
     protected array $source = [];
 
     protected array $locales = [];
@@ -105,7 +107,9 @@ class Locales
             foreach ($this->files($path . '/' . $locale) as $file) {
                 $key = Path::filename($file);
 
-                $values = $this->read($file);
+                $values = $locale === $this->default_locale
+                    ? $this->getSource()[$key]
+                    : $this->read($file);
 
                 $this->isExcludes($file)
                     ? $this->pushExcludes($locale, $values)
