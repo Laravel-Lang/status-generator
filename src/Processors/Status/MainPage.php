@@ -28,7 +28,22 @@ class MainPage extends Base
 
     protected function prepare(): void
     {
-        $this->prepareLocales();
+        $this->output->task('Prepare main page locales', fn () => $this->prepareLocales());
+    }
+
+    protected function store(): void
+    {
+        $this->output->task('Storing main page', function () {
+            $count_diff_percents = round(($this->stats_all - $this->stats_missing) / $this->stats_all * 100, 2);
+            $count_diff          = Digit::toShort($this->stats_all - $this->stats_missing);
+            $count_all           = Digit::toShort($this->stats_all);
+
+            $content = $this->table;
+
+            $page = Page::make()->stub(Stub::STATUS)->data(compact('content', 'count_all', 'count_diff', 'count_diff_percents'));
+
+            File::store($this->getTargetStatus(), (string) $page);
+        });
     }
 
     protected function prepareLocales(): void
@@ -49,19 +64,6 @@ class MainPage extends Base
         }
 
         $this->table = Table::make()->data($data);
-    }
-
-    protected function store(): void
-    {
-        $count_diff_percents = round(($this->stats_all         - $this->stats_missing) / $this->stats_all * 100, 2);
-        $count_diff          = Digit::toShort($this->stats_all - $this->stats_missing);
-        $count_all           = Digit::toShort($this->stats_all);
-
-        $content = $this->table;
-
-        $page = Page::make()->stub(Stub::STATUS)->data(compact('content', 'count_all', 'count_diff', 'count_diff_percents'));
-
-        File::store($this->getTargetStatus(), (string) $page);
     }
 
     protected function compile(CountDto $dto): string

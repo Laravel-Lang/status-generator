@@ -2,14 +2,14 @@
 
 namespace LaravelLang\StatusGenerator\Contracts;
 
-use Symfony\Component\Console\Output\OutputInterface;
+use LaravelLang\StatusGenerator\Helpers\Output;
 
 interface Processor
 {
     public function __construct(
-        OutputInterface $output,
+        Output $output,
         string $base_path,
-        array $parameters = []
+        array  $parameters = []
     );
 
     public function handle(): void;

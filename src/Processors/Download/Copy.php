@@ -13,13 +13,15 @@ class Copy extends Processor
     public function handle(): void
     {
         foreach ($this->getCopyParameter() as $directory) {
-            $path = $this->tempDirectory() . '/' . $this->getShortProjectParameter() . '-' . $this->getVersionParameter() . '/' . $directory . '/en';
+            $this->output->task('Copy: ' . $directory, function () use ($directory) {
+                $path = $this->tempDirectory() . '/' . $this->getShortProjectParameter() . '-' . $this->getVersionParameter() . '/' . $directory . '/en';
 
-            if (Directory::exists($path)) {
-                $files = $this->files($path);
+                if (Directory::exists($path)) {
+                    $files = $this->files($path);
 
-                $this->process($path, $files);
-            }
+                    $this->process($path, $files);
+                }
+            });
         }
     }
 

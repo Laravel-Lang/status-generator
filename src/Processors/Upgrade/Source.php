@@ -10,9 +10,11 @@ class Source extends Processor
     public function handle(): void
     {
         foreach ($this->files() as $file) {
-            $path = $this->getSourcePath($file);
+            $this->output->task('Processing source file: ' . $file, function () use ($file) {
+                $path = $this->getSourcePath($file);
 
-            $this->filesystem->store($path, $this->load($path), false, true);
+                $this->filesystem->store($path, $this->load($path), false, true);
+            });
         }
     }
 

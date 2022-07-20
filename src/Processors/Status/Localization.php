@@ -17,42 +17,46 @@ class Localization extends Base
     protected function prepare(): void
     {
         foreach ($this->translations->all() as $locale => $sections) {
-            $count = 0;
+            $this->output->task('Processing locale: ' . $locale, function () use ($locale, $sections) {
+                $count = 0;
 
-            $values = [];
+                $values = [];
 
-            foreach ($sections as $section => $rows) {
-                $count += count($rows);
+                foreach ($sections as $section => $rows) {
+                    $count += count($rows);
 
-                if (empty($rows)) {
-                    continue;
+                    if (empty($rows)) {
+                        continue;
+                    }
+
+                    $items = [];
+
+                    foreach ($rows as $key => $value) {
+                        $items[] = [$key, $value];
+                    }
+
+                    $table = Table::make()->data($items);
+
+                    $values[] = Page::make()->stub(Stub::STATUS_COMPONENT_LOCALE)->data([
+                        'section' => $section,
+                        'count'   => count($rows),
+                        'content' => $table,
+                    ]);
                 }
 
-                $items = [];
+                $content = $count ? implode(PHP_EOL . PHP_EOL, $values) : Page::make()->stub(Stub::STATUS_COMPONENT_TRANSLATED);
 
-                foreach ($rows as $key => $value) {
-                    $items[] = [$key, $value];
-                }
-
-                $table = Table::make()->data($items);
-
-                $values[] = Page::make()->stub(Stub::STATUS_COMPONENT_LOCALE)->data([
-                    'section' => $section,
-                    'count'   => count($rows),
-                    'content' => $table,
-                ]);
-            }
-
-            $content = $count ? implode(PHP_EOL . PHP_EOL, $values) : Page::make()->stub(Stub::STATUS_COMPONENT_TRANSLATED);
-
-            $this->pages[$locale] = Page::make()->stub(Stub::STATUS_LOCALE)->data(compact('locale', 'count', 'content'));
+                $this->pages[$locale] = Page::make()->stub(Stub::STATUS_LOCALE)->data(compact('locale', 'count', 'content'));
+            });
         }
     }
 
     protected function store(): void
     {
         foreach ($this->pages as $locale => $table) {
-            File::store($this->getDocsPath("statuses/$locale.md"), (string) $table);
+            $this->output->task('Storing locale: ' . $locale, function () use ($locale, $table) {
+                File::store($this->getDocsPath("statuses/$locale.md"), (string) $table);
+            });
         }
     }
 }

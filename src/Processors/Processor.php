@@ -9,10 +9,10 @@ use LaravelLang\StatusGenerator\Concerns\Parameters;
 use LaravelLang\StatusGenerator\Contracts;
 use LaravelLang\StatusGenerator\Exceptions\IncorrectBasePathException;
 use LaravelLang\StatusGenerator\Facades\Services\Locales;
+use LaravelLang\StatusGenerator\Helpers\Output;
 use LaravelLang\StatusGenerator\Services\Filesystem\Manager;
 use LaravelLang\StatusGenerator\Services\Locales as LocalesService;
 use LaravelLang\StatusGenerator\Services\Translations;
-use Symfony\Component\Console\Output\OutputInterface;
 
 abstract class Processor implements Contracts\Processor
 {
@@ -20,11 +20,11 @@ abstract class Processor implements Contracts\Processor
     use Parameters;
 
     public function __construct(
-        protected OutputInterface $output,
-        protected string $base_path,
-        protected array $parameters = [],
+        protected Output       $output,
+        protected string       $base_path,
+        protected array        $parameters = [],
         protected Translations $translations = new Translations(),
-        protected Manager $filesystem = new Manager()
+        protected Manager      $filesystem = new Manager()
     ) {
         $this->validateBasePath();
     }

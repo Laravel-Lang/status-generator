@@ -6,6 +6,7 @@ use DragonCode\Support\Facades\Helpers\Arr;
 use LaravelLang\StatusGenerator\Concerns\Commands\ValidateOptions;
 use LaravelLang\StatusGenerator\Constants\Option;
 use LaravelLang\StatusGenerator\Contracts\Processor;
+use LaravelLang\StatusGenerator\Helpers\Output;
 use Symfony\Component\Console\Command\Command as BaseCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -17,7 +18,7 @@ abstract class Command extends BaseCommand
 
     protected InputInterface $input;
 
-    protected OutputInterface $output;
+    protected Output $output;
 
     /** @var string|array<string|Processor> */
     protected array|string $processor;
@@ -25,7 +26,7 @@ abstract class Command extends BaseCommand
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->input  = $input;
-        $this->output = $output;
+        $this->output = Output::make($this->input, $output);
 
         $this->validateOptions();
         $this->handle();
@@ -41,7 +42,7 @@ abstract class Command extends BaseCommand
     protected function handle(): void
     {
         foreach ($this->resolveProcessors() as $processor) {
-            $this->output->writeln(sprintf('Processing: %s...', get_class($processor)));
+            $this->output->info(get_class($processor));
 
             $processor->handle();
         }

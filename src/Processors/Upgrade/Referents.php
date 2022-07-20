@@ -17,10 +17,12 @@ class Referents extends Processor
 
     public function handle(): void
     {
-        if ($this->exists()) {
-            $this->parse();
-            $this->store();
-        }
+        $this->output->task('Referents', function () {
+            if ($this->exists()) {
+                $this->parse();
+                $this->store();
+            }
+        });
     }
 
     protected function parse(): void
