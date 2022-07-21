@@ -6,6 +6,7 @@ namespace LaravelLang\StatusGenerator\Processors\Status;
 
 use DragonCode\Support\Facades\Filesystem\File;
 use DragonCode\Support\Facades\Helpers\Arr;
+use DragonCode\Support\Facades\Helpers\Str;
 use LaravelLang\StatusGenerator\Helpers\Inline;
 use LaravelLang\StatusGenerator\Processors\Processor;
 use LaravelLang\StatusGenerator\Services\Counter;
@@ -94,15 +95,18 @@ abstract class Base extends Processor
     {
         $source = $this->source_translations->section($this->default_locale, $section);
 
+        $inline = Str::contains($section, 'inline');
+
         return Arr::of($values)
-            ->filter(function (string $value, string $key) use ($locale, $excludes, $source) {
+            ->filter(function (string $value, string $key) use ($locale, $excludes, $source, $inline) {
                 $this->counter->incrementAll($locale);
 
-                if (in_array($value, $excludes)) {
-                    return false;
-                }
+                $has_exclude = in_array($value, $excludes);
 
-                if ($value === Arr::get($source, $key) || $value === $this->inline->resolve($key)) {
+                $has_main   = $value === Arr::get($source, $key);
+                $has_inline = $value === $this->inline->resolve($key) && $inline;
+
+                if (! $has_exclude && ($has_main || $has_inline)) {
                     $this->counter->incrementMissing($locale);
 
                     return true;
