@@ -6,15 +6,17 @@ use DragonCode\Support\Facades\Filesystem\Path;
 use DragonCode\Support\Facades\Helpers\Arr;
 use LaravelLang\StatusGenerator\Constants\Command as CommandName;
 use LaravelLang\StatusGenerator\Constants\Option;
-use LaravelLang\StatusGenerator\Processors\Download\Archive as ZipProcessor;
 use LaravelLang\StatusGenerator\Processors\Download\CleanUp as CleanUpProcessor;
 use LaravelLang\StatusGenerator\Processors\Download\Copy as CopyProcessor;
 use LaravelLang\StatusGenerator\Processors\Download\Download as DownloadProcessor;
 use LaravelLang\StatusGenerator\Processors\Download\Search as SearchProcessor;
+use LaravelLang\StatusGenerator\Processors\Download\Unpack as ZipProcessor;
 use Symfony\Component\Console\Input\InputOption;
 
 class Download extends Command
 {
+    protected bool $output_by_processor = true;
+
     protected array|string $processor = [
         CleanUpProcessor::class,
         DownloadProcessor::class,

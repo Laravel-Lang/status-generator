@@ -3,6 +3,7 @@
 namespace LaravelLang\StatusGenerator\Commands;
 
 use DragonCode\Support\Facades\Helpers\Arr;
+use DragonCode\Support\Facades\Instances\Instance;
 use LaravelLang\StatusGenerator\Concerns\Commands\ValidateOptions;
 use LaravelLang\StatusGenerator\Constants\Option;
 use LaravelLang\StatusGenerator\Contracts\Processor;
@@ -19,6 +20,8 @@ abstract class Command extends BaseCommand
     protected InputInterface $input;
 
     protected Output $output;
+
+    protected bool $output_by_processor = false;
 
     /** @var string|array<string|Processor> */
     protected array|string $processor;
@@ -41,10 +44,30 @@ abstract class Command extends BaseCommand
 
     protected function handle(): void
     {
+        $this->output_by_processor
+            ? $this->handleByProcessor()
+            : $this->handleMain();
+    }
+
+    protected function handleMain(): void
+    {
         foreach ($this->resolveProcessors() as $processor) {
-            $this->output->info(get_class($processor));
+            $name = $this->getClassBasename($processor);
+
+            $this->output->info($name);
 
             $processor->handle();
+        }
+    }
+
+    protected function handleByProcessor(): void
+    {
+        $this->output->info(static::class);
+
+        foreach ($this->resolveProcessors() as $processor) {
+            $name = $this->getClassBasename($processor);
+
+            $this->output->task($name, fn () => $processor->handle());
         }
     }
 
@@ -88,5 +111,10 @@ abstract class Command extends BaseCommand
     protected function extraOptions(): array
     {
         return [];
+    }
+
+    protected function getClassBasename(object|string $class): string
+    {
+        return Instance::basename($class);
     }
 }
