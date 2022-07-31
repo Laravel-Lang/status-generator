@@ -5,13 +5,11 @@ namespace LaravelLang\StatusGenerator\Processors\Download;
 use LaravelLang\StatusGenerator\Facades\Services\Filesystem\Archive as Zip;
 use LaravelLang\StatusGenerator\Processors\Processor;
 
-class Archive extends Processor
+class Unpack extends Processor
 {
     public function handle(): void
     {
-        $this->output->task('Unpack', fn () => $this->unpack($this->sourceFile(), $this->targetDirectory()));
-
-        $this->output->emptyLine();
+        $this->unpack($this->sourceFile(), $this->targetDirectory());
     }
 
     protected function unpack(string $path, string $directory): void

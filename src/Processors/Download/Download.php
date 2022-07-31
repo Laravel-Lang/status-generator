@@ -11,9 +11,7 @@ class Download extends Processor
 
     public function handle(): void
     {
-        $this->output->task('Download', fn () => $this->client()->download($this->getUrlParameter(), $this->getFile()));
-
-        $this->output->emptyLine();
+        $this->client()->download($this->getUrlParameter(), $this->getFile());
     }
 
     protected function getFile(): string
