@@ -36,7 +36,7 @@ class Locales
 
     public function __construct(
         protected Manager $filesystem = new Manager(),
-        protected Inline $inline = new Inline()
+        protected Inline  $inline = new Inline()
     ) {
     }
 
@@ -44,14 +44,13 @@ class Locales
     {
         if (empty($this->source)) {
             $this->loadSource($source);
+            $this->sort($this->source);
         }
 
         if (empty($this->locales)) {
             $this->loadLocales($locales);
+            $this->sort($this->locales);
         }
-
-        $this->sort($this->source);
-        $this->sort($this->locales);
 
         return $this;
     }
