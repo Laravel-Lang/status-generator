@@ -2,7 +2,8 @@
 
 namespace LaravelLang\StatusGenerator\Services\Filesystem;
 
-use DragonCode\Support\Facades\Filesystem\File;
+use DragonCode\PrettyArray\Services\File as Pretty;
+use DragonCode\Support\Tools\Stub;
 
 class Json extends Base
 {
@@ -12,7 +13,7 @@ class Json extends Base
 
         $values = $this->sort($values, $is_simple);
 
-        File::store($path, $this->encode($values));
+        Pretty::make($this->encode($values))->store($path, Stub::JSON);
     }
 
     protected function encode(array $values): string
