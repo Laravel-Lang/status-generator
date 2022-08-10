@@ -32,7 +32,7 @@ class Locales
 
     public function __construct(
         protected Manager $filesystem = new Manager(),
-        protected Inline  $inline = new Inline()
+        protected Inline $inline = new Inline()
     ) {
     }
 
@@ -145,10 +145,10 @@ class Locales
 
         return Arr::of($files)
             ->map(static fn (string $filename) => Str::of($filename)
-                ->ltrim('\\/')
-                ->prepend('/')
-                ->prepend(rtrim($path, '\\/'))
-                ->toString())
+            ->ltrim('\\/')
+            ->prepend('/')
+            ->prepend(rtrim($path, '\\/'))
+            ->toString())
             ->toArray();
     }
 
