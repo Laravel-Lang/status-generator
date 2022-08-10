@@ -25,11 +25,4 @@ trait Files
     {
         return Path::filename($path) === '_excludes';
     }
-
-    protected function isFileContains(string $path, string $contains): bool
-    {
-        $name = Path::filename($path);
-
-        return Str::of($name)->lower()->contains($contains);
-    }
 }

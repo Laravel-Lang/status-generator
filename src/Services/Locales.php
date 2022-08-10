@@ -23,10 +23,6 @@ class Locales
 
     protected array $excludes = [];
 
-    protected array $ignore = [
-        'validation' => ['attributes', 'custom'],
-    ];
-
     protected array $skip = [
         '*',
         '-',
@@ -36,7 +32,7 @@ class Locales
 
     public function __construct(
         protected Manager $filesystem = new Manager(),
-        protected Inline $inline = new Inline()
+        protected Inline  $inline = new Inline()
     ) {
     }
 
@@ -76,7 +72,6 @@ class Locales
             $key = $this->isJson($file) ? 'json' : 'php';
 
             $values = $this->read($file);
-            $values = $this->filter($file, $values);
 
             $this->pushSource($key, $values);
         }
@@ -134,17 +129,6 @@ class Locales
         }
     }
 
-    protected function filter(string $path, array $values): array
-    {
-        foreach ($this->ignore as $contains => $ignore) {
-            if ($this->isFileContains($path, $contains)) {
-                return Arr::except($values, $ignore);
-            }
-        }
-
-        return $values;
-    }
-
     protected function read(string $path): array
     {
         return $this->filesystem->load($path);
@@ -161,10 +145,10 @@ class Locales
 
         return Arr::of($files)
             ->map(static fn (string $filename) => Str::of($filename)
-            ->ltrim('\\/')
-            ->prepend('/')
-            ->prepend(rtrim($path, '\\/'))
-            ->toString())
+                ->ltrim('\\/')
+                ->prepend('/')
+                ->prepend(rtrim($path, '\\/'))
+                ->toString())
             ->toArray();
     }
 
