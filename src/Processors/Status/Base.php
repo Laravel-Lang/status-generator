@@ -85,26 +85,28 @@ abstract class Base extends Processor
 
             $section = $this->section($is_json, $is_inline);
 
-            $values = $this->calculateStats($locale, $section, $this->load($path), $this->excludes($locale));
+            $values = $this->filterValues($locale, $section, $this->load($path), $this->excludes($locale));
 
             $this->translations->merge($locale, $values, $is_json, $is_inline);
         }
     }
 
-    protected function calculateStats(string $locale, string $section, array $values, array $excludes): array
+    protected function filterValues(string $locale, string $section, array $values, array $excludes): array
     {
-        $source = $this->source_translations->section($this->default_locale, $section);
-
-        $inline = Str::contains($section, 'inline');
+        $source_main     = $this->source_translations->section($this->default_locale, $section);
+        $source_fallback = $this->source_translations->section($this->default_locale, Str::before($section, '-'));
 
         return Arr::of($values)
-            ->filter(function (string $value, string $key) use ($locale, $excludes, $source, $inline) {
+            ->filter(function (string $value, string $key) use ($locale, $excludes, $source_main, $source_fallback) {
                 $this->counter->incrementAll($locale);
 
                 $has_exclude = in_array($value, $excludes);
 
-                $has_main   = $value === Arr::get($source, $key);
-                $has_inline = $value === $this->inline->resolve($key) && $inline;
+                $fallback = Arr::get($source_fallback, $key, $key);
+                $original = Arr::get($source_main, $key, $fallback);
+
+                $has_main   = $value === $original;
+                $has_inline = $value === $this->inline->resolve($original ?? $fallback);
 
                 if (! $has_exclude && ($has_main || $has_inline)) {
                     $this->counter->incrementMissing($locale);
