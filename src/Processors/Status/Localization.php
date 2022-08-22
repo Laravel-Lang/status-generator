@@ -35,7 +35,7 @@ class Localization extends Base
                         $items[] = [$key, $value];
                     }
 
-                    $table = Table::make()->data($items);
+                    $table = Table::make()->withCustomHeaders('Key', 'Value')->data($items);
 
                     $values[] = Page::make()->stub(Stub::STATUS_COMPONENT_LOCALE)->data([
                         'section' => $section,

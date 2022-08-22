@@ -4,10 +4,13 @@ namespace LaravelLang\StatusGenerator\Markdown;
 
 use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Helpers\Str;
+use DragonCode\Support\Helpers\Ables\Arrayable;
 
 class Table extends Base
 {
     protected bool $with_header = false;
+
+    protected array $headers = [];
 
     public function __toString()
     {
@@ -23,14 +26,21 @@ class Table extends Base
         return $this;
     }
 
+    public function withCustomHeaders(string ...$headers): self
+    {
+        $this->headers = $headers;
+
+        return $this->withHeader();
+    }
+
     protected function compileHeaders(): ?string
     {
         if (! $this->with_header) {
             return null;
         }
 
-        $columns = Arr::of($this->data[0])
-            ->keys()
+        $columns = Arr::of($this->headers ?: $this->data[0])
+            ->when(empty($this->headers), fn (Arrayable $arr) => $arr->keys())
             ->map(fn (string $value) => Str::title($value))
             ->toArray();
 
