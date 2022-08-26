@@ -10,6 +10,11 @@
     ],
     "authors": [
         {
+            "name": "Andrey Helldar",
+            "email": "helldar@dragon-code.pro"
+            "homepage": "https://github.com/andrey-helldar"
+        },
+        {
             "name": "Laravel-Lang Team",
             "homepage": "https://github.com/Laravel-Lang"
         }
