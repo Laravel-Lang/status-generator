@@ -11,7 +11,14 @@ class Finder
 
     protected array $names = ['*.php', '*.json', '*.js', '*.ts', '*.vue', '*.stub'];
 
-    protected array $contains = ['__(', 'trans(', '@lang(', 'Lang::get('];
+    protected array $contains = [
+        '__(',
+        'trans(',
+        'trans_choice(',
+        '@lang(',
+        'Lang::get(',
+        'Lang::choice(',
+    ];
 
     protected array $files = [];
 
