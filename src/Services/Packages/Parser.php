@@ -10,7 +10,7 @@ class Parser
 {
     use Makeable;
 
-    protected string $regex = '/\b(__|trans|trans_choice|lang|Lang::get|Lang::choice)\(\r*\s*(.+)\r*\s*(\)|,\s?\[)/U';
+    protected string $regex = '/\b(__|trans|trans_choice|lang|Lang::get|Lang::choice|\$t|\$tChoice|wTrans|wTransChoice)\(\r*\s*(.+)\r*\s*(\)|,\s?\[)/U';
 
     protected string $trim_chars = " \t\n\r\0\x0B'\"";
 

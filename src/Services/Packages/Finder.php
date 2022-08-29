@@ -18,6 +18,10 @@ class Finder
         '@lang(',
         'Lang::get(',
         'Lang::choice(',
+        '$t(',
+        '$tChoice(',
+        'wTrans(',
+        'wTransChoice(',
     ];
 
     protected array $files = [];
