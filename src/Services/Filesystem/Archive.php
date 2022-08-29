@@ -17,7 +17,8 @@ class Archive
         if ($this->zip->open($path)) {
             $this->zip->extractTo($directory);
             $this->zip->close();
-        } else {
+        }
+        else {
             throw new RuntimeException('Cannot unpack file: ' . realpath($path));
         }
     }
