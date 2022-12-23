@@ -15,7 +15,7 @@ class FailedTest extends Base
         $this->expectException(IncorrectOptionValueException::class);
         $this->expectExceptionMessage('Option "' . Option::URL() . '" is not defined or has an empty value.');
 
-        $this->command(Command::DOWNLOAD());
+        $this->command(Command::DOWNLOAD);
     }
 
     public function testProject(): void
@@ -23,7 +23,7 @@ class FailedTest extends Base
         $this->expectException(IncorrectOptionValueException::class);
         $this->expectExceptionMessage('Option "' . Option::PROJECT() . '" is not defined or has an empty value.');
 
-        $this->command(Command::DOWNLOAD(), [
+        $this->command(Command::DOWNLOAD, [
             Option::URL() => 'https://github.com/laravel/framework/archive/refs/heads/9.x.zip',
         ]);
     }
@@ -33,7 +33,7 @@ class FailedTest extends Base
         $this->expectException(IncorrectOptionValueException::class);
         $this->expectExceptionMessage('Option "' . Option::VERSION() . '" is not defined or has an empty value.');
 
-        $this->command(Command::DOWNLOAD(), [
+        $this->command(Command::DOWNLOAD, [
             Option::URL()     => 'https://github.com/laravel/framework/archive/refs/heads/9.x.zip',
             Option::PROJECT() => 'laravel',
         ]);

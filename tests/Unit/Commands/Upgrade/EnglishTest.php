@@ -12,17 +12,17 @@ class EnglishTest extends Base
     public function testJson(): void
     {
         $this->assertJsonFileEqualsJson([
-            'A fresh verification link has been sent to your email address.' => 'A fresh verification link has been sent to your email address.',
+            'A fresh verification link has been sent to your email address.'      => 'A fresh verification link has been sent to your email address.',
 
-            'All rights reserved.' => 'All rights reserved.',
-            'API Token'            => 'API Token',
+            'All rights reserved.'                                                => 'All rights reserved.',
+            'API Token'                                                           => 'API Token',
 
             'Before proceeding, please check your email for a verification link.' => 'Before proceeding, please check your email for a verification link.',
 
-            'Forbidden'        => 'Forbidden',
-            'Go to page :page' => 'Go to page :page',
+            'Forbidden'                                                           => 'Forbidden',
+            'Go to page :page'                                                    => 'Go to page :page',
 
-            'ID' => 'ID',
+            'ID'                                                                  => 'ID',
         ], 'locales/en/json.json', __FUNCTION__);
     }
 

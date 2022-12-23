@@ -46,7 +46,7 @@ class SuccessTest extends Base
 
     protected function download(string $url, string $project, string $version, array $copy = []): void
     {
-        $this->command(Command::DOWNLOAD(), [
+        $this->command(Command::DOWNLOAD, [
             Option::URL()     => $url,
             Option::PROJECT() => $project,
             Option::VERSION() => $version,

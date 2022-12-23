@@ -4,6 +4,7 @@ namespace LaravelLang\StatusGenerator\Processors\Upgrade;
 
 use DragonCode\Support\Facades\Filesystem\Directory;
 use DragonCode\Support\Facades\Filesystem\File;
+use DragonCode\Support\Facades\Helpers\Str;
 use LaravelLang\StatusGenerator\Processors\Processor;
 
 class CleanUp extends Processor
@@ -56,6 +57,6 @@ class CleanUp extends Processor
 
     protected function hasDelete(): callable
     {
-        return fn (string $filename) => ! in_array($filename, $this->protected_files);
+        return fn (string $filename) => ! Str::endsWith($filename, $this->protected_files);
     }
 }
