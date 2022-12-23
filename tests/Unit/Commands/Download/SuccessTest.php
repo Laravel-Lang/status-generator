@@ -44,6 +44,16 @@ class SuccessTest extends Base
         $this->assertFileExists($this->tempPath('source/laravel/laravel/9.x/validation.php'));
     }
 
+    public function testDifferentDirectoryName(): void
+    {
+        $this->download('https://github.com/laravel/spark-aurelius-mollie/archive/refs/heads/v2.zip', 'spark', 'v2', ['install-stubs/resources/lang']);
+
+        $this->assertFileExists($this->tempPath('source/spark/v2/spark.json'));
+
+        $this->assertFileExists($this->tempPath('source/spark/v2/teams.php'));
+        $this->assertFileExists($this->tempPath('source/spark/v2/validation.php'));
+    }
+
     protected function download(string $url, string $project, string $version, array $copy = []): void
     {
         $this->command(Command::DOWNLOAD, [
