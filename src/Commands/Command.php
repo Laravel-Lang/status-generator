@@ -76,7 +76,15 @@ abstract class Command extends BaseCommand
      */
     protected function resolveProcessors(): array
     {
-        return Arr::map((array) $this->processor, fn (string $processor) => new $processor($this->output, $this->basePath(), $this->getParameters()));
+        return Arr::map($this->getProcessors(), fn (string $processor) => new $processor($this->output, $this->basePath(), $this->getParameters()));
+    }
+
+    protected function getProcessors(): array
+    {
+        return Arr::of((array) $this->processor)
+            ->filter(fn (Option|string $option) => is_string($option) || ! $this->getOption($option))
+            ->map(fn (Option|string $item, int|string $key) => is_string($item) ? $item : $key)
+            ->toArray();
     }
 
     protected function basePath(): string
@@ -103,9 +111,9 @@ abstract class Command extends BaseCommand
         return $this->input->getOptions();
     }
 
-    protected function getOption(string $name): mixed
+    protected function getOption(Option|string $name): mixed
     {
-        return $this->input->getOption($name);
+        return $this->input->getOption($name->value ?? $name);
     }
 
     protected function extraOptions(): array

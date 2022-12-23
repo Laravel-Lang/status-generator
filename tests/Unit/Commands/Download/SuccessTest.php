@@ -54,13 +54,24 @@ class SuccessTest extends Base
         $this->assertFileExists($this->tempPath('source/spark/v2/validation.php'));
     }
 
-    protected function download(string $url, string $project, string $version, array $copy = []): void
+    public function testOnlyCopy(): void
+    {
+        $this->download('https://github.com/laravel/spark-aurelius-mollie/archive/refs/heads/v2.zip', 'spark', 'v2', ['install-stubs/resources/lang'], true);
+
+        $this->assertFileDoesNotExist($this->tempPath('source/spark/v2/spark.json'));
+
+        $this->assertFileExists($this->tempPath('source/spark/v2/teams.php'));
+        $this->assertFileExists($this->tempPath('source/spark/v2/validation.php'));
+    }
+
+    protected function download(string $url, string $project, string $version, array $copy = [], bool $only_copy = false): void
     {
         $this->command(Command::DOWNLOAD, [
-            Option::URL()     => $url,
-            Option::PROJECT() => $project,
-            Option::VERSION() => $version,
-            Option::COPY()    => $copy,
+            Option::URL()       => $url,
+            Option::PROJECT()   => $project,
+            Option::VERSION()   => $version,
+            Option::COPY()      => $copy,
+            Option::ONLY_COPY() => $only_copy,
         ]);
     }
 }
