@@ -37,6 +37,14 @@ vendor/bin/lang download --url=https://github.com/laravel/jetstream/archive/refs
 vendor/bin/lang download --url=https://github.com/laravel/jetstream/archive/refs/heads/1.x.zip --project=jetstream --ver=1.x
 ```
 
+You can also specify the `--only-copy` option to disable key lookups.
+In this case, the mechanism will copy the found files from the paths passed in the `--path` parameter.
+Translations within files will not be searched.
+
+```bash
+vendor/bin/lang download --url=https://github.com/laravel/laravel/archive/refs/heads/8.x.zip --project=laravel --ver=8.x --copy=lang --copy=resources/lang --only-copy
+```
+
 ### Translations status
 
 ```bash

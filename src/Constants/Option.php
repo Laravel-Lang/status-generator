@@ -9,6 +9,7 @@ use ArchTech\Enums\InvokableCases;
  * @method static string DIRECTORY()
  * @method static string FILE()
  * @method static string LOCALE()
+ * @method static string ONLY_COPY()
  * @method static string PATH()
  * @method static string PROJECT()
  * @method static string URL()
@@ -25,6 +26,8 @@ enum Option: string
     case FILE = 'file';
 
     case LOCALE = 'locale';
+
+    case ONLY_COPY = 'only-copy';
 
     case PATH = 'path';
 

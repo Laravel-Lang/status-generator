@@ -21,7 +21,7 @@ class Download extends Command
         CleanUpProcessor::class,
         DownloadProcessor::class,
         ZipProcessor::class,
-        SearchProcessor::class,
+        SearchProcessor::class => Option::ONLY_COPY,
         CopyProcessor::class,
         CleanUpProcessor::class,
     ];
@@ -34,7 +34,8 @@ class Download extends Command
             ->addOption(Option::URL(), null, InputOption::VALUE_REQUIRED, 'Link to the repository')
             ->addOption(Option::PROJECT(), null, InputOption::VALUE_REQUIRED, 'Project name')
             ->addOption(Option::VERSION(), null, InputOption::VALUE_REQUIRED, 'Project version')
-            ->addOption(Option::COPY(), null, InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'Directory within the project from which files will be copied');
+            ->addOption(Option::COPY(), null, InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'Directory within the project from which files will be copied')
+            ->addOption(Option::ONLY_COPY(), null, InputOption::VALUE_NONE, 'Specifies when to only copy files without searching for keys');
     }
 
     protected function extraOptions(): array
@@ -47,9 +48,9 @@ class Download extends Command
 
     protected function directory(): string
     {
-        return Arr::of([])
-            ->push($this->getOption(Option::PROJECT()))
-            ->push($this->getOption(Option::VERSION()))
+        return Arr::of()
+            ->push($this->getOption(Option::PROJECT))
+            ->push($this->getOption(Option::VERSION))
             ->map(static fn (string $value) => trim($value, '\\/'))
             ->implode('/')
             ->toString();
@@ -57,6 +58,6 @@ class Download extends Command
 
     protected function file(): string
     {
-        return Path::basename($this->getOption(Option::URL()));
+        return Path::basename($this->getOption(Option::URL));
     }
 }
