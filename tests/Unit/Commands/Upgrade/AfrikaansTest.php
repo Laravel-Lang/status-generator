@@ -15,17 +15,17 @@ class AfrikaansTest extends Base
     public function testJson(): void
     {
         $this->assertJsonFileEqualsJson([
-            'A fresh verification link has been sent to your email address.' => 'A fresh verification link has been sent to your email address.',
+            'A fresh verification link has been sent to your email address.'      => 'A fresh verification link has been sent to your email address.',
 
-            'All rights reserved.' => 'Alle regte voorbehou.',
-            'API Token'            => 'API Token',
+            'All rights reserved.'                                                => 'Alle regte voorbehou.',
+            'API Token'                                                           => 'API Token',
 
             'Before proceeding, please check your email for a verification link.' => 'Before proceeding, please check your email for a verification link.',
 
-            'Forbidden'        => 'Prohibido',
-            'Go to page :page' => 'Gaan na bladsy :page',
+            'Forbidden'                                                           => 'Prohibido',
+            'Go to page :page'                                                    => 'Gaan na bladsy :page',
 
-            'ID' => 'ID',
+            'ID'                                                                  => 'ID',
         ], 'locales/af/json.json', __FUNCTION__);
     }
 

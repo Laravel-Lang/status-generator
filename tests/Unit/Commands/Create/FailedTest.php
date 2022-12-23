@@ -13,6 +13,6 @@ class FailedTest extends Base
         $this->expectException(IncorrectOptionValueException::class);
         $this->expectExceptionMessage('Option "' . Option::LOCALE() . '" is not defined or has an empty value.');
 
-        $this->command(Command::CREATE());
+        $this->command(Command::CREATE);
     }
 }

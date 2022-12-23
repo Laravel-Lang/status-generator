@@ -12,7 +12,7 @@ class SuccessTest extends Base
         $this->assertDirectoryExists($this->tempPath('locales/en'));
         $this->assertDirectoryDoesNotExist($this->tempPath('locales/de'));
 
-        $this->command(Command::CREATE(), [
+        $this->command(Command::CREATE, [
             Option::LOCALE() => 'de',
         ]);
 
