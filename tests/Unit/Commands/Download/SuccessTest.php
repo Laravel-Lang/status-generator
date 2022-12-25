@@ -56,9 +56,9 @@ class SuccessTest extends Base
 
     public function testOnlyCopy(): void
     {
-        $this->download('https://github.com/laravel/spark-aurelius-mollie/archive/refs/heads/v2.zip', 'spark', 'v2', ['install-stubs/resources/lang'], true);
+        $this->download('https://github.com/laravel/spark-aurelius/archive/refs/heads/12.x.zip', 'spark', 'v2', ['install-stubs/resources/lang'], true);
 
-        $this->assertFileDoesNotExist($this->tempPath('source/spark/v2/spark.json'));
+        $this->assertFileExists($this->tempPath('source/spark/v2/en.json'));
 
         $this->assertFileExists($this->tempPath('source/spark/v2/teams.php'));
         $this->assertFileExists($this->tempPath('source/spark/v2/validation.php'));

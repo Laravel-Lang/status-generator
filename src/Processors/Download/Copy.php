@@ -5,15 +5,17 @@ namespace LaravelLang\StatusGenerator\Processors\Download;
 use DragonCode\Support\Facades\Filesystem\Directory;
 use DragonCode\Support\Facades\Filesystem\File;
 use DragonCode\Support\Facades\Filesystem\Path;
+use DragonCode\Support\Facades\Helpers\Arr;
+use DragonCode\Support\Facades\Helpers\Str;
 use LaravelLang\StatusGenerator\Processors\Processor;
 
 class Copy extends Processor
 {
     public function handle(): void
     {
-        foreach ($this->getCopyParameter() as $directory) {
-            foreach ($this->getAllDirectories() as $folder) {
-                $path = $this->targetDirectory($folder, $directory);
+        foreach ($this->getAllDirectories() as $project) {
+            foreach ($this->getCopyParameter() as $directory) {
+                $path = $this->targetDirectory($project, $directory);
 
                 if (Directory::exists($path)) {
                     $files = $this->files($path);
@@ -39,7 +41,9 @@ class Copy extends Processor
 
     protected function files(string $path): array
     {
-        return File::names($path, recursive: true);
+        $files = File::names($path, recursive: true);
+
+        return Arr::filter($files, fn (string $filename) => Str::startsWith($filename, 'en'));
     }
 
     protected function tempDirectory(): string
@@ -54,7 +58,7 @@ class Copy extends Processor
 
     protected function targetDirectory(string $project, string $version): string
     {
-        return implode('/', [$this->tempDirectory(), $project, $version, 'en']);
+        return implode('/', [$this->tempDirectory(), $project, $version]);
     }
 
     protected function getAllDirectories(): array
