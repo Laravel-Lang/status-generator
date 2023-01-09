@@ -155,13 +155,13 @@ class Locales
     protected function correctFirstChar(string $value): string
     {
         if (Str::startsWith($value, ':')) {
-            $start = Str::of($value)->trim()->substr(0, 2)->upper();
-            $end   = Str::of($value)->trim()->substr(2);
+            $start = Str::of($value)->substr(0, 2)->upper();
+            $end   = Str::of($value)->substr(2);
 
             return $start . $end;
         }
 
-        return trim($value);
+        return $value;
     }
 
     protected function hasSkip(string $key, mixed $value): bool
