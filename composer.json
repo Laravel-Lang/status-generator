@@ -34,7 +34,9 @@
         "guzzlehttp/guzzle": "^7.4",
         "illuminate/console": "^8.0 || ^9.0",
         "illuminate/container": "^8.0 || ^9.0",
+        "laravel-lang/publisher": "^14.5",
         "phpunit/phpunit": "^9.5",
+        "stichoza/google-translate-php": "^5.1",
         "symfony/console": "^5.0 || ^6.0",
         "symfony/finder": "^5.0 || ^6.0"
     },

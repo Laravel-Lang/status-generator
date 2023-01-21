@@ -8,6 +8,7 @@ use LaravelLang\StatusGenerator\Commands\Create;
 use LaravelLang\StatusGenerator\Commands\Download;
 use LaravelLang\StatusGenerator\Commands\Status;
 use LaravelLang\StatusGenerator\Commands\Sync;
+use LaravelLang\StatusGenerator\Commands\Translate;
 use LaravelLang\StatusGenerator\Commands\Upgrade;
 use LaravelLang\StatusGenerator\Constants\Command as CommandName;
 use Symfony\Component\Console\Application;
@@ -35,6 +36,7 @@ class Command
         $app->add(new Download());
         $app->add(new Status());
         $app->add(new Sync());
+        $app->add(new Translate());
         $app->add(new Upgrade());
 
         return $app;
