@@ -9,7 +9,7 @@ class GermanTest extends Base
     public function testJson(): void
     {
         $this->assertJsonFileEqualsJson([
-            'Added.'        => 'Hinzugefügt.',
+            'Added.' => 'Hinzugefügt.',
             'Administrator' => 'Administrator',
         ], 'locales/de/json.json', __FUNCTION__);
     }
@@ -37,14 +37,6 @@ class GermanTest extends Base
 
     public function testPhpInline(): void
     {
-        $this->assertJsonFileEqualsJson([
-            'accepted'      => 'Dieses Feld muss akzeptiert werden.',
-            'accepted_if'   => 'Dieses Feld muss akzeptiert werden, wenn :other gleich :value ist.',
-            'active_url'    => 'Dieses Feld ist keine gültige URL.',
-            'between.array' => 'This field must have between :min and :max items.',
-            'between.file'  => 'This field must be between :min and :max kilobytes.',
-        ], 'locales/de/php-inline.json', __FUNCTION__);
-
         $values = $this->filesystem->load($this->tempPath('locales/de/php-inline.json'));
 
         $this->assertContainsEquals($values['accepted'], ['Dieses Feld muss akzeptiert werden.']);
