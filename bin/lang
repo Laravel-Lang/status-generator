@@ -5,6 +5,7 @@ use LaravelLang\StatusGenerator\Commands\Create;
 use LaravelLang\StatusGenerator\Commands\Download;
 use LaravelLang\StatusGenerator\Commands\Status;
 use LaravelLang\StatusGenerator\Commands\Sync;
+use LaravelLang\StatusGenerator\Commands\Translate;
 use LaravelLang\StatusGenerator\Commands\Upgrade;
 use Symfony\Component\Console\Application;
 
@@ -17,9 +18,9 @@ if (PHP_SAPI !== 'cli' || (PHP_MAJOR_VERSION < 8 && PHP_MINOR_VERSION < 1)) {
 error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
 
 $possible_files = [
-    __DIR__ . '/../../../autoload.php',
-    __DIR__ . '/../../autoload.php',
-    __DIR__ . '/../vendor/autoload.php',
+        __DIR__ . '/../../../autoload.php',
+        __DIR__ . '/../../autoload.php',
+        __DIR__ . '/../vendor/autoload.php',
 ];
 
 $file = null;
@@ -43,6 +44,7 @@ $application->add(new Create());
 $application->add(new Download());
 $application->add(new Status());
 $application->add(new Sync());
+$application->add(new Translate());
 $application->add(new Upgrade());
 
 $application->run();

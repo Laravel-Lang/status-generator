@@ -58,6 +58,12 @@ vendor/bin/lang status
 vendor/bin/lang sync
 ```
 
+### Translate keys with Google Translate
+
+```bash
+vendor/bin/lang translate
+```
+
 ### Upgrade from previous structure
 
 ```bash
