@@ -1,3 +1,5 @@
 [
-    "Administrator"
+    "Administrator",
+    "This field must be accepted.",
+    "The :attribute must be accepted."
 ]
