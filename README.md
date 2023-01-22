@@ -60,6 +60,8 @@ vendor/bin/lang sync
 
 ### Translate keys with Google Translate
 
+Supported languages: [cloud.google.com/translate/docs/languages](https://cloud.google.com/translate/docs/languages)
+
 ```bash
 vendor/bin/lang translate
 ```
