@@ -42,8 +42,6 @@ class GoogleLocale
     }
 
     /**
-     * Support locales:
-     *
      * @see https://cloud.google.com/translate/docs/languages
      *
      * @return string[]
