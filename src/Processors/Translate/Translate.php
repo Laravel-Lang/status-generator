@@ -78,7 +78,7 @@ class Translate extends Processor
 
     protected function doesntExclude(array $excludes, string $value): bool
     {
-        return ! in_array($value, $excludes, true);
+        return ! in_array($value, $excludes);
     }
 
     protected function getLocales(): array

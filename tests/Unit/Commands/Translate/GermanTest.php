@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Commands\Translate;
 
+/**
+ * @group Translate
+ */
 class GermanTest extends Base
 {
     public function testJson(): void
