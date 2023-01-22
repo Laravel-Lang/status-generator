@@ -6,6 +6,7 @@ namespace LaravelLang\StatusGenerator\Processors\Translate;
 
 use DragonCode\Support\Facades\Filesystem\File;
 use DragonCode\Support\Facades\Helpers\Arr;
+use DragonCode\Support\Facades\Helpers\Str;
 use LaravelLang\StatusGenerator\Helpers\GoogleLocale;
 use LaravelLang\StatusGenerator\Processors\Processor;
 
@@ -73,7 +74,11 @@ class Translate extends Processor
 
     protected function isSameValue(array $source, int|string $key, string $value): bool
     {
-        return ($source[$key] ?? null) === $value;
+        $value        = Str::lower($value);
+        $source_value = Str::lower($source[$key] ?? '');
+        $inline       = Str::replace($source_value, 'the :attribute', 'this field');
+
+        return in_array(trim($value), [trim($source_value), trim($inline)]);
     }
 
     protected function doesntExclude(array $excludes, string $value): bool
