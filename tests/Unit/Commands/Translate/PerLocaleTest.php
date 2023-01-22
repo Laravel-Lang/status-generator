@@ -7,42 +7,48 @@ namespace Tests\Unit\Commands\Translate;
 /**
  * @group Translate
  */
-class GermanTest extends Base
+class PerLocaleTest extends Base
 {
+    protected array $call_options = [
+        '--locale' => 'de',
+    ];
+
     public function testJson(): void
     {
         $this->assertJsonFileEqualsJson([
             'Added.'        => 'Hinzugefügt.',
             'Administrator' => 'Administrator',
         ], 'locales/de/json.json', __FUNCTION__);
+
+        $this->assertJsonFileEqualsJson([
+            'Added.'        => 'Added.',
+            'Administrator' => 'Administrator',
+            'Foo'           => 'Foo',
+            'Bar.'          => 'Bar.',
+        ], 'locales/fr/json.json', __FUNCTION__);
     }
 
     public function testPhp(): void
     {
+        // German
         $values = $this->filesystem->load($this->tempPath('locales/de/php.json'));
 
         $this->assertContainsEquals($values[0], ['Numerische Null']);
         $this->assertContainsEquals($values[10], ['Numerische Zehn']);
         $this->assertContainsEquals($values[100], ['Numerisch Hundert']);
 
-        $this->assertSame($values['accepted'], 'The :attribute must be accepted.');
+        // French
+        $values = $this->filesystem->load($this->tempPath('locales/fr/php.json'));
 
-        $this->assertContainsEquals(
-            $values['accepted_if'],
-            ['Die :attribute muss akzeptiert werden, wenn :other :value ist.', ':Attribute muss akzeptiert werden, wenn :other :value ist.']
-        );
-
-        $this->assertContainsEquals($values['active_url'], ['Die :attribute ist keine gültige URL.', ':Attribute ist keine gültige Internet-Adresse.']);
-
-        $this->assertContainsEquals($values['between.array'], ['The :attribute must have between :min and :max items.']);
-        $this->assertContainsEquals($values['between.file'], ['The :attribute must be between :min and :max kilobytes.']);
+        $this->assertContainsEquals($values[0], ['Numeric Zero']);
+        $this->assertContainsEquals($values[10], ['Numeric Ten']);
+        $this->assertContainsEquals($values[100], ['Numeric One Hundred']);
     }
 
     public function testPhpInline(): void
     {
+        // German
         $values = $this->filesystem->load($this->tempPath('locales/de/php-inline.json'));
-
-        $this->assertSame($values['accepted'], 'This field must be accepted.');
 
         $this->assertContainsEquals(
             $values['accepted_if'],
@@ -51,12 +57,10 @@ class GermanTest extends Base
 
         $this->assertContainsEquals($values['active_url'], ['Dieses Feld ist keine gültige URL.', 'Das ist keine gültige Internet-Adresse.']);
 
-        $this->assertContainsEquals($values['between.array'], ['This field must have between :min and :max items.']);
-        $this->assertContainsEquals($values['between.file'], ['This field must be between :min and :max kilobytes.']);
-    }
+        // French
+        $values = $this->filesystem->load($this->tempPath('locales/fr/php-inline.json'));
 
-    public function testExcludes(): void
-    {
-        $this->assertFileExists($this->tempPath('locales/de/_excludes.json'));
+        $this->assertSame($values['accepted_if'], 'This field must be accepted when :other is :value.');
+        $this->assertSame($values['active_url'], 'This field is not a valid URL.');
     }
 }

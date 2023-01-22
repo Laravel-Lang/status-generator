@@ -3,6 +3,7 @@
 namespace LaravelLang\StatusGenerator\Concerns;
 
 use DragonCode\Support\Facades\Helpers\Arr;
+use DragonCode\Support\Facades\Helpers\Str;
 use LaravelLang\StatusGenerator\Constants\Option;
 
 /** @mixin \LaravelLang\StatusGenerator\Processors\Processor */
@@ -30,7 +31,7 @@ trait Parameters
 
     protected function getLocaleParameter(): ?string
     {
-        return $this->parameter(Option::LOCALE());
+        return Str::replace($this->parameter(Option::LOCALE()), '-', '_');
     }
 
     protected function getProjectParameter(): ?string

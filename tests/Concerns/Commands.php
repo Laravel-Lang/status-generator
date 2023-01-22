@@ -11,6 +11,8 @@ trait Commands
 {
     protected ?CommandName $call = null;
 
+    protected array $call_options = [];
+
     protected int $call_tries = 1;
 
     protected function command(CommandName $name, array $options = []): void
@@ -22,7 +24,7 @@ trait Commands
     {
         if ($name = $this->call) {
             for ($i = 0; $i < $this->call_tries; ++$i) {
-                $this->command($name);
+                $this->command($name, $this->call_options);
             }
         }
     }

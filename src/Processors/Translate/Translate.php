@@ -15,8 +15,8 @@ class Translate extends Processor
     {
         $source = $this->locales()->getSource();
 
-        foreach ($this->directories() as $locale) {
-            $this->output->task($locale . ' translation', function () use ($locale, $source) {
+        foreach ($this->getLocales() as $locale) {
+            $this->output->task($locale, function () use ($locale, $source) {
                 $locales  = $this->locales()->getLocale($locale);
                 $excludes = $this->locales()->getExcludes($locale);
 
@@ -78,6 +78,15 @@ class Translate extends Processor
 
     protected function doesntExclude(array $excludes, string $value): bool
     {
-        return ! in_array($value, $excludes, true);
+        return ! in_array($value, $excludes);
+    }
+
+    protected function getLocales(): array
+    {
+        if ($locale = $this->getLocaleParameter()) {
+            return Arr::filter($this->directories(), fn (string $dir) => $dir === $locale);
+        }
+
+        return $this->directories();
     }
 }

@@ -29,4 +29,6 @@ jobs:
                 run: composer require symfony/console:^${{ matrix.symfony }} symfony/finder:^${{ matrix.symfony }}
 
             -   name: Execute tests
-                run: sudo vendor/bin/phpunit --colors=always
+                run: |
+                    sudo vendor/bin/phpunit --colors=always --exclude-group Translate
+                    sudo vendor/bin/phpunit --colors=always --group Translate
