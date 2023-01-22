@@ -31,4 +31,4 @@ jobs:
             -   name: Execute tests
                 run: |
                     sudo vendor/bin/phpunit --colors=always --exclude-group Translate
-                    sudo vendor/bin/phpunit --colors=always ./tests/Unit/Commands/Translate
+                    sudo vendor/bin/phpunit --colors=always --group Translate
