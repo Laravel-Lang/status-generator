@@ -22,7 +22,7 @@ class GermanTest extends Base
         $this->assertContainsEquals($values[10], ['Numerische Zehn']);
         $this->assertContainsEquals($values[100], ['Numerisch Hundert']);
 
-        $this->assertContainsEquals($values['accepted'], ['Die :attribute muss akzeptiert werden.', ':Attribute muss akzeptiert werden.']);
+        $this->assertSame($values['accepted'], 'The :attribute must be accepted.');
 
         $this->assertContainsEquals(
             $values['accepted_if'],
@@ -39,7 +39,7 @@ class GermanTest extends Base
     {
         $values = $this->filesystem->load($this->tempPath('locales/de/php-inline.json'));
 
-        $this->assertContainsEquals($values['accepted'], ['Dieses Feld muss akzeptiert werden.']);
+        $this->assertSame($values['accepted'], 'This field must be accepted.');
 
         $this->assertContainsEquals(
             $values['accepted_if'],

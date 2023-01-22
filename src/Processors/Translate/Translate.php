@@ -17,14 +17,15 @@ class Translate extends Processor
 
         foreach ($this->directories() as $locale) {
             $this->output->task($locale . ' translation', function () use ($locale, $source) {
-                $locales = $this->locales()->getLocale($locale);
+                $locales  = $this->locales()->getLocale($locale);
+                $excludes = $this->locales()->getExcludes($locale);
 
                 foreach ($source as $file => $source_values) {
                     $path = $this->getTargetFilename($locale, $file);
 
                     $locale_values = Arr::get($locales, $file, []);
 
-                    $result = $this->merge($source_values, $locale_values, $locale);
+                    $result = $this->merge($source_values, $locale_values, $excludes, $locale);
 
                     ! empty($result) ? $this->store($path, $result) : $this->delete($path);
                 }
@@ -34,13 +35,13 @@ class Translate extends Processor
         $this->output->emptyLine();
     }
 
-    protected function merge(array $source, array $target, string $locale): array
+    protected function merge(array $source, array $target, array $excludes, string $locale): array
     {
-        $target = Arr::only($target, Arr::keys($source));
-
-        foreach ($target as $key => $value) {
-            $source[$key] = $this->isSameKey($source, $key, $value) ? $this->translate($value, $locale) : $value;
-        }
+        Arr::of($target)
+            ->only(Arr::keys($source))
+            ->tap(function (string $value, int|string $key) use (&$source, $excludes, $locale) {
+                $source[$key] = $this->isTranslatable($excludes, $source, $key, $value) ? $this->translate($value, $locale) : $value;
+            });
 
         return $source;
     }
@@ -65,8 +66,18 @@ class Translate extends Processor
         return $this->getLocalesPath($locale . '/' . $filename . '.json', false);
     }
 
-    protected function isSameKey(array $source, int|string $key, string $value): bool
+    protected function isTranslatable(array $excludes, array $source, int|string $key, string $value): bool
+    {
+        return $this->isSameValue($source, $key, $value) && $this->doesntExclude($excludes, $value);
+    }
+
+    protected function isSameValue(array $source, int|string $key, string $value): bool
     {
         return ($source[$key] ?? null) === $value;
+    }
+
+    protected function doesntExclude(array $excludes, string $value): bool
+    {
+        return ! in_array($value, $excludes, true);
     }
 }
