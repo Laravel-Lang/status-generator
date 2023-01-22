@@ -20,7 +20,8 @@ class Translate extends Command
         return parent::configure()
             ->setName(CommandName::TRANSLATE())
             ->setDescription('Translation of untranslated keys')
-            ->addOption(Option::LOCALE(),
+            ->addOption(
+                Option::LOCALE(),
                 null,
                 InputOption::VALUE_OPTIONAL,
                 'Translation of values only for the selected localization. By default, translation of all localizations'

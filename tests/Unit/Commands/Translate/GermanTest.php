@@ -12,7 +12,7 @@ class GermanTest extends Base
     public function testJson(): void
     {
         $this->assertJsonFileEqualsJson([
-            'Added.' => 'Hinzugefügt.',
+            'Added.'        => 'Hinzugefügt.',
             'Administrator' => 'Administrator',
         ], 'locales/de/json.json', __FUNCTION__);
     }
