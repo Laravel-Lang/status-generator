@@ -4,7 +4,6 @@ namespace LaravelLang\StatusGenerator\Processors\Create;
 
 use DragonCode\Support\Facades\Filesystem\Directory;
 use DragonCode\Support\Facades\Filesystem\File;
-use DragonCode\Support\Facades\Helpers\Str;
 use Exception;
 use LaravelLang\StatusGenerator\Processors\Processor;
 
@@ -27,7 +26,7 @@ class CreateLocale extends Processor
             $this->output->task($filename, function () use ($filename) {
                 File::copy(
                     $this->makePath($filename, $this->default_locale),
-                    $this->makePath($filename, $this->getLocale())
+                    $this->makePath($filename, $this->getLocaleParameter())
                 );
             });
         }
@@ -40,12 +39,7 @@ class CreateLocale extends Processor
 
     protected function exists(): bool
     {
-        return Directory::exists($this->getLocalesPath($this->getLocale()));
-    }
-
-    protected function getLocale(): string
-    {
-        return Str::replace($this->getLocaleParameter(), '-', '_');
+        return Directory::exists($this->getLocalesPath($this->getLocaleParameter()));
     }
 
     protected function makePath(string $filename, string $locale): string
