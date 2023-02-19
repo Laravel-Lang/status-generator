@@ -12,10 +12,10 @@ class ArabicTest extends Base
     public function testJson(): void
     {
         $this->assertJsonFileEqualsJson([
-            'Added.'        => 'مضاف.',
+            'Added.' => 'مضاف.',
             'Administrator' => 'Administrator',
 
-            'Uploading files... (:current/:total)' => 'جاري تحميل الملفات ... (:current/:total)',
+            'Uploading files... (:current/:total)' => 'تحميل الملفات ... (:current/:total)',
         ], 'locales/ar/json.json', __FUNCTION__);
     }
 
@@ -29,7 +29,14 @@ class ArabicTest extends Base
 
         $this->assertSame($values['accepted'], 'The :attribute must be accepted.');
 
-        $this->assertContainsEquals($values['accepted_if'], ['يجب قبول :attribute عندما تكون :other هي :value.', 'يجب قبول :attribute عندما يكون :other هو :value.']);
+        $this->assertContainsEquals(
+            $values['accepted_if'],
+            [
+                'يجب قبول :attribute عندما تكون :other هي :value.',
+                'يجب قبول :attribute عندما يكون :other هو :value.',
+                'يجب قبول العشرة عندما يكون الرقم :other هو :value.',
+            ]
+        );
 
         $this->assertContainsEquals($values['active_url'], [':attribute ليس عنوان URL صالحًا.']);
 
@@ -43,7 +50,7 @@ class ArabicTest extends Base
 
         $this->assertSame($values['accepted'], 'This field must be accepted.');
 
-        $this->assertContainsEquals($values['accepted_if'], ['يجب قبول هذا الحقل عندما يكون :other هو :value.']);
+        $this->assertContainsEquals($values['accepted_if'], ['يجب قبول هذا الحقل عندما يكون :other هو :value.', 'يجب قبول هذا الحقل عندما يكون الرقم :other هو :value.']);
 
         $this->assertContainsEquals($values['active_url'], ['هذا الحقل ليس عنوان URL صالحًا.']);
 

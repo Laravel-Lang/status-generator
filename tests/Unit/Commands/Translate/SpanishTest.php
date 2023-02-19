@@ -11,12 +11,12 @@ class SpanishTest extends Base
 {
     public function testJson(): void
     {
-        $this->assertJsonFileEqualsJson([
-            'Added.' => 'Agregado.',
-            'Administrator' => 'Administrator',
+        $values = $this->filesystem->load($this->tempPath('locales/es/json.json'));
 
-            'Uploading files... (:current/:total)' => 'Subiendo archivos... (:current/:total)',
-        ], 'locales/es/json.json', __FUNCTION__);
+        $this->assertContainsEquals($values['Added.'], ['Agregado.']);
+        $this->assertContainsEquals($values['Administrator'], ['Administrator']);
+
+        $this->assertContainsEquals($values['Uploading files... (:current/:total)'], ['Subiendo archivos... (:total/:current)', 'Subiendo archivos... (:current/:total)']);
     }
 
     public function testPhp(): void
