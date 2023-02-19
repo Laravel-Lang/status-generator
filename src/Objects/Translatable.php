@@ -35,7 +35,7 @@ class Translatable extends DataTransferObject
     protected function keyable(string $value): void
     {
         if (! isset($this->replaces[$value])) {
-            $this->replaces[$value] = (count($this->replaces) + 1) * 1000;
+            $this->replaces[$value] = (count($this->replaces) + 1) * 10;
         }
     }
 }
