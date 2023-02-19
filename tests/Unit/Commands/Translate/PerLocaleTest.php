@@ -28,7 +28,7 @@ class PerLocaleTest extends Base
             'Foo'           => 'Foo',
             'Bar.'          => 'Bar.',
 
-            'Uploading files... (:current/:total)' =>  'Uploading files... (:current/:total)',
+            'Uploading files... (:current/:total)' => 'Uploading files... (:current/:total)',
         ], 'locales/fr/json.json', __FUNCTION__);
     }
 

@@ -12,7 +12,7 @@ class SpanishTest extends Base
     public function testJson(): void
     {
         $this->assertJsonFileEqualsJson([
-            'Added.' => 'Agregado.',
+            'Added.'        => 'Agregado.',
             'Administrator' => 'Administrator',
 
             'Uploading files... (:current/:total)' => 'Subiendo archivos... (:current/:total)',
