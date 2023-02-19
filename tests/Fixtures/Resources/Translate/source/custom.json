@@ -1,4 +1,5 @@
 {
     "Added.": "Added.",
-    "Administrator": "Administrator"
+    "Administrator": "Administrator",
+    "Uploading files... (:current/:total)": "Uploading files... (:current/:total)"
 }

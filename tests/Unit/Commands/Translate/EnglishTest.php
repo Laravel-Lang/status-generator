@@ -14,6 +14,8 @@ class EnglishTest extends Base
         $this->assertJsonFileEqualsJson([
             'Added.'        => 'Added.',
             'Administrator' => 'Administrator',
+
+            'Uploading files... (:current/:total)' => 'Uploading files... (:current/:total)',
         ], 'locales/en/json.json', __FUNCTION__);
     }
 

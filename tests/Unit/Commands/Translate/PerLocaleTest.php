@@ -18,6 +18,8 @@ class PerLocaleTest extends Base
         $this->assertJsonFileEqualsJson([
             'Added.'        => 'Hinzugefügt.',
             'Administrator' => 'Administrator',
+
+            'Uploading files... (:current/:total)' => 'Dateien werden hochgeladen... (:current/:total)',
         ], 'locales/de/json.json', __FUNCTION__);
 
         $this->assertJsonFileEqualsJson([
@@ -25,6 +27,8 @@ class PerLocaleTest extends Base
             'Administrator' => 'Administrator',
             'Foo'           => 'Foo',
             'Bar.'          => 'Bar.',
+
+            'Uploading files... (:current/:total)' =>  'Uploading files... (:current/:total)',
         ], 'locales/fr/json.json', __FUNCTION__);
     }
 

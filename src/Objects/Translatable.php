@@ -20,37 +20,22 @@ class Translatable extends DataTransferObject
 
     protected function castValue(string $value): string
     {
-        $this->extractReplaces($value);
+        $this->extract($value);
 
-        return $this->replaceValue($value);
-    }
-
-    protected function extractReplaces(string $value): void
-    {
-        Str::of($value)
-            ->trim()
-            ->trim('.?!')
-            ->explode(' ')
-            ->map(function (string $item) {
-                if (Str::startsWith($item, ':')) {
-                    return $this->numerify($item);
-                }
-
-                return $item;
-            });
-    }
-
-    protected function replaceValue(string $value): string
-    {
         return Str::replace($value, array_keys($this->replaces), array_values($this->replaces));
     }
 
-    protected function numerify(string $value): int
+    protected function extract(string $value): void
     {
-        if (isset($this->replaces[$value])) {
-            return $this->replaces[$value];
-        }
+        Str::of($value)
+            ->matchAll('/:\w+/')
+            ->tap(fn (string $match) => $this->keyable($match));;
+    }
 
-        return $this->replaces[$value] = (count($this->replaces) + 1) * 100;
+    protected function keyable(string $value): void
+    {
+        if (! isset($this->replaces[$value])) {
+            $this->replaces[$value] = (count($this->replaces) + 1) * 1000;
+        }
     }
 }
