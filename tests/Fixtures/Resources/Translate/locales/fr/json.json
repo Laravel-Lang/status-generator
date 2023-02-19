@@ -2,5 +2,6 @@
     "Added.": "Added.",
     "Administrator": "Administrator",
     "Foo": "Foo",
-    "Bar.": "Bar."
+    "Bar.": "Bar.",
+    "Uploading files... (:current/:total)": "Uploading files... (:current/:total)"
 }
