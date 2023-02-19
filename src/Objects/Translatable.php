@@ -29,7 +29,7 @@ class Translatable extends DataTransferObject
     {
         Str::of($value)
             ->matchAll('/:\w+/')
-            ->tap(fn (string $match) => $this->keyable($match));;
+            ->tap(fn (string $match) => $this->keyable($match));
     }
 
     protected function keyable(string $value): void

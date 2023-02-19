@@ -12,7 +12,7 @@ class ArabicTest extends Base
     public function testJson(): void
     {
         $this->assertJsonFileEqualsJson([
-            'Added.' => 'مضاف.',
+            'Added.'        => 'مضاف.',
             'Administrator' => 'Administrator',
 
             'Uploading files... (:current/:total)' => 'تحميل الملفات ... (:current/:total)',
