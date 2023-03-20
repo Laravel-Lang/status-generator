@@ -2,6 +2,7 @@
 
 namespace LaravelLang\StatusGenerator\Concerns;
 
+use DragonCode\Support\Facades\Filesystem\File;
 use DragonCode\Support\Facades\Filesystem\Path;
 use DragonCode\Support\Facades\Helpers\Str;
 
@@ -24,5 +25,10 @@ trait Files
     protected function isExcludes(string $path): bool
     {
         return Path::filename($path) === '_excludes';
+    }
+
+    protected function isExists(string $path): bool
+    {
+        return File::exists($path);
     }
 }

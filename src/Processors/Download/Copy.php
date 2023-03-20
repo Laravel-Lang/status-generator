@@ -35,7 +35,10 @@ class Copy extends Processor
 
             $target = $this->targetPath($basename);
 
-            File::copy($source, $target);
+            $source_content = $this->filesystem->loadIfExists($source);
+            $target_content = $this->filesystem->loadIfExists($target);
+
+            $this->filesystem->store($target, array_merge($target_content, $source_content), false);
         }
     }
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Commands\Download;
 
+use DragonCode\Support\Facades\Helpers\Arr;
 use LaravelLang\StatusGenerator\Constants\Command;
 use LaravelLang\StatusGenerator\Constants\Option;
 
@@ -62,6 +63,22 @@ class SuccessTest extends Base
 
         $this->assertFileExists($this->tempPath('source/spark/v2/teams.php'));
         $this->assertFileExists($this->tempPath('source/spark/v2/validation.php'));
+    }
+
+    public function testSameNameFiles(): void
+    {
+        $this->download('https://github.com/laravel/nova-dusk-suite/archive/refs/heads/master.zip', 'nds', 'master', ['lang', 'lang/vendor/nova']);
+
+        $this->assertFileExists($this->tempPath('source/nds/master/en.json'));
+
+        $content = Arr::ofFile($this->tempPath('source/nds/master/en.json'));
+
+        $this->assertTrue($content->exists('The :attribute must contain at least one letter.'));
+        $this->assertTrue($content->exists('The :attribute must contain at least one number.'));
+
+        $this->assertTrue($content->exists('Actions'));
+        $this->assertTrue($content->exists('Details'));
+        $this->assertTrue($content->exists('Dashboard'));
     }
 
     protected function download(string $url, string $project, string $version, array $copy = [], bool $only_copy = false): void
