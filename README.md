@@ -1,6 +1,6 @@
 # Laravel Lang: Status Generator
 
-![laravel lang status generator](https://preview.dragon-code.pro/laravel-lang/status-generator.svg?brand=laravel&invert=1)
+![laravel lang status generator](https://preview.dragon-code.pro/laravel-lang/status-generator.svg?brand=laravel&mode=dark)
 
 [![Stable Version][badge_stable]][link_packagist]
 [![Unstable Version][badge_unstable]][link_packagist]
