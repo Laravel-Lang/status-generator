@@ -51,8 +51,8 @@
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
-            "LaravelLang\\StatusGenerator\\": "src",
-            "LaravelLang\\StatusGeneratorTests\\": "tests-app"
+            "LaravelLang\\StatusGeneratorTests\\": "tests-app",
+            "LaravelLang\\StatusGenerator\\": "src"
         },
         "files": [
             "src/helpers.php"
