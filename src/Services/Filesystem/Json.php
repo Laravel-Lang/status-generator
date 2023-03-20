@@ -7,11 +7,11 @@ use DragonCode\Support\Tools\Stub;
 
 class Json extends Base
 {
-    public function store(string $path, array $content, bool $is_simple = false, bool $correct_keys = false): void
+    public function store(string $path, array $content, bool $non_associative = false, bool $correct_keys = false): void
     {
-        $values = $this->simplify($content, $is_simple, $correct_keys);
+        $values = $this->simplify($content, $non_associative, $correct_keys);
 
-        $values = $this->sort($values, $is_simple);
+        $values = $this->sort($values, $non_associative);
 
         Pretty::make($this->encode($values))->store($path, Stub::JSON);
     }

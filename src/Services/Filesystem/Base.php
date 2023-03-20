@@ -11,7 +11,7 @@ abstract class Base
 {
     use Makeable;
 
-    abstract public function store(string $path, array $content, bool $is_simple = false, bool $correct_keys = false): void;
+    abstract public function store(string $path, array $content, bool $non_associative = false, bool $correct_keys = false): void;
 
     public function __construct(
         protected File $pretty = new File(),
