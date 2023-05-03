@@ -29,10 +29,7 @@ class SpanishTest extends Base
 
         $this->assertSame($values['accepted'], 'The :attribute must be accepted.');
 
-        $this->assertContainsEquals(
-            $values['accepted_if'],
-            ['El campo :attribute debe ser aceptado cuando :other sea :value.', 'El :attribute debe aceptarse cuando :other es :value.']
-        );
+        $this->assertSame($values['accepted_if'], 'The :attribute must be accepted when :other is :value.');
 
         $this->assertContainsEquals($values['active_url'], ['El campo :attribute debe ser una URL válida.', 'El :attribute no es una URL válida.']);
 
@@ -46,7 +43,7 @@ class SpanishTest extends Base
 
         $this->assertSame($values['accepted'], 'This field must be accepted.');
 
-        $this->assertContainsEquals($values['accepted_if'], ['Este campo debe ser aceptado cuando :other sea :value.', 'Este campo debe aceptarse cuando :other es :value.']);
+        $this->assertSame($values['accepted_if'], 'This field must be accepted when :other is :value.');
 
         $this->assertContainsEquals($values['active_url'], ['Este campo debe ser una URL válida.', 'Este campo no es una URL válida.']);
 

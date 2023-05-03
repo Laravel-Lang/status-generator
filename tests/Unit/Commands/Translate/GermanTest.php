@@ -29,10 +29,7 @@ class GermanTest extends Base
 
         $this->assertSame($values['accepted'], 'The :attribute must be accepted.');
 
-        $this->assertContainsEquals(
-            $values['accepted_if'],
-            ['Die :attribute muss akzeptiert werden, wenn :other :value ist.', ':Attribute muss akzeptiert werden, wenn :other :value ist.']
-        );
+        $this->assertSame($values['accepted_if'], 'The :attribute must be accepted when :other is :value.');
 
         $this->assertContainsEquals($values['active_url'], ['Die :attribute ist keine gültige URL.', ':Attribute ist keine gültige Internet-Adresse.']);
 
@@ -46,10 +43,7 @@ class GermanTest extends Base
 
         $this->assertSame($values['accepted'], 'This field must be accepted.');
 
-        $this->assertContainsEquals(
-            $values['accepted_if'],
-            ['Dieses Feld muss akzeptiert werden, wenn :other gleich :value ist.', 'Dieses Feld muss akzeptiert werden, wenn :other :value ist.']
-        );
+        $this->assertSame($values['accepted_if'], 'This field must be accepted when :other is :value.');
 
         $this->assertContainsEquals($values['active_url'], ['Dieses Feld ist keine gültige URL.', 'Das ist keine gültige Internet-Adresse.']);
 

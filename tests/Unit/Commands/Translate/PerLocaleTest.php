@@ -54,10 +54,7 @@ class PerLocaleTest extends Base
         // German
         $values = $this->filesystem->load($this->tempPath('locales/de/php-inline.json'));
 
-        $this->assertContainsEquals(
-            $values['accepted_if'],
-            ['Dieses Feld muss akzeptiert werden, wenn :other gleich :value ist.', 'Dieses Feld muss akzeptiert werden, wenn :other :value ist.']
-        );
+        $this->assertSame($values['accepted_if'], 'This field must be accepted when :other is :value.');
 
         $this->assertContainsEquals($values['active_url'], ['Dieses Feld ist keine gültige URL.', 'Das ist keine gültige Internet-Adresse.']);
 
