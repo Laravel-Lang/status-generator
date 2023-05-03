@@ -29,7 +29,7 @@ class FrenchTest extends Base
 
         $this->assertSame($values['accepted'], 'The :attribute must be accepted.');
 
-        $this->assertContainsEquals($values['accepted_if'], ['Le :attribute doit être accepté quand :other vaut :value.']);
+        $this->assertSame($values['accepted_if'], 'The :attribute must be accepted when :other is :value.');
 
         $this->assertContainsEquals($values['active_url'], ['Le :attribute n\'est pas une URL valide.']);
 
@@ -43,7 +43,7 @@ class FrenchTest extends Base
 
         $this->assertSame($values['accepted'], 'This field must be accepted.');
 
-        $this->assertContainsEquals($values['accepted_if'], ['Ce champ doit être accepté lorsque :other vaut :value.']);
+        $this->assertSame($values['accepted_if'], 'This field must be accepted when :other is :value.');
 
         $this->assertContainsEquals($values['active_url'], ['Ce champ n\'est pas une URL valide.']);
 

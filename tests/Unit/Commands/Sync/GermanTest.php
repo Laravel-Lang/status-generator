@@ -41,6 +41,15 @@ class GermanTest extends Base
 
     public function testExcludes(): void
     {
-        $this->assertFileExists($this->tempPath('locales/de/_excludes.json'));
+        $this->assertJsonFileEqualsJson([
+            'Administrator',
+        ], 'locales/de/_excludes.json', __FUNCTION__);
+    }
+
+    public function testNotTranslatable(): void
+    {
+        $this->assertJsonFileEqualsJson([
+            'The :attribute must be accepted when :other is :value.',
+        ], 'locales/de/_not_translatable.json', __FUNCTION__);
     }
 }

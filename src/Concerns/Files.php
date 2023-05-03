@@ -27,6 +27,11 @@ trait Files
         return Path::filename($path) === '_excludes';
     }
 
+    protected function isNotTranslatable(string $path): bool
+    {
+        return Path::filename($path) === '_not_translatable';
+    }
+
     protected function isExists(string $path): bool
     {
         return File::exists($path);

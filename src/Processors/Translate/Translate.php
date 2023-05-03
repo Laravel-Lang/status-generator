@@ -18,8 +18,11 @@ class Translate extends Processor
 
         foreach ($this->getLocales() as $locale) {
             $this->output->task($locale, function () use ($locale, $source) {
-                $locales  = $this->locales()->getLocale($locale);
-                $excludes = $this->locales()->getExcludes($locale);
+                $locales          = $this->locales()->getLocale($locale);
+                $excludes         = $this->locales()->getExcludes($locale);
+                $not_translatable = $this->locales()->getNotTranslatable($locale);
+
+                $excludes = array_merge($excludes, $not_translatable);
 
                 foreach ($source as $file => $source_values) {
                     $path = $this->getTargetFilename($locale, $file);
@@ -83,7 +86,7 @@ class Translate extends Processor
 
     protected function doesntExclude(array $excludes, string $value): bool
     {
-        return ! in_array($value, $excludes);
+        return ! in_array($value, $excludes) && ! array_key_exists($value, $excludes);
     }
 
     protected function getLocales(): array

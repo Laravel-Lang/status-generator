@@ -23,6 +23,8 @@ class Locales
 
     protected array $excludes = [];
 
+    protected array $not_translatable = [];
+
     protected array $skip = [
         '*',
         '-',
@@ -66,6 +68,11 @@ class Locales
         return $this->excludes[$locale] ?? [];
     }
 
+    public function getNotTranslatable(string $locale): array
+    {
+        return $this->not_translatable[$locale] ?? [];
+    }
+
     protected function loadSource(string $path): Locales
     {
         foreach ($this->files($path) as $file) {
@@ -89,9 +96,19 @@ class Locales
                     ? $this->getSource()[$key]
                     : $this->read($file);
 
-                $this->isExcludes($file)
-                    ? $this->pushExcludes($locale, $values)
-                    : $this->pushLocales($locale, $key, $values);
+                if ($this->isExcludes($file)) {
+                    $this->pushExcludes($locale, $values);
+
+                    continue;
+                }
+
+                if ($this->isNotTranslatable($file)) {
+                    $this->pushNotTranslatable($locale, $values);
+
+                    continue;
+                }
+
+                $this->pushLocales($locale, $key, $values);
             }
         }
 
@@ -116,6 +133,11 @@ class Locales
     protected function pushExcludes(string $locale, array $values): void
     {
         $this->excludes[$locale] = Arr::addUnique($this->excludes[$locale] ?? [], array_values($values));
+    }
+
+    protected function pushNotTranslatable(string $locale, array $values): void
+    {
+        $this->not_translatable[$locale] = Arr::addUnique($this->not_translatable[$locale] ?? [], array_values($values));
     }
 
     protected function pushLocales(string $locale, string $key, array $values): void
