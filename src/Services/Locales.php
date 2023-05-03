@@ -34,7 +34,7 @@ class Locales
 
     public function __construct(
         protected Manager $filesystem = new Manager(),
-        protected Inline  $inline = new Inline()
+        protected Inline $inline = new Inline()
     ) {
     }
 
