@@ -62,6 +62,6 @@ class Package
 
     protected function doesntContainsSpecialChars(string $value): bool
     {
-        return ! Str::matchContains($value, ['/^[\W_]+/', '/^\D+$/']);
+        return ! Str::matchContains($value, '/^[\W_]+$/');
     }
 }
