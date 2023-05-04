@@ -10,7 +10,9 @@ class Parser
 {
     use Makeable;
 
-    protected string $regex = '/\b(__|trans|trans_choice|lang|Lang::get|Lang::choice|\$t|\$tChoice|wTrans|wTransChoice)\(\r*\s*(.+)\r*\s*(\)|,\s?\[)/U';
+    protected string $regex = '/\b(%s)\(\r*\s*(.+)\r*\s*(\)|,\s?\[)/U';
+
+    protected array $trans_methods = ['__', 'trans', 'trans_choice', 'lang', 'Lang::get', 'Lang::choice', '$t', '$tChoice', 'wTrans', 'wTransChoice'];
 
     protected string $trim_chars = "\t\n\r\0\x0B'\"";
 
@@ -58,7 +60,7 @@ class Parser
         foreach ($this->match($content) as $match) {
             $value = $match;
 
-            if (Str::contains((string) $value, ['__', 'trans', '@lang', 'Lang::get'])) {
+            if (Str::contains((string) $value, $this->subMethods())) {
                 $sub_key = $this->subkey($value);
 
                 $sub_value = $this->keys[$sub_key] ?? null;
@@ -72,7 +74,7 @@ class Parser
 
     protected function match(string $content): array
     {
-        preg_match_all($this->regex, $content, $matches);
+        preg_match_all($this->regex(), $content, $matches);
 
         return $matches[2] ?? [];
     }
@@ -105,5 +107,19 @@ class Parser
         }
 
         return $value;
+    }
+
+    protected function regex(): string
+    {
+        $methods = Arr::of($this->trans_methods)->implode('|')->replace(['$', '(', ')'], ['\$', '\(', '\)'])->toString();
+
+        return sprintf($this->regex, $methods);
+    }
+
+    protected function subMethods(): array
+    {
+        return Arr::of($this->trans_methods)
+            ->map(fn (string $method) => Str::finish($method, '('))
+            ->toArray();
     }
 }
