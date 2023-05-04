@@ -9,7 +9,7 @@ class Package
 {
     protected ?string $path;
 
-    protected array $filter = ['$', 'self::', 'static::', 'auth.', 'pagination.', 'passwords.', 'validation.'];
+    protected array $filter = ['$', '::', 'auth.', 'pagination.', 'passwords.', 'validation.'];
 
     public function __construct(
         protected Finder $finder = new Finder(),
@@ -52,6 +52,16 @@ class Package
 
     protected function filter(array $items): array
     {
-        return array_filter(array_keys($items), fn ($value) => ! Str::contains($value, $this->filter));
+        return array_filter(array_keys($items), fn ($value) => $this->doesntContainsChars($value) && $this->doesntContainsSpecialChars($value));
+    }
+
+    protected function doesntContainsChars(string $value): bool
+    {
+        return ! Str::contains($value, $this->filter);
+    }
+
+    protected function doesntContainsSpecialChars(string $value): bool
+    {
+        return ! Str::matchContains($value, '/^[\W_]+$/');
     }
 }
