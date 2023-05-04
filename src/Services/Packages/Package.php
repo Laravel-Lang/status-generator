@@ -9,7 +9,7 @@ class Package
 {
     protected ?string $path;
 
-    protected array $filter = ['$', '::', 'auth.', 'pagination.', 'passwords.', 'validation.'];
+    protected array $filter = ['$', '::', 'auth.', 'pagination.', 'passwords.', 'validation.', 'prototype', 'constructor', 'object'];
 
     public function __construct(
         protected Finder $finder = new Finder(),
