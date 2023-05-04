@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Commands\Download;
 
 use DragonCode\Support\Facades\Helpers\Arr;
+use DragonCode\Support\Facades\Helpers\Str;
 use LaravelLang\StatusGenerator\Constants\Command;
 use LaravelLang\StatusGenerator\Constants\Option;
 
@@ -79,6 +80,35 @@ class SuccessTest extends Base
         $this->assertTrue($content->exists('Actions'));
         $this->assertTrue($content->exists('Details'));
         $this->assertTrue($content->exists('Dashboard'));
+    }
+
+    public function testPhpTranslations(): void
+    {
+        $this->download('https://github.com/filamentphp/filament/archive/refs/heads/2.x.zip', 'filament', '2.x', ['packages/admin/resources/lang']);
+
+        $this->assertFileExists($this->tempPath('source/filament/2.x/filament.json'));
+
+        $this->assertFileExists($this->tempPath('source/filament/2.x/account-widget.php'));
+        $this->assertFileExists($this->tempPath('source/filament/2.x/create-record.php'));
+        $this->assertFileExists($this->tempPath('source/filament/2.x/dashboard.php'));
+        $this->assertFileExists($this->tempPath('source/filament/2.x/edit-record.php'));
+        $this->assertFileExists($this->tempPath('source/filament/2.x/filament-info-widget.php'));
+        $this->assertFileExists($this->tempPath('source/filament/2.x/global-search.php'));
+        $this->assertFileExists($this->tempPath('source/filament/2.x/layout.php'));
+        $this->assertFileExists($this->tempPath('source/filament/2.x/list-records.php'));
+        $this->assertFileExists($this->tempPath('source/filament/2.x/login.php'));
+        $this->assertFileExists($this->tempPath('source/filament/2.x/view-record.php'));
+
+        $content = file_get_contents($this->tempPath('source/filament/2.x/filament.json'));
+
+        $this->assertFalse(Str::contains($content, [
+            'filament-spatie-laravel-settings-plugin::',
+            'filament-support::',
+            'filament::',
+            'forms::',
+            'notifications::',
+            'tables::',
+        ]));
     }
 
     protected function download(string $url, string $project, string $version, array $copy = [], bool $only_copy = false): void

@@ -83,7 +83,7 @@ class Parser
     {
         $value = $this->trim($value);
 
-        if (! isset($this->keys[$value])) {
+        if (! isset($this->keys[$value]) && ! str_contains($value, '::')) {
             $this->keys[$value] = $value;
         }
     }
