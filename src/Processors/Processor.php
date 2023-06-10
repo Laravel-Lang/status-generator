@@ -24,7 +24,8 @@ abstract class Processor implements Contracts\Processor
         protected string $base_path,
         protected array $parameters = [],
         protected Translations $translations = new Translations(),
-        protected Manager $filesystem = new Manager()
+        protected Manager $filesystem = new Manager(
+        )
     ) {
         $this->validateBasePath();
     }

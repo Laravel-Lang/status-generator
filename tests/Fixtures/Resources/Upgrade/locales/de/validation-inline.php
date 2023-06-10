@@ -5,7 +5,7 @@ return [
     'accepted_if' => 'Dieses Feld muss akzeptiert werden, wenn :other :value ist.',
     'active_url'  => 'Das ist keine gültige Internet-Adresse.',
 
-    'between'     => [
+    'between' => [
         'array' => 'Dieser Inhalt muss zwischen :min & :max Elemente haben.',
         'file'  => 'Diese Datei muss zwischen :min & :max Kilobytes groß sein.',
     ],

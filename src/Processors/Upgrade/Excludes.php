@@ -26,7 +26,7 @@ class Excludes extends Processor
         $this->filesystem->store($path, $values, true);
     }
 
-    protected function getSourceFilename(string $locale): string|bool
+    protected function getSourceFilename(string $locale): bool|string
     {
         return $this->getPath(true, 'excludes', $locale . '.php');
     }

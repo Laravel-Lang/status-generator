@@ -28,36 +28,35 @@ class Finder
 
     public function __construct(
         protected SymfonyFinder $finder = new SymfonyFinder()
-    ) {
-    }
+    ) {}
 
-    public function get(string|array $path): array
+    public function get(array|string $path): array
     {
         $this->search($path);
 
         return $this->files($path);
     }
 
-    protected function search(string|array $path): void
+    protected function search(array|string $path): void
     {
         foreach ($this->find($path) as $file) {
             $this->push($path, $file->getRealPath());
         }
     }
 
-    protected function find(string|array $path): SymfonyFinder
+    protected function find(array|string $path): SymfonyFinder
     {
         return $this->finder()->in($path)->files()
             ->name($this->names)
             ->contains($this->contains);
     }
 
-    protected function push(string|array $source, string $path): void
+    protected function push(array|string $source, string $path): void
     {
         $this->files[$source][] = $path;
     }
 
-    protected function files(string|array $path): array
+    protected function files(array|string $path): array
     {
         return $this->files[$path] ?? [];
     }

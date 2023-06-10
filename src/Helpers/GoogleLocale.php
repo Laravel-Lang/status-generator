@@ -44,7 +44,7 @@ class GoogleLocale
     /**
      * @see https://cloud.google.com/translate/docs/languages
      *
-     * @return string[]
+     * @return array<string>
      */
     protected static function locales(): array
     {

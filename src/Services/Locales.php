@@ -35,8 +35,7 @@ class Locales
     public function __construct(
         protected Manager $filesystem = new Manager(),
         protected Inline $inline = new Inline()
-    ) {
-    }
+    ) {}
 
     public function load(string $source, string $locales): Locales
     {

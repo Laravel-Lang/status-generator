@@ -16,8 +16,7 @@ abstract class Base
     public function __construct(
         protected File $pretty = new File(),
         protected Formatter $formatter = new Formatter()
-    ) {
-    }
+    ) {}
 
     public function load(string $path, bool $flatten = false, bool $correct_keys = false): array
     {

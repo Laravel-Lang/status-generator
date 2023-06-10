@@ -7,16 +7,16 @@ return [
     'accepted_if' => 'The :attribute must be accepted when :other is :value.',
     'active_url'  => 'The :attribute is not a valid URL.',
 
-    'between'     => [
+    'between' => [
         'array' => 'The :attribute must have between :min and :max items.',
         'file'  => 'The :attribute must be between :min and :max kilobytes.',
     ],
 
-    'custom'      => [
+    'custom' => [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
     ],
 
-    'attributes'  => [],
+    'attributes' => [],
 ];

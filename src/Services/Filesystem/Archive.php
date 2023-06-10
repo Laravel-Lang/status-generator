@@ -9,8 +9,7 @@ class Archive
 {
     public function __construct(
         protected ZipArchive $zip = new ZipArchive()
-    ) {
-    }
+    ) {}
 
     public function unpack(string $path, string $directory): void
     {
