@@ -1,7 +1,6 @@
 #!/usr/bin/env php
 <?php
 
-
 use LaravelLang\StatusGenerator\Commands\Create;
 use LaravelLang\StatusGenerator\Commands\Download;
 use LaravelLang\StatusGenerator\Commands\Status;
