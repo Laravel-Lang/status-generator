@@ -92,7 +92,7 @@ class Locales
                 $key = Path::filename($file);
 
                 $values = $locale === $this->default_locale
-                    ? $this->getSource()[$key]
+                    ? $this->getSource()[$key] ?? []
                     : $this->read($file);
 
                 if ($this->isExcludes($file)) {
