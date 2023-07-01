@@ -2,45 +2,13 @@
 
 declare(strict_types=1);
 
-namespace LaravelLang\StatusGenerator\Helpers;
+namespace LaravelLang\StatusGenerator\Helpers\Translators;
 
-use DragonCode\Support\Facades\Helpers\Arr;
 use LaravelLang\Publisher\Constants\Locales;
-use LaravelLang\StatusGenerator\Objects\Translatable;
-use Stichoza\GoogleTranslate\GoogleTranslate;
+use Stichoza\GoogleTranslate\GoogleTranslate as GT;
 
-class GoogleLocale
+class GoogleTranslate extends Translator
 {
-    protected static Locales $default = Locales::ENGLISH;
-
-    public static function translate(string $value, string $locale): string
-    {
-        if ($resolved = self::locale($locale)) {
-            return self::get($value, $resolved, self::$default->value);
-        }
-
-        return $value;
-    }
-
-    protected static function get(string $value, string $targetLocale, string $sourceLocale): string
-    {
-        $object = self::prepare($value);
-
-        $translated = GoogleTranslate::trans($object->value, $targetLocale, $sourceLocale);
-
-        return $object->compile($translated);
-    }
-
-    protected static function prepare(string $value): Translatable
-    {
-        return Translatable::make(compact('value'));
-    }
-
-    protected static function locale(string $locale): ?string
-    {
-        return Arr::get(self::locales(), $locale);
-    }
-
     /**
      * @see https://cloud.google.com/translate/docs/languages
      *
@@ -128,5 +96,10 @@ class GoogleLocale
             Locales::VIETNAMESE->value => 'vi',
             Locales::WELSH->value      => 'cy',
         ];
+    }
+
+    protected static function request(string $value, string $targetLocale, string $sourceLocale): string
+    {
+        return GT::trans($value, $targetLocale, $sourceLocale);
     }
 }
