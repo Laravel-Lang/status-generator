@@ -28,6 +28,7 @@
         "ext-json": "*",
         "ext-zip": "*",
         "archtechx/enums": "^0.3.0",
+        "deeplcom/deepl-php": "^1.5",
         "dragon-code/pretty-array": "^4.0",
         "dragon-code/simple-dto": "^2.3",
         "dragon-code/support": "^6.11",
@@ -70,7 +71,8 @@
         "allow-plugins": {
             "ergebnis/composer-normalize": true,
             "dragon-code/codestyler": true,
-            "friendsofphp/php-cs-fixer": true
+            "friendsofphp/php-cs-fixer": true,
+            "php-http/discovery": true
         },
         "preferred-install": "dist",
         "sort-packages": true
