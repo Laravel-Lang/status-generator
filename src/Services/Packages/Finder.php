@@ -13,13 +13,14 @@ class Finder
 
     protected array $contains = [
         '__(',
-        'trans(',
-        'trans_choice(',
-        '@lang(',
-        'Lang::get(',
-        'Lang::choice(',
+        '$fail',
         '$t(',
         '$tChoice(',
+        '@lang(',
+        'Lang::choice(',
+        'Lang::get(',
+        'trans(',
+        'trans_choice(',
         'wTrans(',
         'wTransChoice(',
     ];
