@@ -14,12 +14,12 @@ class Parser
 
     protected array $trans_methods = [
         '__',
-        '$fail',
         '$t',
-        '$tChoice',
+        'fail',
         'lang',
         'Lang::choice',
         'Lang::get',
+        'tChoice',
         'trans',
         'trans_choice',
         'wTrans',
@@ -123,8 +123,8 @@ class Parser
 
     protected function regex(): string
     {
-        $methods
-            = Arr::of($this->trans_methods)->implode('|')->replace(['$', '(', ')'], ['\$', '\(', '\)'])->toString();
+        $methods =
+            Arr::of($this->trans_methods)->implode('|')->replace(['$', '(', ')'], ['\$', '\(', '\)'])->toString();
 
         return sprintf($this->regex, $methods);
     }
