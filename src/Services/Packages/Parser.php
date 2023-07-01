@@ -12,7 +12,19 @@ class Parser
 
     protected string $regex = '/\b(%s)\(\r*\s*(.+)\r*\s*(\)|,\s?\[)/U';
 
-    protected array $trans_methods = ['__', 'trans', 'trans_choice', 'lang', 'Lang::get', 'Lang::choice', '$t', '$tChoice', 'wTrans', 'wTransChoice'];
+    protected array $trans_methods = [
+        '__',
+        '$fail',
+        '$t',
+        '$tChoice',
+        'lang',
+        'Lang::choice',
+        'Lang::get',
+        'trans',
+        'trans_choice',
+        'wTrans',
+        'wTransChoice',
+    ];
 
     protected string $trim_chars = "\t\n\r\0\x0B'\"";
 
@@ -111,7 +123,8 @@ class Parser
 
     protected function regex(): string
     {
-        $methods = Arr::of($this->trans_methods)->implode('|')->replace(['$', '(', ')'], ['\$', '\(', '\)'])->toString();
+        $methods =
+            Arr::of($this->trans_methods)->implode('|')->replace(['$', '(', ')'], ['\$', '\(', '\)'])->toString();
 
         return sprintf($this->regex, $methods);
     }
