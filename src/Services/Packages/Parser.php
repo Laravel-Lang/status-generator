@@ -123,8 +123,8 @@ class Parser
 
     protected function regex(): string
     {
-        $methods =
-            Arr::of($this->trans_methods)->implode('|')->replace(['$', '(', ')'], ['\$', '\(', '\)'])->toString();
+        $methods
+            = Arr::of($this->trans_methods)->implode('|')->replace(['$', '(', ')'], ['\$', '\(', '\)'])->toString();
 
         return sprintf($this->regex, $methods);
     }

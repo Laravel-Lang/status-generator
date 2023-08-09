@@ -10,7 +10,7 @@ class TranslateManager
 {
     /** @var array<\LaravelLang\StatusGenerator\Helpers\Translators\Translator> */
     protected static array $priority = [
-        //DeeplTranslate::class,
+        // DeeplTranslate::class,
         GoogleTranslate::class,
     ];
 
