@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace LaravelLang\StatusGenerator\Helpers\Translators;
 
 use DragonCode\Support\Facades\Helpers\Arr;
-use LaravelLang\Publisher\Constants\Locales;
+use LaravelLang\Locales\Enums\Locale;
 use LaravelLang\StatusGenerator\Objects\Translatable;
 
 abstract class Translator
 {
-    protected static Locales $default = Locales::ENGLISH;
+    protected static Locale $default = Locale::English;
 
     abstract protected static function locales(): array;
 
