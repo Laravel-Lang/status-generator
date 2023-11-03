@@ -136,7 +136,8 @@ class Locales
 
     protected function pushNotTranslatable(string $locale, array $values): void
     {
-        $this->not_translatable[$locale] = Arr::addUnique($this->not_translatable[$locale] ?? [], array_values($values));
+        $this->not_translatable[$locale] =
+            Arr::addUnique($this->not_translatable[$locale] ?? [], array_values($values));
     }
 
     protected function pushLocales(string $locale, string $key, array $values): void
@@ -146,7 +147,7 @@ class Locales
                 continue;
             }
 
-            $this->locales[$locale][$key][$locale_key] = $this->correctFirstChar($locale_value);
+            $this->locales[$locale][$key][$locale_key] = $locale_value;
         }
     }
 
@@ -171,18 +172,6 @@ class Locales
                 ->prepend(rtrim($path, '\\/'))
                 ->toString())
             ->toArray();
-    }
-
-    protected function correctFirstChar(string $value): string
-    {
-        if (Str::startsWith($value, ':')) {
-            $start = Str::of($value)->substr(0, 2)->upper();
-            $end   = Str::of($value)->substr(2);
-
-            return $start . $end;
-        }
-
-        return $value;
     }
 
     protected function hasSkip(string $key, mixed $value): bool
