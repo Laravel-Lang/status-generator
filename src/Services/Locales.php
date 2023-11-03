@@ -136,8 +136,8 @@ class Locales
 
     protected function pushNotTranslatable(string $locale, array $values): void
     {
-        $this->not_translatable[$locale] =
-            Arr::addUnique($this->not_translatable[$locale] ?? [], array_values($values));
+        $this->not_translatable[$locale]
+            = Arr::addUnique($this->not_translatable[$locale] ?? [], array_values($values));
     }
 
     protected function pushLocales(string $locale, string $key, array $values): void
