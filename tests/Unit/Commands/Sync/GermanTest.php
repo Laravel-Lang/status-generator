@@ -20,9 +20,9 @@ class GermanTest extends Base
             '0'             => 'Numerische Null',
             '10'            => 'Numerische Zehn',
             '100'           => 'Numerisch Hundert',
-            'accepted'      => ':Attribute muss akzeptiert werden.',
-            'accepted_if'   => ':Attribute muss akzeptiert werden, wenn :other :value ist.',
-            'active_url'    => ':Attribute ist keine gültige Internet-Adresse.',
+            'accepted'      => ':attribute muss akzeptiert werden.',
+            'accepted_if'   => ':attribute muss akzeptiert werden, wenn :other :value ist.',
+            'active_url'    => ':attribute ist keine gültige Internet-Adresse.',
             'between.array' => 'The :attribute must have between :min and :max items.',
             'between.file'  => 'The :attribute must be between :min and :max kilobytes.',
         ], 'locales/de/php.json', __FUNCTION__);
