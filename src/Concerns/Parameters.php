@@ -51,6 +51,8 @@ trait Parameters
 
     protected function getColumnsParameter(): int
     {
-        return $this->parameter(Option::COLUMNS());
+        $columns = (int) $this->parameter(Option::COLUMNS());
+
+        return max(2, min(abs($columns), 36));
     }
 }
