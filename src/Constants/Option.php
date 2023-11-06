@@ -5,6 +5,7 @@ namespace LaravelLang\StatusGenerator\Constants;
 use ArchTech\Enums\InvokableCases;
 
 /**
+ * @method static string COLUMNS()
  * @method static string COPY()
  * @method static string DIRECTORY()
  * @method static string FILE()
@@ -19,6 +20,7 @@ enum Option: string
 {
     use InvokableCases;
 
+    case COLUMNS   = 'columns';
     case COPY      = 'copy';
     case DIRECTORY = 'directory';
     case FILE      = 'file';
