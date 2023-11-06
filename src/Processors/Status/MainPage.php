@@ -14,8 +14,6 @@ use LaravelLang\StatusGenerator\Objects\Count as CountDto;
 
 class MainPage extends Base
 {
-    protected int $columns = 5;
-
     protected string $complete_template = '[%s&nbsp;✔](statuses/%s.md)';
 
     protected string $missing_template = '[%s&nbsp;❗](statuses/%s.md)';
@@ -42,7 +40,9 @@ class MainPage extends Base
 
             $content = $this->table;
 
-            $page = Page::make()->stub(Stub::STATUS)->data(compact('content', 'count_all', 'count_diff', 'count_diff_percents'));
+            $page = Page::make()->stub(Stub::STATUS)->data(
+                compact('content', 'count_all', 'count_diff', 'count_diff_percents')
+            );
 
             File::store($this->getTargetStatus(), (string) $page);
         });
@@ -82,7 +82,7 @@ class MainPage extends Base
      */
     protected function rows(): array
     {
-        return array_chunk($this->counter->toArray(), $this->columns);
+        return array_chunk($this->counter->toArray(), $this->getColumnsParameter());
     }
 
     protected function getTargetStatus(): string

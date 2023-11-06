@@ -48,4 +48,9 @@ trait Parameters
     {
         return $this->parameter(Option::VERSION());
     }
+
+    protected function getColumnsParameter(): int
+    {
+        return $this->parameter(Option::COLUMNS());
+    }
 }
