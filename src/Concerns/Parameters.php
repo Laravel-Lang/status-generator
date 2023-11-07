@@ -55,4 +55,9 @@ trait Parameters
 
         return max(2, min(abs($columns), 36));
     }
+
+    protected function hasMissingLocales(): bool
+    {
+        return empty($this->getLocaleParameter());
+    }
 }

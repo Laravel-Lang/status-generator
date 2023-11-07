@@ -2,17 +2,22 @@
 
 namespace Tests\Unit\Commands\Create;
 
+use LaravelLang\Locales\Enums\Locale;
 use LaravelLang\StatusGenerator\Constants\Command;
 use LaravelLang\StatusGenerator\Constants\Option;
-use LaravelLang\StatusGenerator\Exceptions\IncorrectOptionValueException;
+use LaravelLang\StatusGenerator\Exceptions\LocaleAlreadyExistException;
 
 class FailedTest extends Base
 {
-    public function testUrl(): void
+    public function testAlreadyExists()
     {
-        $this->expectException(IncorrectOptionValueException::class);
-        $this->expectExceptionMessage('Option "' . Option::LOCALE() . '" is not defined or has an empty value.');
+        $locale = Locale::German->value;
 
-        $this->command(Command::CREATE);
+        $this->command(Command::CREATE, [Option::LOCALE() => $locale]);
+
+        $this->expectException(LocaleAlreadyExistException::class);
+        $this->expectExceptionMessage("The \"$locale\" locale already exist.");
+
+        $this->command(Command::CREATE, [Option::LOCALE() => $locale]);
     }
 }

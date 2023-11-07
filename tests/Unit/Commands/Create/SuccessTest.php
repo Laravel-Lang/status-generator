@@ -24,19 +24,36 @@ class SuccessTest extends Base
         $this->assertFileExists($this->tempPath('locales/de/php.json'));
     }
 
-    public function testMany(): void
+    public function testMissing(): void
     {
-        foreach (Locale::values() as $locale) {
-            $locale === 'en'
-                ? $this->assertDirectoryExists($this->tempPath('locales/en'))
-                : $this->assertDirectoryDoesNotExist($this->tempPath('locales/' . $locale));
+        $installed = [Locale::German->value, Locale::French->value, Locale::Finnish->value];
 
-            $this->assertFileDoesNotExist($this->tempPath("locales/$locale.json"));
+        foreach ($installed as $locale) {
+            $this->command(Command::CREATE, [Option::LOCALE() => $locale]);
+
+            $this->assertDirectoryExists($this->tempPath('locales/' . $locale));
+
+            $this->assertFileExists($this->tempPath("locales/$locale/json.json"));
+            $this->assertFileExists($this->tempPath("locales/$locale/php.json"));
         }
 
-        $this->command(Command::CREATE, [
-            Option::LOCALE() => 'all',
-        ]);
+        foreach (Locale::values() as $locale) {
+            if ($locale === 'en' || in_array($locale, $installed, true)) {
+                $this->assertDirectoryExists($this->tempPath('locales/' . $locale));
+
+                $this->assertFileExists($this->tempPath("locales/$locale/json.json"));
+                $this->assertFileExists($this->tempPath("locales/$locale/php.json"));
+
+                continue;
+            }
+
+            $this->assertDirectoryDoesNotExist($this->tempPath('locales/' . $locale));
+
+            $this->assertFileDoesNotExist($this->tempPath("locales/$locale/json.json"));
+            $this->assertFileDoesNotExist($this->tempPath("locales/$locale/php.json"));
+        }
+
+        $this->command(Command::CREATE);
 
         foreach (Locale::values() as $locale) {
             $this->assertDirectoryExists($this->tempPath('locales/' . $locale));

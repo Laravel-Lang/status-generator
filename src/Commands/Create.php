@@ -16,6 +16,6 @@ class Create extends Command
         return parent::configure()
             ->setName(CommandName::CREATE())
             ->setDescription('Creates a directory for the new localization')
-            ->addOption(Option::LOCALE(), null, InputOption::VALUE_REQUIRED, 'Code of the created localization');
+            ->addOption(Option::LOCALE(), null, InputOption::VALUE_OPTIONAL, 'Code of the creating locale');
     }
 }
