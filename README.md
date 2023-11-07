@@ -22,13 +22,13 @@ composer require laravel-lang/status-generator --dev
 ### Create new locale
 
 ```bash
-vendor/bin/lang create <locale>
+vendor/bin/lang create --locale=<locale>
 ```
 
-To create all locales, pass the `all` value:
+To create missing locales, call the command without parameters:
 
 ```bash
-vendor/bin/lang create all
+vendor/bin/lang create
 ```
 
 ### Download
