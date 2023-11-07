@@ -25,6 +25,12 @@ composer require laravel-lang/status-generator --dev
 vendor/bin/lang create <locale>
 ```
 
+To create all locales, pass the `all` value:
+
+```bash
+vendor/bin/lang create all
+```
+
 ### Download
 
 ```bash
