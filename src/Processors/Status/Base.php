@@ -37,6 +37,11 @@ abstract class Base extends Processor
         $this->store();
     }
 
+    protected function directories(): array
+    {
+        return array_filter(parent::directories(), fn (string $name) => ! Str::startsWith($name, '_'));
+    }
+
     protected function init(): void
     {
         $this->source_translations = new Translations();
