@@ -27,7 +27,6 @@ class CreateLocale extends Processor
 
     protected function copy(string $locale): void
     {
-
         foreach ($this->sourceFiles() as $filename) {
             $this->isJson($filename)
                 ? $this->storeStubFile('json.json', $locale)
