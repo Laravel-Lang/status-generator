@@ -3,6 +3,7 @@
 namespace LaravelLang\StatusGenerator\Commands;
 
 use DragonCode\Support\Facades\Helpers\Arr;
+use DragonCode\Support\Facades\Helpers\Str;
 use DragonCode\Support\Facades\Instances\Instance;
 use LaravelLang\StatusGenerator\Concerns\Commands\ValidateOptions;
 use LaravelLang\StatusGenerator\Constants\Option;
@@ -54,7 +55,9 @@ abstract class Command extends BaseCommand
         foreach ($this->resolveProcessors() as $processor) {
             $name = $this->getClassBasename($processor);
 
-            $this->output->info($name);
+            $this->output->info(
+                Str::of($name)->snake()->replace('_', ' ')->title()->toString()
+            );
 
             $processor->handle();
         }
@@ -76,7 +79,10 @@ abstract class Command extends BaseCommand
      */
     protected function resolveProcessors(): array
     {
-        return Arr::map($this->getProcessors(), fn (string $processor) => new $processor($this->output, $this->basePath(), $this->getParameters()));
+        return Arr::map(
+            $this->getProcessors(),
+            fn (string $processor) => new $processor($this->output, $this->basePath(), $this->getParameters())
+        );
     }
 
     protected function getProcessors(): array
