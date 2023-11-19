@@ -10,8 +10,6 @@ use LaravelLang\StatusGenerator\Processors\Processor;
 
 class CreateLocale extends Processor
 {
-    protected string $default_locale = 'en';
-
     protected ?array $source_files = null;
 
     public function handle(): void
@@ -29,17 +27,22 @@ class CreateLocale extends Processor
 
     protected function copy(string $locale): void
     {
+
         foreach ($this->sourceFiles() as $filename) {
-            File::copy(
-                $this->makePath($filename, $this->default_locale),
-                $this->makePath($filename, $locale)
-            );
+            $this->isJson($filename)
+                ? $this->storeStubFile('json.json', $locale)
+                : $this->storeStubFile('php.json', $locale);
         }
+    }
+
+    protected function storeStubFile(string $filename, string $locale): void
+    {
+        File::store($this->makePath($filename, $locale), '{}');
     }
 
     protected function sourceFiles(): array
     {
-        return $this->source_files ??= File::names($this->getLocalesPath($this->default_locale));
+        return $this->source_files ??= File::names($this->getSourcePath());
     }
 
     protected function exists(string $locale): bool
