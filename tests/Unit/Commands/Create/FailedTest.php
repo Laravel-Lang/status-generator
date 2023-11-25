@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Commands\Create;
 
-use LaravelLang\Locales\Enums\Locale;
+use LaravelLang\LocaleList\Locale;
 use LaravelLang\StatusGenerator\Constants\Command;
 use LaravelLang\StatusGenerator\Constants\Option;
 use LaravelLang\StatusGenerator\Exceptions\LocaleAlreadyExistException;

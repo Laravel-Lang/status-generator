@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace LaravelLang\StatusGenerator\Helpers\Translators;
 
 use DragonCode\Support\Facades\Helpers\Arr;
-use LaravelLang\Locales\Enums\Locale;
+use LaravelLang\LocaleList\Locale;
 use LaravelLang\StatusGenerator\Objects\Translatable;
 
 abstract class Translator
