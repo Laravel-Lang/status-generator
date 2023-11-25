@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace LaravelLang\StatusGenerator\Helpers\Translators;
 
-use LaravelLang\Locales\Enums\Locale;
+use LaravelLang\LocaleList\Locale;
 use Stichoza\GoogleTranslate\GoogleTranslate as GT;
 
 class GoogleTranslate extends Translator

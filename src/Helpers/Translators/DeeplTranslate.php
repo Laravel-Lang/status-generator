@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace LaravelLang\StatusGenerator\Helpers\Translators;
 
 use DeepL\Translator as DT;
-use LaravelLang\Locales\Enums\Locale;
+use LaravelLang\LocaleList\Locale;
 
 class DeeplTranslate extends Translator
 {

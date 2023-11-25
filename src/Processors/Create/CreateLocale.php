@@ -4,7 +4,7 @@ namespace LaravelLang\StatusGenerator\Processors\Create;
 
 use DragonCode\Support\Facades\Filesystem\Directory;
 use DragonCode\Support\Facades\Filesystem\File;
-use LaravelLang\Locales\Enums\Locale;
+use LaravelLang\LocaleList\Locale;
 use LaravelLang\StatusGenerator\Exceptions\LocaleAlreadyExistException;
 use LaravelLang\StatusGenerator\Processors\Processor;
 

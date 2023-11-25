@@ -35,7 +35,7 @@
         "guzzlehttp/guzzle": "^7.4",
         "illuminate/console": "^10.0",
         "illuminate/container": "^10.0",
-        "laravel-lang/locales": "^1.5",
+        "laravel-lang/locale-list": "^1.1",
         "phpunit/phpunit": "^10.0",
         "stichoza/google-translate-php": "^5.1",
         "symfony/console": "^6.0",
