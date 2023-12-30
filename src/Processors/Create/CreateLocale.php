@@ -41,7 +41,7 @@ class CreateLocale extends Processor
 
     protected function sourceFiles(): array
     {
-        return $this->source_files ??= File::names($this->getSourcePath());
+        return $this->source_files ??= File::names($this->getSourcePath(), recursive: true);
     }
 
     protected function exists(string $locale): bool
