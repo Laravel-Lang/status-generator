@@ -14,7 +14,7 @@ class Finder
     protected array $contains = [
         '__(',
         '$t(',
-        'fail',
+        '$fail(',
         'lang(',
         'Lang::choice(',
         'Lang::get(',
@@ -23,6 +23,8 @@ class Finder
         'trans_choice(',
         'wTrans(',
         'wTransChoice(',
+        'getTranslator()->get(',
+        'getTranslator()->choice(',
     ];
 
     protected array $files = [];

@@ -24,6 +24,8 @@ class Parser
         'trans_choice',
         'wTrans',
         'wTransChoice',
+        'get',
+        'choice',
     ];
 
     protected string $trim_chars = "\t\n\r\0\x0B'\"";
@@ -71,6 +73,14 @@ class Parser
     {
         foreach ($this->match($content) as $match) {
             $value = $match;
+
+            if (Str::contains((string) $value, '$')) {
+                continue;
+            }
+
+            if ($this->isKeyName((string) $value)) {
+                continue;
+            }
 
             if (Str::contains((string) $value, $this->subMethods())) {
                 $sub_key = $this->subkey($value);
@@ -123,8 +133,10 @@ class Parser
 
     protected function regex(): string
     {
-        $methods
-            = Arr::of($this->trans_methods)->implode('|')->replace(['$', '(', ')'], ['\$', '\(', '\)'])->toString();
+        $methods = Arr::of($this->trans_methods)
+            ->implode('|')
+            ->replace(['$', '(', ')'], ['\$', '\(', '\)'])
+            ->toString();
 
         return sprintf($this->regex, $methods);
     }
@@ -134,5 +146,12 @@ class Parser
         return Arr::of($this->trans_methods)
             ->map(fn (string $method) => Str::finish($method, '('))
             ->toArray();
+    }
+
+    protected function isKeyName(string $value): bool
+    {
+        return Str::contains($value, '.')
+            && ! Str::contains($value, ' ')
+            && $value === Str::lower($value);
     }
 }
