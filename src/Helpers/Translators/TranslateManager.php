@@ -29,17 +29,17 @@ class TranslateManager
         return $text;
     }
 
-    protected static function lines(Translator|string $translator, array $values, string $locale): string
+    protected static function lines(string|Translator $translator, array $values, string $locale): string
     {
         return static::compact(static::map($translator, $values, $locale));
     }
 
-    protected static function map(Translator|string $translator, array $values, string $locale): array
+    protected static function map(string|Translator $translator, array $values, string $locale): array
     {
         return array_map(fn (string $value) => static::request($translator, $value, $locale), $values);
     }
 
-    protected static function request(Translator|string $translator, string $text, string $locale): string
+    protected static function request(string|Translator $translator, string $text, string $locale): string
     {
         return $translator::translate($text, $locale);
     }
