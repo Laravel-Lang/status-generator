@@ -78,7 +78,7 @@ class Parser
                 continue;
             }
 
-            if ($this->isKeyName((string) $value)) {
+            if ($this->isNotTranslatable((string) $value)) {
                 continue;
             }
 
@@ -148,10 +148,23 @@ class Parser
             ->toArray();
     }
 
-    protected function isKeyName(string $value): bool
+    protected function isNotTranslatable(string $value): bool
     {
-        return Str::contains($value, '.')
+        return $this->isKey($value)
+            || $this->isHeader($value);
+    }
+
+    protected function isKey(string $value): bool
+    {
+        return Str::contains($value, ['.', '-', '_', ':'])
             && ! Str::contains($value, ' ')
             && $value === Str::lower($value);
+    }
+
+    protected function isHeader(string $value): bool
+    {
+        return Str::contains($value, '-')
+            && ! Str::contains($value, ' ')
+            && ($value === Str::lower($value) || $value === Str::title($value));
     }
 }
