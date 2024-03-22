@@ -14,7 +14,7 @@ class Finder
     protected array $contains = [
         '__(',
         '$t(',
-        '$fail(',
+        'fail(',
         'lang(',
         'Lang::choice(',
         'Lang::get(',
