@@ -19,7 +19,7 @@ class TranslateManager
         foreach (static::$priority as $translator) {
             if ($translator::allow($locale)) {
                 try {
-                    return static::lines($translator, $text, $locale);
+                    return static::lines($translator, static::split($text), $locale);
                 }
                 catch (Throwable) {
                 }
@@ -29,15 +29,14 @@ class TranslateManager
         return $text;
     }
 
-    protected static function lines(Translator|string $translator, string $text, string $locale): string
+    protected static function lines(Translator|string $translator, array $values, string $locale): string
     {
-        $values = static::split($text);
+        return static::compact(static::map($translator, $values, $locale));
+    }
 
-        foreach ($values as &$value) {
-            $value = static::request($translator, $value, $locale);
-        }
-
-        return static::compact($values);
+    protected static function map(Translator|string $translator, array $values, string $locale): array
+    {
+        return array_map(fn (string $value) => static::request($translator, $value, $locale), $values);
     }
 
     protected static function request(Translator|string $translator, string $text, string $locale): string
