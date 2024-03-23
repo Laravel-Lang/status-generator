@@ -10,7 +10,7 @@ class Parser
 {
     use Makeable;
 
-    protected string $regex = '/\b(%s)\(\r*\s*(.+)\r*\s*(\)|,\s?\[)/U';
+    protected string $regex = '/\b(%s)\(\r*\s*[\'"]{1}(.+)[\'"]{1}\r*\s*(\)|,\s?\[)/U';
 
     protected array $trans_methods = [
         '__',
