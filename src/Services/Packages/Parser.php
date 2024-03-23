@@ -151,7 +151,8 @@ class Parser
     protected function isNotTranslatable(string $value): bool
     {
         return $this->isKey($value)
-            || $this->isHeader($value);
+            || $this->isHeader($value)
+            || $this->isTernary($value);
     }
 
     protected function isKey(string $value): bool
@@ -166,5 +167,10 @@ class Parser
         return Str::contains($value, '-')
             && ! Str::contains($value, ' ')
             && ($value === Str::lower($value) || $value === Str::title($value));
+    }
+
+    protected function isTernary(string $value): bool
+    {
+        return Str::matchContains($value, '/.+\?.+:.+/');
     }
 }
