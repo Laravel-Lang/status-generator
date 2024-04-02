@@ -6,7 +6,7 @@ permissions: read-all
 
 jobs:
     build:
-        runs-on: X64
+        runs-on: self-hosted
 
         strategy:
             fail-fast: true
