@@ -78,6 +78,10 @@ class Parser
                 continue;
             }
 
+            if (Str::endsWith((string) $value, ['\',', '\', ', '",', '", '])) {
+                continue;
+            }
+
             if ($this->isNotTranslatable((string) $value)) {
                 continue;
             }
