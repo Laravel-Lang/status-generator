@@ -78,7 +78,7 @@ class Parser
                 continue;
             }
 
-            if (Str::endsWith((string) $value, ['\',', '\', ', '",', '", '])) {
+            if (Str::of((string) $value)->trim()->endsWith(["', '", '", "'])) {
                 continue;
             }
 
