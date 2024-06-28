@@ -24,4 +24,14 @@
             <directory>./src</directory>
         </include>
     </source>
+    <php>
+        <env name="TRANSLATION_GOOGLE_ENABLED" value="true" />
+
+        <env name="TRANSLATION_DEEPL_ENABLED" value="true" />
+        <env name="TRANSLATION_DEEPL_KEY" value="foo" />
+
+        <env name="TRANSLATION_YANDEX_ENABLED" value="true" />
+        <env name="TRANSLATION_YANDEX_KEY" value="foo" />
+        <env name="TRANSLATION_FOLDER_ID" value="123" />
+    </php>
 </phpunit>
