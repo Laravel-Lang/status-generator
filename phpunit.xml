@@ -25,11 +25,6 @@
         </include>
     </source>
     <php>
-        <env name="APP_KEY" value="AckfSECXIvnK5r28GVIWUAxmbBSjTsmF" />
-
-        <env name="SESSION_DRIVER" value="array" />
-        <env name="CACHE_STORE" value="array" />
-
         <env name="TRANSLATION_GOOGLE_ENABLED" value="true" />
 
         <env name="TRANSLATION_DEEPL_ENABLED" value="true" />

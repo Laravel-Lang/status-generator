@@ -8,7 +8,7 @@ use DragonCode\Support\Facades\Filesystem\File;
 use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Helpers\Str;
 use LaravelLang\StatusGenerator\Processors\Processor;
-use LaravelLang\Translator\Facades\Translate as Translator;
+use LaravelLang\Translator\Services\Translate as Translator;
 
 class Translate extends Processor
 {
@@ -50,7 +50,7 @@ class Translate extends Processor
 
     protected function translate(mixed $value, string $locale): array
     {
-        return Translator::text($value, $locale);
+        return app(Translator::class)->text($value, $locale);
     }
 
     protected function store(string $path, array $values): void
