@@ -4,10 +4,8 @@ namespace Tests;
 
 use DragonCode\Support\Facades\Filesystem\Directory;
 use DragonCode\Support\Facades\Filesystem\File;
-use LaravelLang\Config\ServiceProvider as ConfigServiceProvider;
 use LaravelLang\StatusGenerator\Services\Filesystem\Manager;
-use LaravelLang\Translator\ServiceProvider as TranslatorServiceProvider;
-use Orchestra\Testbench\TestCase as BaseTestCase;
+use PHPUnit\Framework\TestCase as BaseTestCase;
 use Tests\Concerns\Commands;
 
 abstract class TestCase extends BaseTestCase
@@ -28,14 +26,6 @@ abstract class TestCase extends BaseTestCase
         $this->cleanUp();
         $this->copyFixtures();
         $this->runCommand();
-    }
-
-    protected function getPackageProviders($app): array
-    {
-        return [
-            ConfigServiceProvider::class,
-            TranslatorServiceProvider::class,
-        ];
     }
 
     protected function cleanUp(): void

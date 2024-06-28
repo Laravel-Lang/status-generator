@@ -11,9 +11,9 @@ jobs:
         strategy:
             fail-fast: true
             matrix:
-                laravel: [ "10.0", "11.0" ]
+                symfony: [ "6.0", "7.0" ]
 
-        name: Laravel ${{ matrix.laravel }}
+        name: symfony ${{ matrix.symfony }}
 
         steps:
             -   name: Checkout code
@@ -26,7 +26,7 @@ jobs:
                     coverage: xdebug
 
             -   name: Install dependencies
-                run: composer require laravel/framework:^${{ matrix.laravel }}
+                run: composer require symfony/console:^${{ matrix.symfony }} symfony/finder:^${{ matrix.symfony }}
 
             -   name: Execute tests
                 run: |
