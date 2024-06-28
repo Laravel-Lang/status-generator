@@ -7,8 +7,8 @@ namespace LaravelLang\StatusGenerator\Processors\Translate;
 use DragonCode\Support\Facades\Filesystem\File;
 use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Helpers\Str;
-use LaravelLang\StatusGenerator\Helpers\Translators\TranslateManager;
 use LaravelLang\StatusGenerator\Processors\Processor;
+use LaravelLang\Translator\Facades\Translate as Translator;
 
 class Translate extends Processor
 {
@@ -41,20 +41,16 @@ class Translate extends Processor
 
     protected function merge(array $source, array $target, array $excludes, string $locale): array
     {
-        Arr::of($target)
-            ->only(Arr::keys($source))
-            ->tap(function (string $value, int|string $key) use (&$source, $excludes, $locale) {
-                $source[$key] = $this->isTranslatable($excludes, $source, $key, $value)
-                    ? $this->translate($value, $locale)
-                    : $value;
-            });
+        $translatable = collect($target)->only(Arr::keys($source))->filter(
+            fn (string $value, int|string $key) => $this->isTranslatable($excludes, $source, $key, $value)
+        );
 
-        return $source;
+        return array_merge($source, $this->translate($translatable, $locale));
     }
 
-    protected function translate(string $value, string $locale): string
+    protected function translate(mixed $value, string $locale): array
     {
-        return TranslateManager::translate($value, $locale);
+        return Translator::text($value, $locale);
     }
 
     protected function store(string $path, array $values): void
