@@ -164,11 +164,11 @@ class Parser
     {
         $wordsCount = IlluminateStr::wordCount($value);
 
-        if ($wordsCount > 1 && Str::of($value)->upper()->replace(' ', '_')->toString() === $value) {
+        if ($wordsCount > 1 && $value === Str::of($value)->upper()->replace(' ', '_')->toString()) {
             return true;
         }
 
-        if ($wordsCount > 1 && Str::of($value)->lower()->replace(' ', '_')->toString() === $value) {
+        if ($wordsCount > 1 && $value === Str::of($value)->lower()->replace(' ', '_')->toString()) {
             return true;
         }
 
