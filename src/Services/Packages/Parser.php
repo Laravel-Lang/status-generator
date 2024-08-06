@@ -5,6 +5,7 @@ namespace LaravelLang\StatusGenerator\Services\Packages;
 use DragonCode\Support\Concerns\Makeable;
 use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Helpers\Str;
+use Illuminate\Support\Str as IlluminateStr;
 
 class Parser
 {
@@ -161,6 +162,16 @@ class Parser
 
     protected function isKey(string $value): bool
     {
+        $wordsCount = IlluminateStr::wordCount($value);
+
+        if ($wordsCount > 1 && Str::of($value)->upper()->replace(' ', '_')->toString() === $value) {
+            return true;
+        }
+
+        if ($wordsCount > 1 && Str::of($value)->lower()->replace(' ', '_')->toString() === $value) {
+            return true;
+        }
+
         return Str::contains($value, ['.', '-', '_', ':'])
             && ! Str::contains($value, ' ')
             && $value === Str::lower($value);
