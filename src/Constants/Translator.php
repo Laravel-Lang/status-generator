@@ -7,5 +7,5 @@ namespace LaravelLang\StatusGenerator\Constants;
 enum Translator: string
 {
     case GOOGLE = 'google';
-    case DEEPL  = 'deepl';
+    case DEEPL = 'deepl';
 }

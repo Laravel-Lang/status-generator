@@ -14,7 +14,8 @@ class Package
     public function __construct(
         protected Finder $finder = new Finder(),
         protected Parser $parser = new Parser()
-    ) {}
+    ) {
+    }
 
     public function some(): self
     {

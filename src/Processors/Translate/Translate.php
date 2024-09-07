@@ -18,8 +18,8 @@ class Translate extends Processor
 
         foreach ($this->getLocales() as $locale) {
             $this->output->task($locale, function () use ($locale, $source) {
-                $locales          = $this->locales()->getLocale($locale);
-                $excludes         = $this->locales()->getExcludes($locale);
+                $locales = $this->locales()->getLocale($locale);
+                $excludes = $this->locales()->getExcludes($locale);
                 $not_translatable = $this->locales()->getNotTranslatable($locale);
 
                 $excludes = array_merge($excludes, $not_translatable);
@@ -79,9 +79,9 @@ class Translate extends Processor
 
     protected function isSameValue(array $source, int|string $key, string $value): bool
     {
-        $value        = Str::lower($value);
+        $value = Str::lower($value);
         $source_value = Str::lower($source[$key] ?? '');
-        $inline       = Str::replace($source_value, 'the :attribute', 'this field');
+        $inline = Str::replace($source_value, 'the :attribute', 'this field');
 
         return in_array(trim($value), [trim($source_value), trim($inline)]);
     }

@@ -16,10 +16,10 @@ enum Command: string
 {
     use InvokableCases;
 
-    case CREATE    = 'create';
-    case DOWNLOAD  = 'download';
-    case STATUS    = 'status';
-    case SYNC      = 'sync';
+    case CREATE = 'create';
+    case DOWNLOAD = 'download';
+    case STATUS = 'status';
+    case SYNC = 'sync';
     case TRANSLATE = 'translate';
-    case UPGRADE   = 'upgrade';
+    case UPGRADE = 'upgrade';
 }

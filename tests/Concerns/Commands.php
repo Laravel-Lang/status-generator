@@ -23,7 +23,7 @@ trait Commands
     protected function runCommand(): void
     {
         if ($name = $this->call) {
-            for ($i = 0; $i < $this->call_tries; ++$i) {
+            for ($i = 0; $i < $this->call_tries; $i++) {
                 $this->command($name, $this->call_options);
             }
         }

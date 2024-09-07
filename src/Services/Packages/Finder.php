@@ -31,7 +31,8 @@ class Finder
 
     public function __construct(
         protected SymfonyFinder $finder = new SymfonyFinder()
-    ) {}
+    ) {
+    }
 
     public function get(array|string $path): array
     {

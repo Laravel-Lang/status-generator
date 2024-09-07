@@ -57,7 +57,7 @@ abstract class Base extends Processor
             foreach ($this->files($this->getSourcePath()) as $file) {
                 $path = $this->getSourcePath($file);
 
-                $is_json   = $this->isJson($path);
+                $is_json = $this->isJson($path);
                 $is_inline = $this->isInline($path);
 
                 $this->source_translations->merge($this->default_locale, $this->load($path), $is_json, $is_inline);
@@ -85,7 +85,7 @@ abstract class Base extends Processor
         foreach ($this->files($this->getLocalesPath($locale)) as $file) {
             $path = $this->getLocalesPath($locale . '/' . $file);
 
-            $is_json   = $this->isJson($path, false);
+            $is_json = $this->isJson($path, false);
             $is_inline = $this->isInline($path);
 
             $section = $this->section($is_json, $is_inline);
@@ -98,7 +98,7 @@ abstract class Base extends Processor
 
     protected function filterValues(string $locale, string $section, array $values, array $excludes): array
     {
-        $source_main     = $this->source_translations->section($this->default_locale, $section);
+        $source_main = $this->source_translations->section($this->default_locale, $section);
         $source_fallback = $this->source_translations->section($this->default_locale, Str::before($section, '-'));
 
         return Arr::of($values)
@@ -110,7 +110,7 @@ abstract class Base extends Processor
                 $fallback = Arr::get($source_fallback, $key, $key);
                 $original = Arr::get($source_main, $key, $fallback);
 
-                $has_main   = $value === $original;
+                $has_main = $value === $original;
                 $has_inline = $value === $this->inline->resolve($original ?? $fallback);
 
                 if (! $has_exclude && ($has_main || $has_inline)) {
@@ -140,7 +140,7 @@ abstract class Base extends Processor
 
     protected function section(bool $is_json, bool $is_inline): string
     {
-        $json   = $is_json ? 'json' : 'php';
+        $json = $is_json ? 'json' : 'php';
         $inline = $is_inline ? '-inline' : '';
 
         return $json . $inline;
