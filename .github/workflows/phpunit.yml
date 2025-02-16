@@ -12,8 +12,9 @@ jobs:
             fail-fast: true
             matrix:
                 symfony: [ "6.0", "7.0" ]
+                enums: [ "0.3.2", "1.0" ]
 
-        name: symfony ${{ matrix.symfony }}
+        name: symfony ${{ matrix.symfony }}, enums ${{ matrix.enums }}
 
         steps:
             -   name: Checkout code
@@ -26,7 +27,7 @@ jobs:
                     coverage: xdebug
 
             -   name: Install dependencies
-                run: composer require symfony/console:^${{ matrix.symfony }} symfony/finder:^${{ matrix.symfony }}
+                run: composer require symfony/console:^${{ matrix.symfony }} symfony/finder:^${{ matrix.symfony }} archtechx/enums:^${{ matrix.enums }}
 
             -   name: Execute tests
                 run: |
