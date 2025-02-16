@@ -5,8 +5,6 @@ namespace LaravelLang\StatusGenerator\Processors\Download;
 use DragonCode\Support\Facades\Filesystem\Directory;
 use DragonCode\Support\Facades\Filesystem\File;
 use DragonCode\Support\Facades\Filesystem\Path;
-use DragonCode\Support\Facades\Helpers\Arr;
-use DragonCode\Support\Facades\Helpers\Str;
 use LaravelLang\StatusGenerator\Processors\Processor;
 
 class Copy extends Processor
@@ -44,9 +42,7 @@ class Copy extends Processor
 
     protected function files(string $path): array
     {
-        $files = File::names($path, recursive: true);
-
-        return Arr::filter($files, fn (string $filename) => Str::startsWith($filename, 'en'));
+        return File::names($path, recursive: true);
     }
 
     protected function tempDirectory(): string
@@ -56,7 +52,10 @@ class Copy extends Processor
 
     protected function targetPath(string $filename): string
     {
-        return $this->getSourcePath($this->getProjectParameter() . '/' . $this->getVersionParameter() . '/' . $filename, false);
+        return $this->getSourcePath(
+            $this->getProjectParameter() . '/' . $this->getVersionParameter() . '/' . $filename,
+            false
+        );
     }
 
     protected function targetDirectory(string $project, string $version): string
