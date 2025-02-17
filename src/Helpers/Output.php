@@ -24,8 +24,7 @@ class Output
     public function __construct(
         protected InputInterface $input,
         protected OutputInterface $output
-    ) {
-    }
+    ) {}
 
     public function info(string $message): void
     {

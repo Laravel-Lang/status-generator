@@ -20,14 +20,14 @@ enum Option: string
 {
     use InvokableCases;
 
-    case COLUMNS = 'columns';
-    case COPY = 'copy';
+    case COLUMNS   = 'columns';
+    case COPY      = 'copy';
     case DIRECTORY = 'directory';
-    case FILE = 'file';
-    case LOCALE = 'locale';
+    case FILE      = 'file';
+    case LOCALE    = 'locale';
     case ONLY_COPY = 'only-copy';
-    case PATH = 'path';
-    case PROJECT = 'project';
-    case URL = 'url';
-    case VERSION = 'ver';
+    case PATH      = 'path';
+    case PROJECT   = 'project';
+    case URL       = 'url';
+    case VERSION   = 'ver';
 }

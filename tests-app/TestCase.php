@@ -42,7 +42,7 @@ abstract class TestCase extends BaseTestCase
     public function testExcludes(): void
     {
         foreach ($this->locales() as $locale) {
-            $source = $this->source();
+            $source   = $this->source();
             $excludes = $this->excludes($locale);
 
             ! empty($excludes)

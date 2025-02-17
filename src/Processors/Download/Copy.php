@@ -5,6 +5,7 @@ namespace LaravelLang\StatusGenerator\Processors\Download;
 use DragonCode\Support\Facades\Filesystem\Directory;
 use DragonCode\Support\Facades\Filesystem\File;
 use DragonCode\Support\Facades\Filesystem\Path;
+use DragonCode\Support\Facades\Helpers\Arr;
 use LaravelLang\StatusGenerator\Processors\Processor;
 
 class Copy extends Processor
@@ -36,7 +37,7 @@ class Copy extends Processor
             $source_content = $this->filesystem->loadIfExists($source);
             $target_content = $this->filesystem->loadIfExists($target);
 
-            $this->filesystem->store($target, array_merge($target_content, $source_content), false);
+            $this->filesystem->store($target, Arr::merge($target_content, $source_content), false);
         }
     }
 

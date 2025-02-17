@@ -11,7 +11,7 @@ use LaravelLang\StatusGenerator\Markdown\Table;
 
 class Localization extends Base
 {
-    /** @var array<\LaravelLang\StatusGenerator\Markdown\Table> */
+    /** @var array<Table> */
     protected array $pages = [];
 
     protected function prepare(): void
