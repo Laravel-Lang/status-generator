@@ -29,7 +29,7 @@ class Referents extends Processor
     {
         preg_match_all('/public\sconst\s([a-zA-Z_]+)\s=\s\[\'(.+)\'\\]/', $this->content(), $matches);
 
-        for ($i = 0; $i < count($matches[0]); $i++) {
+        for ($i = 0; $i < count($matches[0]); ++$i) {
             $locale = $matches[1][$i];
 
             $developers = Str::of($matches[2][$i])

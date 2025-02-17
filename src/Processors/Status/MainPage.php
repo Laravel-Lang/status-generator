@@ -35,8 +35,8 @@ class MainPage extends Base
     {
         $this->output->task('Storing', function () {
             $count_diff_percents = round(($this->stats_all - $this->stats_missing) / $this->stats_all * 100, 2);
-            $count_diff = Digit::toShort($this->stats_all - $this->stats_missing);
-            $count_all = Digit::toShort($this->stats_all);
+            $count_diff          = Digit::toShort($this->stats_all - $this->stats_missing);
+            $count_all           = Digit::toShort($this->stats_all);
 
             $content = $this->table;
 
@@ -60,7 +60,7 @@ class MainPage extends Base
             foreach ($row as $column) {
                 $columns[] = $this->compile($column);
 
-                $this->stats_all += $column->all;
+                $this->stats_all     += $column->all;
                 $this->stats_missing += $column->missing;
             }
 

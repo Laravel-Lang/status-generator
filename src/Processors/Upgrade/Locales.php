@@ -41,7 +41,7 @@ class Locales extends Processor
                 ? $this->getSourcePath($file)
                 : $this->getLocalesPath($locale . '/' . $file);
 
-            $is_json = $this->isJson($path);
+            $is_json   = $this->isJson($path);
             $is_inline = $this->isInline($path);
 
             $this->setTranslations($locale, $path, $is_json, $is_inline);

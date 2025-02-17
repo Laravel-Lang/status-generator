@@ -8,7 +8,7 @@ use Throwable;
 
 class TranslateManager
 {
-    /** @var array<\LaravelLang\StatusGenerator\Helpers\Translators\Translator> */
+    /** @var array<Translator> */
     protected static array $priority = [
         // DeeplTranslate::class,
         GoogleTranslate::class,
@@ -20,7 +20,8 @@ class TranslateManager
             if ($translator::allow($locale)) {
                 try {
                     return static::lines($translator, static::split($text), $locale);
-                } catch (Throwable) {
+                }
+                catch (Throwable) {
                 }
             }
         }
