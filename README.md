@@ -3,7 +3,6 @@
 ![laravel lang status generator](https://preview.dragon-code.pro/laravel-lang/status-generator.svg?brand=laravel&mode=dark)
 
 [![Stable Version][badge_stable]][link_packagist]
-[![Unstable Version][badge_unstable]][link_packagist]
 [![Total Downloads][badge_downloads]][link_packagist]
 [![Github Workflow Status][badge_build]][link_build]
 [![License][badge_license]][link_license]
@@ -81,8 +80,6 @@ vendor/bin/lang upgrade
 [badge_build]:      https://img.shields.io/github/actions/workflow/status/laravel-lang/status-generator/phpunit.yml?branch=main&style=flat-square
 
 [badge_stable]:     https://img.shields.io/github/v/release/laravel-lang/status-generator?label=stable&style=flat-square
-
-[badge_unstable]:   https://img.shields.io/badge/unstable-dev--main-orange?style=flat-square
 
 [badge_downloads]:  https://img.shields.io/packagist/dt/laravel-lang/status-generator.svg?style=flat-square
 
