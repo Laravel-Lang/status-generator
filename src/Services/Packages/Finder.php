@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaravelLang\StatusGenerator\Services\Packages;
 
 use DragonCode\Support\Concerns\Makeable;
@@ -30,7 +32,7 @@ class Finder
     protected array $files = [];
 
     public function __construct(
-        protected SymfonyFinder $finder = new SymfonyFinder()
+        protected SymfonyFinder $finder = new SymfonyFinder
     ) {}
 
     public function get(array|string $path): array

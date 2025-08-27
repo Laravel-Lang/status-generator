@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Concerns;
 
 use LaravelLang\StatusGenerator\Constants\Command as CommandName;
@@ -23,7 +25,7 @@ trait Commands
     protected function runCommand(): void
     {
         if ($name = $this->call) {
-            for ($i = 0; $i < $this->call_tries; ++$i) {
+            for ($i = 0; $i < $this->call_tries; $i++) {
                 $this->command($name, $this->call_options);
             }
         }

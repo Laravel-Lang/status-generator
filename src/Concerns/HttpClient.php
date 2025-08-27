@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaravelLang\StatusGenerator\Concerns;
 
 use LaravelLang\StatusGenerator\Services\Http;
@@ -14,6 +16,6 @@ trait HttpClient
             return $this->client;
         }
 
-        return $this->client = new Http();
+        return $this->client = new Http;
     }
 }

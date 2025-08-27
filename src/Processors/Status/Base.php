@@ -44,11 +44,11 @@ abstract class Base extends Processor
 
     protected function init(): void
     {
-        $this->source_translations = new Translations();
+        $this->source_translations = new Translations;
 
-        $this->counter = new Counter();
+        $this->counter = new Counter;
 
-        $this->inline = new Inline();
+        $this->inline = new Inline;
     }
 
     protected function collectSource(): void

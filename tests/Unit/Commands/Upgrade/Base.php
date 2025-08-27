@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Commands\Upgrade;
 
 use LaravelLang\StatusGenerator\Constants\Command as CommandName;
