@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaravelLang\StatusGenerator\Services;
 
 use DragonCode\Support\Facades\Filesystem\Directory;
@@ -8,7 +10,7 @@ use GuzzleHttp\Client;
 class Http
 {
     public function __construct(
-        protected Client $client = new Client()
+        protected Client $client = new Client
     ) {}
 
     public function download(string $url, string $sink): void

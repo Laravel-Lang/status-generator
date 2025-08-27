@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use DragonCode\Support\Facades\Filesystem\Directory;
@@ -47,7 +49,7 @@ abstract class TestCase extends BaseTestCase
 
     protected function setFilesystem(): void
     {
-        $this->filesystem = new Manager();
+        $this->filesystem = new Manager;
     }
 
     protected function tempPath(string $filename): string

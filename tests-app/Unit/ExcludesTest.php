@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaravelLang\StatusGeneratorTests\Unit;
 
 use LaravelLang\StatusGeneratorTests\TestCase;

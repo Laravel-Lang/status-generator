@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaravelLang\StatusGenerator\Processors\Download;
 
 use LaravelLang\StatusGenerator\Facades\Services\Filesystem\Archive as Zip;

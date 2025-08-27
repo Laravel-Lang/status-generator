@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaravelLang\StatusGenerator\Services\Packages;
 
 use DragonCode\Support\Facades\Filesystem\Directory;
@@ -12,8 +14,8 @@ class Package
     protected array $filter = ['$', '::', 'auth.', 'pagination.', 'passwords.', 'validation.', 'prototype', 'constructor', 'object'];
 
     public function __construct(
-        protected Finder $finder = new Finder(),
-        protected Parser $parser = new Parser()
+        protected Finder $finder = new Finder,
+        protected Parser $parser = new Parser
     ) {}
 
     public function some(): self

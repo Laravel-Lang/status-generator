@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaravelLang\StatusGenerator\Services;
 
 use DragonCode\Support\Facades\Helpers\Arr;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaravelLang\StatusGenerator\Services;
 
 use LaravelLang\StatusGenerator\Constants\Stub;

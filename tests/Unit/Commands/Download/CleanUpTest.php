@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Commands\Download;
 
 use LaravelLang\StatusGenerator\Constants\Command;

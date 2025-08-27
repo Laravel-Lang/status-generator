@@ -37,7 +37,7 @@ trait Locales
             return $this->locales;
         }
 
-        return $this->locales = (new LocalesService())->load(
+        return $this->locales = (new LocalesService)->load(
             $this->getPath('source'),
             $this->getPath('locales')
         );

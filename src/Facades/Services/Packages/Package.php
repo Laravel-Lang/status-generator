@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaravelLang\StatusGenerator\Facades\Services\Packages;
 
 use DragonCode\Support\Facades\Facade;

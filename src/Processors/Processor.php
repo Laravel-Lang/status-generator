@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaravelLang\StatusGenerator\Processors;
 
 use DragonCode\Support\Facades\Filesystem\Directory;
@@ -23,9 +25,8 @@ abstract class Processor implements Contracts\Processor
         protected Output $output,
         protected string $base_path,
         protected array $parameters = [],
-        protected Translations $translations = new Translations(),
-        protected Manager $filesystem = new Manager(
-        )
+        protected Translations $translations = new Translations,
+        protected Manager $filesystem = new Manager
     ) {
         $this->validateBasePath();
     }

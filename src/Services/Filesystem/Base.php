@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaravelLang\StatusGenerator\Services\Filesystem;
 
 use DragonCode\PrettyArray\Services\File;
@@ -20,8 +22,8 @@ abstract class Base
     ): void;
 
     public function __construct(
-        protected File $pretty = new File(),
-        protected Formatter $formatter = new Formatter()
+        protected File $pretty = new File,
+        protected Formatter $formatter = new Formatter
     ) {}
 
     public function load(string $path, bool $flatten = false, bool $correct_keys = false): array
@@ -30,8 +32,7 @@ abstract class Base
             $values = $this->correct($this->pretty->load($path), $correct_keys);
 
             return $flatten ? Arr::flattenKeys($values) : $values;
-        }
-        catch (FileSyntaxErrorException) {
+        } catch (FileSyntaxErrorException) {
             return [];
         }
     }

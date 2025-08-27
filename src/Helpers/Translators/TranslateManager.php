@@ -20,8 +20,7 @@ class TranslateManager
             if ($translator::allow($locale)) {
                 try {
                     return static::lines($translator, static::split($text), $locale);
-                }
-                catch (Throwable) {
+                } catch (Throwable) {
                 }
             }
         }
