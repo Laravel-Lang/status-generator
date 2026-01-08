@@ -1,6 +1,6 @@
 # Laravel Lang: Status Generator
 
-![laravel lang status generator](https://preview.dragon-code.pro/laravel-lang/status-generator.svg?brand=laravel&mode=dark)
+![laravel lang status generator](https://banners.beyondco.de/Status%20Generator.png?theme=light&packageManager=composer+require&packageName=laravel-lang%2Fstatus-generator+--dev&pattern=topography&style=style_2&description=by+Laravel+Lang&md=1&showWatermark=1&fontSize=100px&images=https%3A%2F%2Flaravel.com%2Fimg%2Flogomark.min.svg)
 
 [![Stable Version][badge_stable]][link_packagist]
 [![Total Downloads][badge_downloads]][link_packagist]
