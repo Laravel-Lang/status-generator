@@ -64,6 +64,6 @@ class NotTranslatable extends Processor
 
     protected function getTargetFilename(string $locale): string
     {
-        return $this->getLocalesPath($locale . '/_not_translatable.json');
+        return $this->getLocalesPath($locale . '/_not_translatable.json', false);
     }
 }
