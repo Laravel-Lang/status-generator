@@ -174,7 +174,7 @@ class Locales
 
     protected function hasSkip(int|string $key, mixed $value): bool
     {
-        return empty($value) || in_array((string)$key, $this->skip);
+        return empty($value) || in_array((string) $key, $this->skip);
     }
 
     protected function sort(&$array): void
