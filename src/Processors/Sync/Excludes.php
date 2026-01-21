@@ -64,6 +64,6 @@ class Excludes extends Processor
 
     protected function getTargetFilename(string $locale): string
     {
-        return $this->getLocalesPath($locale . '/_excludes.json');
+        return $this->getLocalesPath($locale . '/_excludes.json', false);
     }
 }
