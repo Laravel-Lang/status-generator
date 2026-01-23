@@ -61,7 +61,7 @@ class Table extends Base
     {
         $columns = count($this->data[0]);
 
-        return (int)round(100 / $columns, PHP_ROUND_HALF_DOWN);
+        return (int) round(100 / $columns, PHP_ROUND_HALF_DOWN);
     }
 
     protected function row(array $columns, string $operator = 'td'): string

@@ -11,7 +11,7 @@ use LaravelLang\StatusGenerator\Constants\Option;
 /** @mixin \LaravelLang\StatusGenerator\Processors\Processor */
 trait Parameters
 {
-    protected function parameter(string $name): array|string|null|int
+    protected function parameter(string $name): array|int|string|null
     {
         return Arr::get($this->parameters, $name);
     }
