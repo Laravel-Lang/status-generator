@@ -42,10 +42,11 @@ class Translations
 
     protected function getSectionName(bool $is_json, bool $is_inline): string
     {
-        return Arr::of([])
+        return Arr::of()
             ->push($is_json ? 'json' : 'php')
             ->push($is_inline ? 'inline' : null)
             ->filter()
-            ->implode('-');
+            ->implode('-')
+            ->toString();
     }
 }
