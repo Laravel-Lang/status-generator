@@ -67,7 +67,7 @@ class Table extends Base
     protected function row(array $columns, string $operator = 'td'): string
     {
         return Arr::of($columns)
-            ->map(fn (mixed $value) => $this->cell($value, $operator))
+            ->map(fn (mixed $value) => $this->cell((string) $value, $operator))
             ->implode('')
             ->prepend('<tr>')
             ->append('</tr>')
