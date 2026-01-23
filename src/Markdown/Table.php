@@ -53,14 +53,15 @@ class Table extends Base
     {
         return Arr::of($this->data)
             ->map(fn (array $row): string => $this->row($row))
-            ->implode(PHP_EOL);
+            ->implode(PHP_EOL)
+            ->toString();
     }
 
     protected function getWidth(): int
     {
         $columns = count($this->data[0]);
 
-        return round(100 / $columns, PHP_ROUND_HALF_DOWN);
+        return (int)round(100 / $columns, PHP_ROUND_HALF_DOWN);
     }
 
     protected function row(array $columns, string $operator = 'td'): string
@@ -69,7 +70,8 @@ class Table extends Base
             ->map(fn (mixed $value) => $this->cell($value, $operator))
             ->implode('')
             ->prepend('<tr>')
-            ->append('</tr>');
+            ->append('</tr>')
+            ->toString();
     }
 
     protected function cell(string $value, string $operator = 'td'): string

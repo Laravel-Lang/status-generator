@@ -63,7 +63,7 @@ abstract class Processor implements Contracts\Processor
     {
         $path = Arr::of($paths)->reverse()->push($this->base_path)->reverse()->filter()->implode('/')->toString();
 
-        return $use_real ? realpath($path) : $path;
+        return $use_real ? (string)realpath($path) : $path;
     }
 
     protected function directories(): array
