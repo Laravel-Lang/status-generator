@@ -77,9 +77,7 @@ class MainPage extends Base
         return sprintf($template, $dto->locale, $dto->locale);
     }
 
-    /**
-     * @return array<array<CountDto>>
-     */
+    /** @return array<array<CountDto>> */
     protected function rows(): array
     {
         return array_chunk($this->counter->toArray(), $this->getColumnsParameter());

@@ -29,9 +29,7 @@ class Counter implements Arrayable
         return count($this->all);
     }
 
-    /**
-     * @return array<CountDto>
-     */
+    /** @return array<CountDto> */
     public function toArray(): array
     {
         return Arr::of($this->all)
