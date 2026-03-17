@@ -76,9 +76,7 @@ abstract class Command extends BaseCommand
         }
     }
 
-    /**
-     * @return array<Processor>
-     */
+    /** @return array<Processor> */
     protected function resolveProcessors(): array
     {
         return Arr::map(
