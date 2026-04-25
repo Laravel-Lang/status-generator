@@ -40,11 +40,13 @@ require_once $file;
 
 $application = new Application('Laravel Lang: Status Generator');
 
-$application->add(new Create());
-$application->add(new Download());
-$application->add(new Status());
-$application->add(new Sync());
-$application->add(new Translate());
-$application->add(new Upgrade());
+$method = method_exists($application, 'add') ? 'add' : 'addCommand';
+
+$application->$method(new Create());
+$application->$method(new Download());
+$application->$method(new Status());
+$application->$method(new Sync());
+$application->$method(new Translate());
+$application->$method(new Upgrade());
 
 $application->run();
