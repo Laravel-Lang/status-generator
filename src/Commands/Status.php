@@ -19,9 +19,9 @@ class Status extends Command
         LocalizationProcessor::class,
     ];
 
-    protected function configure(): Command
+    protected function configure(): void
     {
-        return parent::configure()
+        $this
             ->setName(CommandName::STATUS())
             ->setDescription('Updates documentation with the status of translations')
             ->addOption(
@@ -30,6 +30,7 @@ class Status extends Command
                 InputOption::VALUE_OPTIONAL,
                 'Defines the number of columns generated for the locales table on the general status page',
                 8
-            );
+            )
+            ->addOption(Option::PATH(), null, InputOption::VALUE_OPTIONAL, 'Path to project files');
     }
 }
