@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace LaravelLang\StatusGenerator\Objects;
 
-use DragonCode\SimpleDataTransferObject\DataTransferObject;
 use JetBrains\PhpStorm\ArrayShape;
 
-class Count extends DataTransferObject
+class CountData
 {
-    public ?string $locale = null;
-
-    public int $all = 0;
-
-    public int $missing = 0;
+    public function __construct(
+        public ?string $locale = null,
+        public int $all = 0,
+        public int $missing = 0,
+    ) {}
 
     public function getComplete(): float
     {

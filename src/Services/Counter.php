@@ -6,7 +6,7 @@ namespace LaravelLang\StatusGenerator\Services;
 
 use DragonCode\Contracts\Support\Arrayable;
 use DragonCode\Support\Facades\Helpers\Arr;
-use LaravelLang\StatusGenerator\Objects\Count as CountDto;
+use LaravelLang\StatusGenerator\Objects\CountData;
 
 class Counter implements Arrayable
 {
@@ -29,7 +29,7 @@ class Counter implements Arrayable
         return count($this->all);
     }
 
-    /** @return array<CountDto> */
+    /** @return array<CountData> */
     public function toArray(): array
     {
         return Arr::of($this->all)
@@ -46,8 +46,8 @@ class Counter implements Arrayable
         $values[$locale] = Arr::get($values, $locale, 0) + 1;
     }
 
-    protected function item(string $locale, int $all, int $missing): CountDto
+    protected function item(string $locale, int $all, int $missing): CountData
     {
-        return CountDto::fromArray(compact('locale', 'all', 'missing'));
+        return new CountData($locale, $all, $missing);
     }
 }
