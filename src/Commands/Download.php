@@ -28,16 +28,27 @@ class Download extends Command
         CleanUpProcessor::class,
     ];
 
-    protected function configure(): Command
+    protected function configure(): void
     {
-        return parent::configure()
+        $this
             ->setName(CommandName::DOWNLOAD())
             ->setDescription('Download and unpack the project')
             ->addOption(Option::URL(), null, InputOption::VALUE_REQUIRED, 'Link to the repository')
             ->addOption(Option::PROJECT(), null, InputOption::VALUE_REQUIRED, 'Project name')
             ->addOption(Option::VERSION(), null, InputOption::VALUE_REQUIRED, 'Project version')
-            ->addOption(Option::COPY(), null, InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'Directory within the project from which files will be copied')
-            ->addOption(Option::ONLY_COPY(), null, InputOption::VALUE_NONE, 'Specifies when to only copy files without searching for keys');
+            ->addOption(
+                Option::COPY(),
+                null,
+                InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
+                'Directory within the project from which files will be copied'
+            )
+            ->addOption(
+                Option::ONLY_COPY(),
+                null,
+                InputOption::VALUE_NONE,
+                'Specifies when to only copy files without searching for keys'
+            )
+            ->addOption(Option::PATH(), null, InputOption::VALUE_OPTIONAL, 'Path to project files');
     }
 
     protected function extraOptions(): array

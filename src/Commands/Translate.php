@@ -15,9 +15,9 @@ class Translate extends Command
         TranslateProcessor::class,
     ];
 
-    protected function configure(): Command
+    protected function configure(): void
     {
-        return parent::configure()
+        $this
             ->setName(CommandName::TRANSLATE())
             ->setDescription('Translation of untranslated keys')
             ->addOption(
@@ -25,6 +25,7 @@ class Translate extends Command
                 null,
                 InputOption::VALUE_OPTIONAL,
                 'Translation of values only for the selected localization. By default, translation of all localizations'
-            );
+            )
+            ->addOption(Option::PATH(), null, InputOption::VALUE_OPTIONAL, 'Path to project files');
     }
 }

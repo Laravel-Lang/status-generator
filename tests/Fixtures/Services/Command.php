@@ -32,12 +32,21 @@ class Command
     {
         $app = new Application(self::NAME);
 
-        $app->add(new Create());
-        $app->add(new Download());
-        $app->add(new Status());
-        $app->add(new Sync());
-        $app->add(new Translate());
-        $app->add(new Upgrade());
+        if (method_exists($app, 'add')) {
+            $app->add(new Create());
+            $app->add(new Download());
+            $app->add(new Status());
+            $app->add(new Sync());
+            $app->add(new Translate());
+            $app->add(new Upgrade());
+        } else {
+            $app->addCommand(new Create());
+            $app->addCommand(new Download());
+            $app->addCommand(new Status());
+            $app->addCommand(new Sync());
+            $app->addCommand(new Translate());
+            $app->addCommand(new Upgrade());
+        }
 
         return $app;
     }

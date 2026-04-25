@@ -13,11 +13,12 @@ class Create extends Command
 {
     protected array|string $processor = CreateProcessor::class;
 
-    protected function configure(): Command
+    protected function configure(): void
     {
-        return parent::configure()
+        $this
             ->setName(CommandName::CREATE())
             ->setDescription('Creates a directory for the new localization')
-            ->addOption(Option::LOCALE(), null, InputOption::VALUE_OPTIONAL, 'Code of the creating locale');
+            ->addOption(Option::LOCALE(), null, InputOption::VALUE_OPTIONAL, 'Code of the creating locale')
+            ->addOption(Option::PATH(), null, InputOption::VALUE_OPTIONAL, 'Path to project files');
     }
 }

@@ -40,9 +40,9 @@ abstract class Command extends BaseCommand
         return 0;
     }
 
-    protected function configure(): Command
+    protected function configure(): void
     {
-        return $this->addOption(Option::PATH(), null, InputOption::VALUE_OPTIONAL, 'Path to project files');
+        $this->addOption(Option::PATH(), null, InputOption::VALUE_OPTIONAL, 'Path to project files');
     }
 
     protected function handle(): void
