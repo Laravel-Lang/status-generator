@@ -10,7 +10,7 @@ use LaravelLang\StatusGenerator\Constants\Stub;
 use LaravelLang\StatusGenerator\Contracts\Markdown;
 use LaravelLang\StatusGenerator\Markdown\Page;
 use LaravelLang\StatusGenerator\Markdown\Table;
-use LaravelLang\StatusGenerator\Objects\Count as CountDto;
+use LaravelLang\StatusGenerator\Objects\CountData as CountDto;
 
 class MainPage extends Base
 {

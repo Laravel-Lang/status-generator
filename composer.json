@@ -40,7 +40,6 @@
         "archtechx/enums": "^0.3.2 || ^1.0",
         "deeplcom/deepl-php": "^1.5",
         "dragon-code/pretty-array": "^4.0",
-        "dragon-code/simple-dto": "^2.3",
         "dragon-code/support": "^6.11",
         "guzzlehttp/guzzle": "^7.4",
         "illuminate/console": "^10.0 || ^11.0 || ^12.0 || ^13.0",

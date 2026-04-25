@@ -6,7 +6,7 @@ namespace LaravelLang\StatusGenerator\Helpers\Translators;
 
 use DragonCode\Support\Facades\Helpers\Arr;
 use LaravelLang\LocaleList\Locale;
-use LaravelLang\StatusGenerator\Objects\Translatable;
+use LaravelLang\StatusGenerator\Objects\TranslatableData;
 
 abstract class Translator
 {
@@ -30,14 +30,14 @@ abstract class Translator
         return array_key_exists($locale, static::locales());
     }
 
-    protected static function get(Translatable $trans, string $targetLocale, string $sourceLocale): string
+    protected static function get(TranslatableData $trans, string $targetLocale, string $sourceLocale): string
     {
         return $trans->compile(static::request($trans->value, $targetLocale, $sourceLocale));
     }
 
-    protected static function prepare(string $value): Translatable
+    protected static function prepare(string $value): TranslatableData
     {
-        return Translatable::make(compact('value'));
+        return TranslatableData::make(compact('value'));
     }
 
     protected static function locale(string $locale): ?string
