@@ -14,12 +14,12 @@ class ParserTest extends TestCase
     public function testParsesTranslationKeys(): void
     {
         $path = $this->makeFile(<<<'PHP'
-<?php
+            <?php
 
-__('Plain text');
-__("Double quoted text");
-__('You\'re invited');
-PHP);
+            __('Plain text');
+            __("Double quoted text");
+            __('You\'re invited');
+            PHP);
 
         $this->assertSame([
             'Plain text'         => 'Plain text',
@@ -31,10 +31,10 @@ PHP);
     public function testParsesTranslationKeyEndingWithEscapedDoubleQuote(): void
     {
         $path = $this->makeFile(<<<'PHP'
-<?php
+            <?php
 
-Flux::toast(variant: 'success', text: __('You left the team \":name\"', ['name' => $team->name]));
-PHP);
+            Flux::toast(variant: 'success', text: __('You left the team \":name\"', ['name' => $team->name]));
+            PHP);
 
         $this->assertSame([
             'You left the team ":name"' => 'You left the team ":name"',
