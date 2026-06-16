@@ -13,7 +13,7 @@ class Parser
 {
     use Makeable;
 
-    protected string $regex = '/\b(%s)\(\r*\s*[\'"]{1}(.+)[\'"]{1}\r*\s*(\)|,\s?\[)/U';
+    protected string $regex = '/\b(%s)\(\r*\s*([\'"])/';
 
     protected array $trans_methods = [
         '__',
@@ -31,7 +31,7 @@ class Parser
         'choice',
     ];
 
-    protected string $trim_chars = "\t\n\r\0\x0B'\"";
+    protected string $trim_chars = "\t\n\r\0\x0B";
 
     protected array $files = [];
 
@@ -103,9 +103,29 @@ class Parser
 
     protected function match(string $content): array
     {
-        preg_match_all($this->regex(), $content, $matches);
+        preg_match_all($this->regex(), $content, $matches, PREG_OFFSET_CAPTURE);
 
-        return $matches[2] ?? [];
+        $values = [];
+
+        foreach ($matches[0] ?? [] as $index => [$match, $offset]) {
+            $quote = $matches[2][$index][0];
+
+            $opening_quote_offset = $offset + strlen($match) - 1;
+
+            $value = $this->readString($content, $opening_quote_offset + 1, $quote);
+
+            if ($value === null) {
+                continue;
+            }
+
+            [$translation, $end_offset] = $value;
+
+            if ($this->hasValidEnding($content, $end_offset)) {
+                $values[] = $translation;
+            }
+        }
+
+        return $values;
     }
 
     protected function push(mixed $value): void
@@ -119,9 +139,49 @@ class Parser
 
     protected function subkey(string $value): string
     {
-        $sub_key = $this->match($value)[0];
+        $sub_key = $this->match($value)[0] ?? '';
 
         return $this->trim($sub_key);
+    }
+
+    protected function readString(string $content, int $offset, string $quote): ?array
+    {
+        $length  = strlen($content);
+        $value   = '';
+        $escaped = false;
+
+        for ($i = $offset; $i < $length; $i++) {
+            $char = $content[$i];
+
+            if ($escaped) {
+                $value .= '\\' . $char;
+                $escaped = false;
+
+                continue;
+            }
+
+            if ($char === '\\') {
+                $escaped = true;
+
+                continue;
+            }
+
+            if ($char === $quote) {
+                return [$value, $i + 1];
+            }
+
+            $value .= $char;
+        }
+
+        return null;
+    }
+
+    protected function hasValidEnding(string $content, int $offset): bool
+    {
+        $tail = ltrim(substr($content, $offset));
+
+        return str_starts_with($tail, ')')
+            || Str::matchContains($tail, '/^,\s*\[/');
     }
 
     protected function keys(): array
